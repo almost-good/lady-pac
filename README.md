@@ -83,10 +83,19 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ### **Initial Concept**
-
+The Initial concept for the site is a retro design that will take us back to **arcade era**.
 
 ### **Wireframes**
-
+Wireframes are created using **Balsamiq** for organizational purposes. They are used for the initial concept only.
+<br><br>
+You can find all wireframes here:
+- **[Game Screen](assets/docs/wireframes/game-screen.png)**
+- **[Enter Player Screen](assets/docs/wireframes/enter-player-screen.png)**
+- **[How to Play Screen](assets/docs/wireframes/help-player-screen.png)**
+- **[Win Screen](assets/docs/wireframes/win-screen.png)**
+- **[Lose Screen](assets/docs/wireframes/lose-screen.png)**
+- **[Switch Player Screen](assets/docs/wireframes/switch-player-screen.png)**
+- **[Leaderboard Screen](assets/docs/wireframes/leaderboard-player-screen.png)**
  
 ### **Colour Scheme**
 
