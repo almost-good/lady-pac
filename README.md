@@ -1,4 +1,7 @@
 # LADY PAC
+**LADY PAC** is inspired by coin-operated games, mainly the famous Pac-Man, and takes us back to *the arcade era*. The idea behind the game is simple; *eat all of the pellets while outrunning the ghosts*! The website is targeted toward arcade game enthusiasts and everyone else who is in for a bit of fun. 
+
+*Lady Pac* comes with a set of rules, which are featured in the "*how to play*" screen, players can also find all of the instructions regarding game controls and mechanics over there as well. They can either win or lose the game, either way, players will receive their score, and with enough skill - be featured on the leaderboard. They will be able to switch between different players, giving them the option to enjoy the game with their friends and family, driving the competition and increasing the fun.
 
 
 ## **Table of Contents**
