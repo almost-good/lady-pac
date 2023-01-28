@@ -28,6 +28,23 @@ export default class Leaderboard {
   }
 
   /**
+   * Adds highscore list to HTML document.
+   */
+
+  displayScore() {
+    const leaderboard = document.getElementById("highscore-list");
+    const leaderboardStorage = JSON.parse(localStorage.getItem(SCORES));
+
+    leaderboard.innerHTML = "";
+
+    // Display every score
+    for (let i = 0; i < leaderboardStorage.length; i++) {
+      let score = this.#formatScoreIntoHTML(leaderboardStorage[i]);
+      leaderboard.innerHTML += score;
+    }
+  }
+
+  /**
    * Store current score of the player in the leaderboard, if applicable.
    * @summary
    * The leaderboard only stores top 10 scores achieved.
@@ -52,6 +69,22 @@ export default class Leaderboard {
     }
 
     this.#addToLocalStorage(leaderboardStorage);
+  }
+
+  /**
+   * Format score into HTML form.
+   * @param {object} score - Object which contains player name and score.
+   * @return {string} HTML ready list item.
+   */
+
+  #formatScoreIntoHTML(score) {
+    score = `
+      <li>
+        ${score.player} 
+        <span>${score.score}</span>
+      </li>`;
+
+    return score;
   }
 
   /**
