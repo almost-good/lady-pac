@@ -25,8 +25,6 @@ export default class Leaderboard {
       { player: "j", score: 1450 },
     ];
     localStorage.setItem(SCORES, JSON.stringify(scoreTest));
-
-    this.#storeCurrentScore();
   }
 
   /**
@@ -35,7 +33,7 @@ export default class Leaderboard {
    * The leaderboard only stores top 10 scores achieved.
    */
 
-  #storeCurrentScore() {
+  storeCurrentScore() {
     let leaderboardStorage = JSON.parse(localStorage.getItem(SCORES));
 
     // Check if leaderbord contains a value.
