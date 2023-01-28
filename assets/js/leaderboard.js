@@ -44,6 +44,9 @@ export default class Leaderboard {
     }
   }
 
+  /**
+   * Adds current score to HTML document.
+   */
   displayCurrentScore() {
     const currentScore = document.getElementById('current-score');
 
