@@ -44,6 +44,12 @@ export default class Leaderboard {
     }
   }
 
+  displayCurrentScore() {
+    const currentScore = document.getElementById('current-score');
+
+    currentScore.innerHTML = `Your score: <span>${this.currentPlayerScore.score}</span>`
+  }
+
   /**
    * Store current score of the player in the leaderboard, if applicable.
    * @summary
