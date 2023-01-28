@@ -13,16 +13,16 @@ export default class Leaderboard {
     localStorage.setItem(PLAYER, this.currentPlayerScore.player);
 
     let scoreTest = [
-      { player: "a", score: "2000" },
-      { player: "b", score: "1900" },
-      { player: "c", score: "1800" },
-      { player: "d", score: "1700" },
-      { player: "e", score: "1600" },
-      { player: "f", score: "1590" },
-      { player: "g", score: "1580" },
-      { player: "h", score: "1570" },
-      { player: "i", score: "1560" },
-      { player: "j", score: "1450" },
+      { player: "a", score: 2000 },
+      { player: "b", score: 1900 },
+      { player: "c", score: 1800 },
+      { player: "d", score: 1700 },
+      { player: "e", score: 1600 },
+      { player: "f", score: 1590 },
+      { player: "wicc", score: 1500 },
+      { player: "wiccan", score: 1500 },
+      { player: "wiccan", score: 1500 },
+      { player: "j", score: 1450 },
     ];
     localStorage.setItem(SCORES, JSON.stringify(scoreTest));
 
@@ -64,13 +64,52 @@ export default class Leaderboard {
    */
 
   #leaderboardPosition(leaderboardStorage) {
+    // Find adequate position in the leaderboard
     for (let i = leaderboardStorage.length - 1; i >= 0; i--) {
-      if (this.currentPlayerScore.score < leaderboardStorage[i].score) {
-        return i + 1;
+      if (this.currentPlayerScore.score <= leaderboardStorage[i].score) {
+        // If both scores are equal, check who holds higher position alphabetically
+        if (
+          this.currentPlayerScore.score === leaderboardStorage[i].score &&
+          this.#currentNameIsHigher(
+            this.currentPlayerScore.player,
+            leaderboardStorage[i].player
+          )
+        ) {
+          continue;
+        } else {
+          return i + 1;
+        }
       }
     }
 
     return 0;
+  }
+
+  /**
+   * Check if the first name should be alphabetically placed before second name.
+   * @param {string} name1
+   * - Value that is being compared.
+   * @param {string} name2
+   * - Value against which the first value is being compared to.
+   * @return {boolean} True if the name1 value should be placed in front of name2.
+   */
+
+  #currentNameIsHigher(name1, name2) {
+    let length =
+      name1.length > name2.length ? name1.length - 1 : name2.length - 1;
+
+    // Check each letter
+    for (let i = 0; i <= length; i++) {
+      if (name1[i] === undefined || name1[i] < name2[i]) {
+        return true;
+      }
+
+      if (name2[i] === undefined) {
+        return false;
+      }
+    }
+
+    return false;
   }
 
   /**
