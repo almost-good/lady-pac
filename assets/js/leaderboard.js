@@ -11,6 +11,19 @@ export default class Leaderboard {
   init() {
     // Add current player to local storage
     localStorage.setItem(PLAYER, this.currentPlayerScore.player);
-    console.log("test");
+
+    // check if local storage is empty
+    if (!localStorage.getItem(SCORES)) {
+      this.#storeInitialCurrentScore();
+    }
+  }
+
+  /**
+   * Store the first score ever achieved in local storage.
+   */
+  #storeInitialCurrentScore() {
+    let leaderboardStorage = [this.currentPlayerScore];
+
+    localStorage.setItem(SCORES, JSON.stringify(leaderboardStorage));
   }
 }
