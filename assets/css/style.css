@@ -1,0 +1,116 @@
+/* --------------------------------------------- VARIABLES */
+
+
+:root {
+  --background-primary: #112432;
+}
+
+
+/* --------------------------------------------- GLOBAL */
+
+
+* {
+  border: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('../../bg.jpg');
+  background-position: center;
+  background-size: contain;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* --------------------------------------------- LEADERBOARD */
+
+
+.leaderboard-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard {
+  background-color: var(--background-primary);
+  
+  width: 60vw;
+  height: 90vh;
+  text-align: center;
+  text-transform: uppercase;
+  overflow: none;
+}
+
+.leaderboard .logo {
+  padding-top: 2vh;
+
+  font-size: 3rem;
+
+}
+
+.leaderboard h2 {
+  padding-top: 2vh;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  line-height: 1;
+  text-transform: uppercase;
+
+}
+
+.leaderboard .highscore-list {
+  padding-top: 4vh;
+  text-align: center;
+  font-size: 1.3rem;
+  
+  
+}
+
+.leaderboard .highscore-list li {
+  margin-top: 0.5vh;
+  color: #bad0e0;
+}
+
+.leaderboard .highscore-list li span {
+  color: #fcfcfc;
+  padding-left: 30px;
+  font-size: 1.8rem;
+  
+}
+
+.leaderboard .current-score {
+  padding-top: 4vh;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.leaderboard .current-score span {
+  font-size: 2rem;
+  padding-left: 15px;
+}
+
+.leaderboard .buttons {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leaderboard .buttons .btn {
+  margin-top: 2vh;
+  width: 70%;
+  padding: 10px 0;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
