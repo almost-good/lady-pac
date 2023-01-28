@@ -2,13 +2,17 @@ import Leaderboard from "./leaderboard.js";
 
 class App {
   constructor() {
-    this.leaderboard = new Leaderboard()
-    this.init()
+    this.score = 1500;
+    this.playerName = "wicca";
+
+    this.leaderboard = new Leaderboard(this.score, this.playerName);
+
+    this.init();
   }
 
   init() {
-    this.leaderboard.init()
+    this.leaderboard.init();
   }
 }
 
-new App()
+new App();
