@@ -22,7 +22,7 @@ export default class Leaderboard {
       { player: "g", score: "1580" },
       { player: "h", score: "1570" },
       { player: "i", score: "1560" },
-      { player: "j", score: "1550" },
+      { player: "j", score: "1450" },
     ];
     localStorage.setItem(SCORES, JSON.stringify(scoreTest));
 
@@ -46,6 +46,11 @@ export default class Leaderboard {
     } else {
       // Add a value
       leaderboardStorage = [this.currentPlayerScore];
+    }
+
+    // Make sure the leaderboard contains only 10 values
+    if (leaderboardStorage.length >= 10) {
+      leaderboardStorage.pop();
     }
 
     this.#addToLocalStorage(leaderboardStorage);
