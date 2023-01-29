@@ -156,10 +156,18 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ### **Languages**
-
+- HTML5 - Used for markup.
+- CSS3 - Used to provide styling.
+- [JS](https://www.javascript.com) - Used for navigation.
 
 ### **Tools**
-
+- [VScode](https://code.visualstudio.com) - Used as the IDE.
+- [Git](https://git-scm.com/) - Used for version control.
+- [GitHub](https://github.com) - Used for code hosting.
+- [Balsamiq](https://balsamiq.com) - Used to create wireframes.
+- [FontSquirrel](https://www.fontsquirrel.com) - Used to generate a webfont.
+- [Photoresizer](https://www.photoresizer.com) - Used to resize the imgages and to compress them.
+- [Colormind](http://colormind.io) - Used to create color palette.
 
 ### **For Testing**
 
