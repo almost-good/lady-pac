@@ -1,5 +1,26 @@
 import { SCORES, PLAYER } from "./constants.js";
 
+/**
+* Leaderboard class which represents Leaderboard section in HTML.
+*
+* Manipulates leaderboard object.
+* Stores scores and player names in local storage.
+*
+* Public methods:
+*
+*     displayScore()
+*     displayCurrentScore()
+*     storeCurrentScore()
+*
+* Private methods:
+*
+*     #formatScoreIntoHTML(score)
+*     #highlightCurrentScore(flag, leaderboard, score)
+*     #leaderboardPosition(leaderboardStorage)
+*     #currentNameIsHigher(name1, name2)
+*     #addToLocalStorage(leaderboardStorage)
+*/
+
 export default class Leaderboard {
   constructor(score, playerName) {
     this.currentPlayerScore = {
@@ -20,8 +41,8 @@ export default class Leaderboard {
       { player: "e", score: 1600 },
       { player: "f", score: 1590 },
       { player: "wicc", score: 1500 },
-      { player: "wiccan", score: 1500 },
-      { player: "wiccan", score: 1500 },
+      { player: "wicca", score: 1500 },
+      { player: "wicca", score: 1500 },
       { player: "j", score: 1450 },
     ];
     localStorage.setItem(SCORES, JSON.stringify(scoreTest));
@@ -36,21 +57,33 @@ export default class Leaderboard {
     const leaderboardStorage = JSON.parse(localStorage.getItem(SCORES));
 
     leaderboard.innerHTML = "";
+    // Flag for highlighting only one result
+    let flag = false;
 
     // Display every score
     for (let i = 0; i < leaderboardStorage.length; i++) {
       let score = this.#formatScoreIntoHTML(leaderboardStorage[i]);
+
       leaderboard.innerHTML += score;
+
+      if (!flag) {
+        flag = this.#highlightCurrentScore(
+          flag,
+          leaderboard,
+          leaderboardStorage[i]
+        );
+      }
     }
   }
 
   /**
    * Adds current score to HTML document.
    */
-  displayCurrentScore() {
-    const currentScore = document.getElementById('current-score');
 
-    currentScore.innerHTML = `Your score: <span>${this.currentPlayerScore.score}</span>`
+  displayCurrentScore() {
+    const currentScore = document.getElementById("current-score");
+
+    currentScore.innerHTML = `Your score: <span>${this.currentPlayerScore.score}</span>`;
   }
 
   /**
@@ -94,6 +127,27 @@ export default class Leaderboard {
       </li>`;
 
     return score;
+  }
+
+  /**
+   * Add class that will highlight only current score on leaderboard.
+   * @param {boolean} flag - Boolean when activated makes sure this function is not ran anymore.
+   * @param {object} leaderboard - Leaderboard HTML element.
+   * @param {object} score - Leaderboard storage from local Storage.
+   * @return {boolean} When activated this function will not be ran anymore.
+   */
+
+  #highlightCurrentScore(flag, leaderboard, score) {
+    if (
+      !flag &&
+      score.score == this.currentPlayerScore.score &&
+      score.player == this.currentPlayerScore.player
+    ) {
+      leaderboard.lastChild.className = "highlight-score";
+      return true;
+    }
+
+    return false;
   }
 
   /**
