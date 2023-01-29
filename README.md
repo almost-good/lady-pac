@@ -178,6 +178,16 @@ Back to [Table of Contents](#table-of-contents)
 ## **Deployment**
 
 
+The steps to deploy using GitHub pages are:
+
+- Go to the repository on [GitHub](https://github.com).
+- Select 'Settings' close to the top of the page.
+- Select 'Pages' from the left menu bar.
+- Under 'Source' select the 'Branch' dropdown menu and select the **main branch**.
+- Once selected, click the 'Save'.
+- Deployment will be confirmed by a message saying "Your site is live at" followed by the web address.
+
+
 Back to [Table of Contents](#table-of-contents)
 
 
