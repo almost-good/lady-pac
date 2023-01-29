@@ -108,7 +108,7 @@ The design for the site is retro arcade, with a deep, dark background and occasi
 <br><br>
 
 ### **Typography**
-There are three different font styles used on the page. **ArcadeRegular** was selected for most of the page due to its retro pixel-like design, **Karmatic ArcadeRegular** for all of the headings and **PacFontRegular** for game name title, respectfully. I also included websafe fallback fonts, followed by the generic fonts.
+There are three different font styles used on the page. **Arcade Regular** was selected for most of the page due to its retro pixel-like design, **Karmatic Arcade Regular** for all of the headings and **Pac Font Regular** for game name title, respectfully. I also included websafe fallback fonts, followed by the generic fonts.
 
 ### **Imagery**
 
@@ -194,10 +194,20 @@ Back to [Table of Contents](#table-of-contents)
 ## **Credits**
 
 
-### **Content**
+### **Fonts**
+All fonts used were sourced from [1001 Fonts](https://www.1001fonts.com).
 
+- **Arcade Regular**
+  - by [Pizzadude](https://www.1001fonts.com/arcade-font.html)
+- **Karmatic Arcade Regular**
+  - by [Vic Fieger](https://www.1001fonts.com/karmatic-arcade-font.html)
+- **Pac Font Regular**
+  - by [Font-a-licious](https://www.1001fonts.com/pacfont-font.html)
 
 ### **Images**
+All fonts used were sourced from [Pexels](https://www.pexels.com).
+
+**[Bg Space image](https://www.pexels.com/photo/galaxy-pinwheel-on-starry-sky-7649118)**
 
 
 Back to [Table of Contents](#table-of-contents)
