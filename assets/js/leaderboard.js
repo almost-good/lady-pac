@@ -29,25 +29,6 @@ export default class Leaderboard {
     };
   }
 
-  init() {
-    // Add current player to local storage
-    localStorage.setItem(PLAYER, this.currentPlayerScore.player);
-
-    let scoreTest = [
-      { player: "a", score: 2000 },
-      { player: "b", score: 1900 },
-      { player: "c", score: 1800 },
-      { player: "d", score: 1700 },
-      { player: "e", score: 1600 },
-      { player: "f", score: 1590 },
-      { player: "wicc", score: 1500 },
-      { player: "wicca", score: 1500 },
-      { player: "wicca", score: 1500 },
-      { player: "j", score: 1450 },
-    ];
-    localStorage.setItem(SCORES, JSON.stringify(scoreTest));
-  }
-
   /**
    * Adds highscore list to HTML document.
    */

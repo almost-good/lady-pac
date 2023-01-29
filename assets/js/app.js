@@ -11,7 +11,6 @@ class App {
   }
 
   init() {
-    this.leaderboard.init()
     this.leaderboard.storeCurrentScore();
     this.leaderboard.displayScore();
     this.leaderboard.displayCurrentScore();
