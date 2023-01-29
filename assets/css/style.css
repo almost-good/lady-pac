@@ -77,6 +77,18 @@ ul {
 }
 
 
+/* SCROLLBARS */
+
+
+.leaderboard::-webkit-scrollbar {
+  width: .3rem;
+}
+
+.leaderboard::-webkit-scrollbar-thumb {
+  background-color: var(--font-color-accent);
+}
+
+
 /* --------------------------------------------- LEADERBOARD */
 
 
@@ -148,6 +160,11 @@ ul {
   font-size: 1.5rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+.leaderboard .highscore-list .highlight-score,
+.leaderboard .highscore-list .highlight-score span {
+  color: var(--border);
 }
 
 .leaderboard .highscore-list li span {
