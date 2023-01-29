@@ -83,11 +83,15 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ### **Initial Concept**
-The Initial concept for the site is a retro design that will take us back to **arcade era**.
+The Initial concept for the site is a retro design that will take us back to **arcade era**. The site, while seemingly simple, is full of small details which enrich the design overall. 
 
 ### **Wireframes**
 Wireframes are created using **Balsamiq** for organizational purposes. They are used for the initial concept only.
 <br><br>
+
+![Game Screen Wireframe](assets/docs/wireframes/wireframe-sample.png)
+<br><br>
+
 You can find all wireframes here:
 - **[Game Screen](assets/docs/wireframes/game-screen.png)**
 - **[Enter Player Screen](assets/docs/wireframes/enter-player-screen.png)**
@@ -98,10 +102,13 @@ You can find all wireframes here:
 - **[Leaderboard Screen](assets/docs/wireframes/leaderboard-player-screen.png)**
  
 ### **Colour Scheme**
-
+The design for the site is retro arcade, with a deep, dark background and occasional pop of loud color used to brighten the overall experience and take us back to 80s.
+<br><br>
+![Color-Palette](assets/docs/img/color-palette.jpg)
+<br><br>
 
 ### **Typography**
-
+There are three different font styles used on the page. **ArcadeRegular** was selected for most of the page due to its retro pixel-like design, **Karmatic ArcadeRegular** for all of the headings and **PacFontRegular** for game name title, respectfully. I also included websafe fallback fonts, followed by the generic fonts.
 
 ### **Imagery**
 
