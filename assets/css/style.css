@@ -64,7 +64,7 @@ body {
   height: 100vh;
 
   background: var(--background-solid) 
-    url('../img/background/space.jpg') 
+    url('../img/background/space.webp') 
     no-repeat 
     center / cover;
   
@@ -216,6 +216,10 @@ ul {
   background-color: var(--border);
   border: double 4px var(--background-solid);
  }
+
+ .leaderboard .buttons .btn .br-xs {
+  display: none;
+}
 
 
  /* --------------------------------------------- MEDIA QUERIES */
