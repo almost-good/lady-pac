@@ -223,7 +223,8 @@ h2 {
 
 .enter-player form .player-input {
   padding: 5px 10px;
-  
+  width: 50%;
+
   font-family: var(--font-general);
   font-size: 3rem;
   line-height: 1;
@@ -270,10 +271,10 @@ h2 {
 
 /* --------------------------------------------- LEADERBOARD */
 
-/*
+
 .leaderboard {
  display: none;
-}*/
+}
 
 .leaderboard .highscore-list {
   margin: auto auto;
@@ -446,6 +447,7 @@ h2 {
 
   .enter-player form .player-input {
     padding: 5px 0;
+    width: 70%;
     font-size: 2rem;
   }
 
@@ -486,18 +488,21 @@ h2 {
 
 @media screen and (max-width: 300px) {
   /* --------------------------- GENERAL */
-  
+
   /* BUTTONS */
 
+  .buttons {
+    width: 95%;
+  }
+
   .buttons .btn {
-    padding-right: 5px;
-    padding-left: 5px; 
-    font-size: 1.5rem;
     line-height: 1;
+    letter-spacing: 0;
   }
 
 
   /* TEXT */
+
   h2 {
     font-size: 1.5rem;
     letter-spacing: 0;
@@ -505,13 +510,39 @@ h2 {
 
 
   /* BREAK LINES */
+
   .br-xs {
     display: block;
   }
 
 
-  /* ----------------------- LEADERBOARD */
+  /* ---------------------- ENTER PLAYER */
 
+  .enter-player .heading-bundle h3 {
+    letter-spacing: 0;
+  }
+
+  .enter-player form .player-input {
+    width: 95%;
+
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
+
+  .enter-player form .player-input::placeholder {
+    font-size: 1.4rem;
+    font-weight: normal;
+  }
+
+  .enter-player form .validation {
+    height: 4rem;
+    max-width: 95%;
+    
+    font-size: 1.2rem;
+  }
+
+
+  /* ----------------------- LEADERBOARD */
 
   .leaderboard .highscore-list li {
     font-size: 1.5rem;
