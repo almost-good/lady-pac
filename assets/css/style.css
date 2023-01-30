@@ -255,6 +255,10 @@ h2 {
   opacity: 70%;
 }
 
+.enter-player form .validation .highlight {
+  color: var(--font-color-highlight);
+}
+
 .enter-player form .validation .error {
   min-height: max-content;
   color: var(--font-color-highlight);
