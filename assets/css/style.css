@@ -270,10 +270,10 @@ h2 {
 
 /* --------------------------------------------- LEADERBOARD */
 
-
+/*
 .leaderboard {
  display: none;
-}
+}*/
 
 .leaderboard .highscore-list {
   margin: auto auto;
@@ -284,7 +284,7 @@ h2 {
 .leaderboard .highscore-list li {
   margin-top: .5vh;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   
   font-size: 2rem;
@@ -405,30 +405,47 @@ h2 {
 /* MOBILE */
 
 @media screen and (max-width: 480px) {
-  /* LEADERBOARD */
+  /* ---------------------------- GENERAL*/
+  
+  /* BUTTONS */
 
-  .leaderboard h2 .br-mobile {
+  .buttons .btn {
+    padding-right: 2px;
+    padding-left: 2px; 
+  }
+
+  /* BREAK LINES */
+
+  .br-mobile {
     display: block;
   }
 
+  /* ----------------------- LEADERBOARD */
+
+  .leaderboard .highscore-list li {
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-highlight);
+  }
+
+  .leaderboard .highscore-list li:not(.leaderboard .highscore-list li:first-of-type) {
+    margin-top: 1vh;
+  }
+
   .leaderboard .highscore-list li span {
-    font-size: 1.5rem;
+    padding-left: 0;
   }
 
   .leaderboard .current-score {
     display: flex;
     flex-direction: column;
   }
-  
-  .leaderboard .buttons .btn {
-    font-size: 1.3rem;
-  }
 }
 
 
 /* EXTRA SMALL */
 
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 300px) {
   /* LEADERBOARD */
 
   .leaderboard h2 {
