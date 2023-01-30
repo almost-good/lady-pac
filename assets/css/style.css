@@ -270,17 +270,17 @@ h2 {
 
 
 .leaderboard {
- display: none;
+ /*display: none;*/
 }
 
 .leaderboard .highscore-list {
   margin: auto auto;
-  padding-top: 5vh;
+  padding-top: 4vh;
   width: max-content;
 }
 
 .leaderboard .highscore-list li {
-  margin-top: 4vh;
+  margin-top: .5vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -337,37 +337,33 @@ h2 {
   
   .leaderboard .highscore-list li {
     margin-top: .2vh;
-    font-size: 1.3rem;
+    font-size: 1.7rem;
   }
 
   .leaderboard .highscore-list li span {
     padding-left: 20px;
-    font-size: 1.7rem;
+    font-size: 2rem;
   }
 
   .leaderboard .current-score {
     margin-top: 4vh;
-    font-size: 1.7rem;
+    font-size: 2rem;
   }
   
   .leaderboard .current-score span {
-    font-size: 1.7rem;
+    font-size: 2.3rem;
   }
   
   .leaderboard .buttons {
-    margin-top: 3vh;
+    margin: 3vh auto;
   }
   
   .leaderboard .buttons .btn {
-    padding-right: 10px;
-    padding-left: 10px; 
+    padding-right: 15px;
+    padding-left: 15px; 
 
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     border-color: var(--border);
-  }
-
-  .leaderboard .buttons .btn:last-of-type {
-    margin-bottom: 3vh;
   }
 }
 
@@ -392,10 +388,6 @@ h2 {
   
   .leaderboard .buttons .btn {
     font-size: 1.3rem;
-  }
-
-  .leaderboard .buttons .btn .br-xs {
-    display: none;
   }
 }
 
