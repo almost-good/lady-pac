@@ -328,25 +328,21 @@ h4 {
   letter-spacing: 1px;
 }
 
-.help .controls-characters-outer-container {
+.help .controls-characters-container {
   margin: auto auto;
   width: 90%;
   display: flex;
+
 }
 
-.help .controls-inner-container {
-  width: 40%;
+.help .controls-container {
+  width: 30%;
   height: max-content;
 }
 
-.help .characters-inner-container {
+.help .characters-container {
   width: 60%;
   height: max-content;
-}
-
-.help .controls {
-  margin: auto auto;
-  width: 90%;
 }
 
 .help .controls div,
@@ -490,6 +486,11 @@ h4 {
     text-align: center;
   }
 
+  h4 {
+    font-size: 2.5rem;
+  }
+
+
   /* BREAK LINES */
 
   .br-tablet {
@@ -505,6 +506,28 @@ h4 {
   
   .enter-player form .player-input {
     font-size: 2.5rem;
+  }
+
+
+  /* ------------------------------ HELP */
+
+  .help .controls-characters-container {
+    flex-direction: column;
+  }
+
+  .help .controls-container,
+  .help .characters-container {
+    margin: auto;
+    width: 85%;
+  }
+
+  .help .controls div p {
+    width: 55%;
+  }
+
+  .help .controls div i{
+    width: 35%;
+    text-align: right;
   }
 
 
@@ -596,6 +619,9 @@ h4 {
     font-size: 2.5rem;
     letter-spacing: 3px;
   }
+
+
+  /* ------------------------------ HELP */
 
 
   /* ----------------------- LEADERBOARD */
