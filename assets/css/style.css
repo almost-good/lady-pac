@@ -54,7 +54,7 @@
 }
 
 
-/* --------------------------------------------- GLOBAL */
+/* -------------------------------------------------- GLOBAL */
 
 
 * {
@@ -175,6 +175,12 @@ ul {
 
 /* TEXT */
 
+.heading-bundle {
+  margin: 0 auto;
+  width: max-content;
+  max-width: 90%;
+}
+
 h2 {
   padding-top: 3vh;
   
@@ -187,6 +193,16 @@ h2 {
   text-shadow: 2px 2px 10px var(--font-accent);
 }
 
+h3 {
+  padding-top: 1vh;
+  
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: 5px;
+  text-align: end;
+  text-transform: uppercase;
+}
 
 /* BREAK LINES */
 
@@ -197,24 +213,11 @@ h2 {
 }
 
 
-/* --------------------------------------------- ENTER PLAYER SCREEN */
+/* ------------------------------------- ENTER PLAYER SCREEN */
 
 
-.enter-player .heading-bundle {
-  margin: 0 auto;
-  width: max-content;
-  max-width: 90%;
-}
-
-.enter-player .heading-bundle h3 {
-  padding-top: 1vh;
-  
-  font-size: 2rem;
-  font-weight: normal;
-  line-height: 1;
-  letter-spacing: 5px;
-  text-align: end;
-  text-transform: uppercase;
+.enter-player {
+  display: none;
 }
 
 .enter-player form .input-container {
@@ -270,6 +273,25 @@ h2 {
 
 .enter-player form .validation .error-char {
   display: none;
+}
+
+
+/* ----------------------------------- CONFIRM PLAYER SCREEN */
+
+
+/*
+.confirm-player {
+  display: none;
+}*/
+
+.confirm-player .display-player {
+  margin-top: 5vh;
+  
+  color: var(--font-color-accent-secondary);
+  font-size: 3rem;
+  letter-spacing: 5px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 
@@ -330,7 +352,7 @@ h2 {
 }
 
 
- /* --------------------------------------------- MEDIA QUERIES */
+/* --------------------------------------------- MEDIA QUERIES */
 
 
  /* TABLET */
