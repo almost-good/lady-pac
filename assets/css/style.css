@@ -209,6 +209,18 @@ h3 {
   text-transform: uppercase;
 }
 
+h4 {
+  padding: 5vh 0 1vh;
+  
+  font-size: 3rem;
+  font-weight: normal;
+  color: var(--border-highlight);
+  letter-spacing: 5px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-decoration: underline 2px double rgb(255, 0, 0);
+}
+
 /* BREAK LINES */
 
 .br-tablet,
@@ -304,6 +316,88 @@ h3 {
 
 .win-lose {
   display: none;
+}
+
+
+/* --------------------------------------------- HELP SCREEN */
+
+
+.help p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.help .controls-characters-outer-container {
+  margin: auto auto;
+  width: 90%;
+  display: flex;
+}
+
+.help .controls-inner-container {
+  width: 40%;
+  height: max-content;
+}
+
+.help .characters-inner-container {
+  width: 60%;
+  height: max-content;
+}
+
+.help .controls {
+  margin: auto auto;
+  width: 90%;
+}
+
+.help .controls div,
+.help .characters div {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.help .controls div p,
+.help .characters div p {
+  width: 70%;
+  text-align: left;
+}
+
+.help .controls div i,
+.help .characters div i,
+.help .characters div span {
+  margin: 1vh 0;
+  width: 30%;
+
+  font-weight: bold;
+}
+
+.help .controls div i {
+  font-size: 2rem;
+  color: var(--font-color-accent);
+}
+
+.help .characters div span {
+  font-family: var(--font-game-name);
+  font-size: 3rem;
+}
+
+.help .characters div .icon-lady-pac {
+  color: yellow;
+}
+
+.help .characters div .icon-ghost {
+  color: blue;
+}
+
+.help .characters div .icon-pellet {
+  font-size: 1.8rem;
+  color: pink;
+}
+
+.help .characters div .icon-energized-pellet {
+  font-size: 2.5rem;
+  color: hotpink;
 }
 
 
