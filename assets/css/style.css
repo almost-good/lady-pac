@@ -246,7 +246,7 @@ h2 {
 
 .enter-player form .validation {
   margin-top: 2vh;
-  height: 2.5rem;
+  height: 2rem;
   
   font-size: 1.3rem;
   font-weight: bold;
@@ -270,10 +270,10 @@ h2 {
 
 /* --------------------------------------------- LEADERBOARD */
 
-/*
+
 .leaderboard {
  display: none;
-}*/
+}
 
 .leaderboard .highscore-list {
   margin: auto auto;
@@ -331,7 +331,7 @@ h2 {
  /* TABLET */
 
 @media screen and (max-width: 780px) {
-  /* ---------------------------- GENERAL*/
+  /* --------------------------- GENERAL */
 
   /* BUTTONS */
 
@@ -405,7 +405,7 @@ h2 {
 /* MOBILE */
 
 @media screen and (max-width: 480px) {
-  /* ---------------------------- GENERAL*/
+  /* --------------------------- GENERAL */
   
   /* BUTTONS */
 
@@ -414,14 +414,53 @@ h2 {
     padding-left: 2px; 
   }
 
+
+  /* TEXT */
+
+  h2 {
+    line-height: 1.2;
+  }
+
+
   /* BREAK LINES */
 
   .br-mobile {
     display: block;
   }
 
-  /* ----------------------- LEADERBOARD */
 
+  /* ---------------------- ENTER PLAYER */
+  
+  .enter-player .heading-bundle {
+    max-width: 100%;
+  }
+  
+  .enter-player .heading-bundle h3 {
+    margin: auto;
+    max-width: 90%;
+  }
+  
+  .enter-player form .input-container {
+    margin-top: 4vh;
+  }
+
+  .enter-player form .player-input {
+    padding: 5px 0;
+    font-size: 2rem;
+  }
+
+  .enter-player form .validation {
+    margin-right: auto;
+    margin-left: auto;
+    height: 2.5rem;
+    max-width: 95%;
+    
+    font-size: 1.2rem;
+  }
+
+
+  /* ----------------------- LEADERBOARD */
+  
   .leaderboard .highscore-list li {
     flex-direction: column;
     justify-content: center;
