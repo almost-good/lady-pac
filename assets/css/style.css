@@ -270,10 +270,10 @@ h2 {
 
 /* --------------------------------------------- LEADERBOARD */
 
-
+/*
 .leaderboard {
  display: none;
-}
+}*/
 
 .leaderboard .highscore-list {
   margin: auto auto;
@@ -485,48 +485,44 @@ h2 {
 /* EXTRA SMALL */
 
 @media screen and (max-width: 300px) {
-  /* LEADERBOARD */
-
-  .leaderboard h2 {
-    font-size: 1.1rem;
-  }
+  /* --------------------------- GENERAL */
   
-  .leaderboard .highscore-list li {
-    flex-direction: column;
-    font-size: 1rem;
-  }
+  /* BUTTONS */
 
-  .leaderboard .highscore-list 
-  li:not(.leaderboard .highscore-list li:first-of-type) {
-    margin-top: 1vh;
-  }
-
-  .leaderboard .highscore-list li span {
-    padding-left: 0;
-    font-size: 1.2rem;
-    text-decoration: underline;
-  }
-
-  .leaderboard .current-score {
-    font-size: 1.3rem;
-  }
-  
-  .leaderboard .current-score span {
-    font-size: 1.5rem;
-  }
-  
-  .leaderboard .buttons .btn {
+  .buttons .btn {
     padding-right: 5px;
     padding-left: 5px; 
-    font-size: 1rem;
+    font-size: 1.5rem;
     line-height: 1;
   }
-  
-  .leaderboard .buttons .btn:last-of-type {
-    margin-bottom: 3vh;
+
+
+  /* TEXT */
+  h2 {
+    font-size: 1.5rem;
+    letter-spacing: 0;
   }
 
-  .leaderboard .buttons .btn .br-xs {
+
+  /* BREAK LINES */
+  .br-xs {
     display: block;
+  }
+
+
+  /* ----------------------- LEADERBOARD */
+
+
+  .leaderboard .highscore-list li {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 0;
+    
+  }
+
+  .leaderboard .highscore-list li span,
+  .leaderboard .current-score span {
+    font-size: 1.7rem;
   }
 }
