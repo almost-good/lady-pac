@@ -165,6 +165,7 @@ ul {
 }
 
 .confirm-player .btn:not(.confirm-player .btn:first-of-type),
+.win-lose .btn:not(.win-lose .btn:first-of-type),
 .leaderboard .btn:not(.leaderboard .btn:first-of-type) {
   margin-top: 1vh;
 }
@@ -190,7 +191,7 @@ h2 {
   
   font-family: var(--font-title);
   font-size: 2.5rem;
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--font-color-accent);
@@ -283,11 +284,9 @@ h3 {
 /* ----------------------------------- CONFIRM PLAYER SCREEN */
 
 
-/*
 .confirm-player {
   display: none;
 }
-*/
 
 .confirm-player .display-player {
   margin-top: 5vh;
@@ -297,6 +296,14 @@ h3 {
   letter-spacing: 5px;
   text-align: center;
   text-transform: uppercase;
+}
+
+
+/* ----------------------------------------- WIN/LOSE SCREEN */
+
+
+.win-lose {
+  display: none;
 }
 
 
