@@ -6,10 +6,14 @@
   --background-solid: #000;
   
   --border: #f00;
+  --border-secondary: #b5e2ac;
+  --border-highlight: #ff0;
 
+  --font-color-general: #b5e2ac;
   --font-color-accent: #0ddd1e;
   --font-color-accent-secondary: #f57d0d;
-  --font-color-general: #b5e2ac;
+  --font-color-highlight: #f00;
+  
 
   --font-title: 'karmatic_arcaderegular', 'Impact', sans-serif;
   --font-general: 'arcaderegular', 'Courier', monospace;
@@ -79,11 +83,11 @@ ul {
 
 /* SCROLLBARS */
 
-.leaderboard::-webkit-scrollbar {
+.scrollbar::-webkit-scrollbar {
   width: .3rem;
 }
 
-.leaderboard::-webkit-scrollbar-thumb {
+.scrollbar::-webkit-scrollbar-thumb {
   background-color: var(--font-color-accent);
 }
 
@@ -195,6 +199,73 @@ h2 {
 /* --------------------------------------------- ENTER PLAYER SCREEN */
 
 
+.enter-player .heading-bundle {
+  margin: 0 auto;
+  width: max-content;
+}
+
+.enter-player .heading-bundle h3 {
+  padding-top: 1vh;
+  
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: 5px;
+  text-align: end;
+  text-transform: uppercase;
+}
+
+.enter-player form .input-container {
+  margin-top: 5vh;
+}
+
+.enter-player form .player-input {
+  padding: 5px 10px;
+  
+  font-family: var(--font-general);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--font-color-highlight);
+  text-align: center;
+  
+  background-color: transparent;
+  border: 2px solid var(--border-secondary);
+}
+
+.enter-player form .player-input::placeholder{
+  color: var(--border-secondary);
+  opacity: 30%;
+}
+
+.enter-player form .player-input:focus-visible {
+  outline: none;
+  border: 2px solid var(--border-highlight);
+}
+
+.enter-player form .validation {
+  margin-top: 2vh;
+  height: 3ch;
+  
+  font-size: 1.3rem;
+  font-weight: bold;
+  
+  opacity: 70%;
+}
+
+.enter-player form .validation .error {
+  min-height: max-content;
+  color: var(--font-color-highlight);
+}
+
+.enter-player form .validation .error-length {
+  display: none;
+}
+
+.enter-player form .validation .error-char {
+  display: none;
+}
+
+
 /* --------------------------------------------- LEADERBOARD */
 
 
@@ -204,37 +275,37 @@ h2 {
 
 .leaderboard .highscore-list {
   margin: auto auto;
-  padding-top: 4vh;
+  padding-top: 5vh;
   width: max-content;
 }
 
 .leaderboard .highscore-list li {
-  margin-top: 0.5vh;
+  margin-top: 4vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   
-  font-size: 1.5rem;
+  font-size: 2rem;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .leaderboard .highscore-list .highlight-score,
 .leaderboard .highscore-list .highlight-score span {
-  color: var(--border);
+  color: var(--font-color-highlight);
 }
 
 .leaderboard .highscore-list li span {
   padding-left: 50px;
   
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--font-color-accent-secondary);
 }
 
 .leaderboard .current-score {
   margin-top: 4vh;
 
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-shadow: 2px 2px 5px var(--font-general);
 }
@@ -242,7 +313,7 @@ h2 {
 .leaderboard .current-score span {
   padding-left: 5px;
 
-  font-size: 2rem;
+  font-size: 3rem;
   color: var(--font-color-accent-secondary);
   text-shadow: 2px 2px 5px var(--font-accent-secondary);
 }

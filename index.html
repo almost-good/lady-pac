@@ -11,25 +11,50 @@
   <h1>Lady Pac</h1>
   
   <!-- Enter Player -->
-  <section class="outer-container">
+  <section class="outer-container enter-player">
     <div class="inner-container">
       <div class="logo"> &#128512; </div>
-      <h2>State your name</h2>
-      <h3>...and clear the maze!</h3>
+
+      <div class="heading-bundle">
+        <h2>State your name</h2>
+        <h3>...and clear the maze!</h3>
+      </div>
       
-      <div class="input">
-        <input type="text">
+      <form method="GET" action="https://formdump.codeinstitute.net">
+        <div class="input-container">
+          <input class="player-input" type="text" name="player" size="12" placeholder="Player name">
+        </div>
+
+        <div class="validation">
+          <p>
+            Please enter 3 - 10 charachters<br>
+            Special charachters allowed : -
+          </p>
+          <p class="error error-length">
+            Player name is too <span>short</span><br>
+            Name should be 3 - 10 charachters<br>
+            Try again!
+          </p>
+          <p class="error error-char">
+            Player name contains invalid charachters.<br>
+            Special charachters allowed : -<br>
+            Try again!
+          </p>
+        </div>
+        
+
+        <div class="buttons">
+          <button type="submit" class="btn">Continue</button>
+        </div>
       </div>
-      <div class="buttons">
-        <button class="btn">Start</button>
-      </div>
-    </div>
+    </form>
   </section>
   <!-- /enter player -->
 
+
   <!-- Leaderboard -->
   <section class="outer-container leaderboard">
-    <div class="inner-container">
+    <div class="inner-container scrollbar">
       <div class="logo"> &#128512; </div>
       <h2>Leader<br class="br-s">board</h2>
       
