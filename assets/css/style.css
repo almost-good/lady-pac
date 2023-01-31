@@ -239,6 +239,8 @@ h4 {
 }
 
 
+/* --------------------------------------------- GAME SCREEN */
+
 /* ------------------------------------- ENTER PLAYER SCREEN */
 
 
@@ -441,6 +443,42 @@ form .validation .error {
   text-shadow: 2px 2px 5px var(--border-highlight);
 }
 
+
+/* --------------------------------------------------- FOOTER*/
+
+
+.footer-container {
+  margin-top: 3vh;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 3rem;
+  text-align: center;
+  
+  background-color: var(--background-transparent);
+  border-top: 4px double var(--border);
+}
+
+.footer-container .author {
+  padding: 20px 50px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-container .social-link {
+  color: var(--font-color-highlight-secondary);
+  transition: .3s;
+}
+
+.footer-container .social-link:hover {
+  color: var(--font-color-accent-secondary);
+}
 
 /* --------------------------------------------- MEDIA QUERIES */
 
