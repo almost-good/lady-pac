@@ -34,11 +34,10 @@ class App {
     }
 
     this.#winLoseScreen();
-    /* REMOVE ACCESS TO LEADERBOARD - FOR DEVELOPMENT
-    this.leaderboard.storeCurrentScore();
-    this.leaderboard.displayScore();
-    this.leaderboard.displayCurrentScore();
-    */
+    //REMOVE ACCESS TO LEADERBOARD - FOR DEVELOPMENT
+    //leaderboard.storeCurrentScore();
+    //new Leaderboard.displayScore();
+    //this.leaderboard.displayCurrentScore();
   }
 
   /**
@@ -78,6 +77,15 @@ class App {
       this.#confirmPlayer();
     }
   };
+
+  #enterLeaderboardEvent = (event) => {
+    const leaderboardHTML = document.getElementById("leaderboard");
+
+    this.#closeCurrentModal()
+
+    leaderboardHTML.classList.remove("hide");
+    console.log(leaderboardHTML)
+  }
 
   /**
    * Display Enter Player screen.
@@ -121,6 +129,10 @@ class App {
     } else if (gameResult === "lose") {
       this.#displayLoseResult(winLoseHTML);
     }
+
+    document
+      .getElementById("leaderboard-btn")
+      .addEventListener("click", this.#enterLeaderboardEvent);
   }
 
   /**
@@ -205,7 +217,7 @@ class App {
     modal.querySelector("h2").classList.add("lose");
     modal.querySelector("h3").innerText = "...like a Pellet!";
   }
-  
+
   /**
    * Save Player to local storage.
    */
