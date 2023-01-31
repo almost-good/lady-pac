@@ -232,18 +232,21 @@ h4 {
 }
 
 
-/* ------------------------------------- ENTER PLAYER SCREEN */
+/* DISPLAY */
 
-
-.enter-player {
+.hide {
   display: none;
 }
 
-.enter-player form .input-container {
+
+/* ------------------------------------- ENTER PLAYER SCREEN */
+
+
+form .input-container {
   margin-top: 5vh;
 }
 
-.enter-player form .player-input {
+form .player-input {
   padding: 5px 10px;
   width: 50%;
 
@@ -257,17 +260,17 @@ h4 {
   border: 2px solid var(--border-secondary);
 }
 
-.enter-player form .player-input::placeholder{
+form .player-input::placeholder{
   color: var(--border-secondary);
   opacity: 30%;
 }
 
-.enter-player form .player-input:focus-visible {
+form .player-input:focus-visible {
   outline: none;
   border: 2px solid var(--border-highlight);
 }
 
-.enter-player form .validation {
+form .validation {
   margin-top: 2vh;
   height: 2rem;
   
@@ -277,20 +280,20 @@ h4 {
   opacity: 70%;
 }
 
-.enter-player form .validation .highlight {
+form .validation .highlight {
   color: var(--font-color-highlight-secondary);
 }
 
-.enter-player form .validation .error {
+form .validation .error {
   min-height: max-content;
   color: var(--font-color-highlight);
 }
 
-.enter-player form .validation .error-length {
+form .validation .error-length {
   display: none;
 }
 
-.enter-player form .validation .error-char {
+form .validation .error-char {
   display: none;
 }
 
@@ -503,11 +506,11 @@ h4 {
 
 
   /* ---------------------- ENTER PLAYER */
-  .enter-player form .input-container {
+  form .input-container {
     margin-top: 4vh;
   }
 
-  .enter-player form .player-input {
+  form .player-input {
     font-size: 2.5rem;
   }
 
@@ -594,18 +597,18 @@ h4 {
 
 
   /* ---------------------- ENTER PLAYER */
-  .enter-player form .input-container {
+  form .input-container {
     margin-top: 4vh;
   }
 
-  .enter-player form .player-input {
+  form .player-input {
     padding: 5px 0;
     width: 70%;
 
     font-size: 2rem;
   }
 
-  .enter-player form .validation {
+  form .validation {
     margin-right: auto;
     margin-left: auto;
     height: 2.5rem;
@@ -696,19 +699,19 @@ h4 {
 
 
   /* ---------------------- ENTER PLAYER */
-  .enter-player form .player-input {
+  form .player-input {
     width: 95%;
 
     font-size: 1.7rem;
     font-weight: bold;
   }
 
-  .enter-player form .player-input::placeholder {
+  form .player-input::placeholder {
     font-size: 1.4rem;
     font-weight: normal;
   }
 
-  .enter-player form .validation {
+  form .validation {
     height: 4rem;
     max-width: 95%;
     

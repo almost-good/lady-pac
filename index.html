@@ -12,7 +12,7 @@
   <h1>Lady Pac</h1>
   
   <!-- Enter Player -->
-  <section class="outer-container enter-player">
+  <section id="enter-player" class="outer-container hide">
     <div class="inner-container">
       <div class="logo"> &#128512; </div>
 
@@ -23,7 +23,7 @@
       
       <form method="GET" action="https://formdump.codeinstitute.net">
         <div class="input-container">
-          <input class="player-input" type="text" name="player" placeholder="Player name">
+          <input id="player-input" class="player-input" type="text" name="player" placeholder="Player name">
         </div>
 
         <div class="validation">
@@ -42,7 +42,7 @@
         </div>
 
         <div class="buttons">
-          <button type="submit" class="btn">Continue</button>
+          <button id="continue-submit" type="submit" class="btn">Continue</button>
         </div>
       </div>
     </form>
@@ -160,7 +160,7 @@
       </div>
 
       <div class="buttons">
-        <button class="btn">Start</button>
+        <button class="btn">Okay</button>
       </div>
   </section>
   <!-- /.help -->
@@ -177,7 +177,7 @@
       
       <div class="buttons">
         <button class="play-again-btn btn" >Play<br class="br-xs"> again</button>
-        <button class="switch-player-btn btn">Switch<br class="br-xs"> player</button>
+        <button class="switch-player-btn btn">Okay</button>
       </div>
     </div>
   </section>
