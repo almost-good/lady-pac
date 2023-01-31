@@ -1,4 +1,4 @@
-import { SCORES, PLAYER } from "./constants.js";
+import { PLAYER } from "./constants.js";
 import Leaderboard from "./leaderboard.js";
 
 class App {
@@ -37,28 +37,32 @@ class App {
       .addEventListener("click", this.#enterPlayerContinueBtn);
   }
 
-  /** 
-  * Enter Player Continue button event listener.
-  */
-  
+  /**
+   * Enter Player Continue button event listener.
+   */
+
   #enterPlayerContinueBtn = (event) => {
     event.preventDefault();
 
     // Prevents displaying multiple errors at once.
-    this.#refreshPlayerValidation()
+    this.#refreshPlayerValidation();
 
-    let isError = this.#checkPlayerNameInput()
-    if(isError) {
-      this.#displayPlayerValidation(isError)
+    let isError = this.#checkPlayerNameInput();
+    if (isError) {
+      this.#displayPlayerValidation(isError);
+    } else {
+      this.#addPlayerToLocalStorage();
+      // add player to local storage
+      //continue on to the next screen
     }
   };
 
-  /** 
-  * Check if the Name a Player inputted is okay.
-  * @summary Checks if the character count is more than more than 10 and less than 3.
-  * Checks if the player entered special characters which are not allowed.
-  * @return {string} Error name, or empty string if there is no error.
-  */
+  /**
+   * Check if the Name a Player inputted is okay.
+   * @summary Checks if the character count is more than more than 10 and less than 3.
+   * Checks if the player entered special characters which are not allowed.
+   * @return {string} Error name, or empty string if there is no error.
+   */
 
   #checkPlayerNameInput() {
     const playerInput = document
@@ -68,31 +72,44 @@ class App {
     const format = /[^a-zA-Z0-9- ]+$/;
 
     if (playerInput.length > 10 || playerInput.length < 3) {
-      return 'error-length'
+      return "error-length";
     } else if (playerInput.match(format)) {
-      return 'error-char'
-    } 
+      return "error-char";
+    }
 
-    return ''
+    return "";
   }
 
-  /** 
-  * Refresh Player validation to original values.
-  */
-  
+  /**
+   * Refresh Player validation to original values.
+   */
+
   #refreshPlayerValidation() {
     document.getElementById("validation-instructions").classList.remove("hide");
-    document.getElementById('error-length').classList.add("hide");
-    document.getElementById('error-char').classList.add("hide");
+    document.getElementById("error-length").classList.add("hide");
+    document.getElementById("error-char").classList.add("hide");
   }
 
-  /** 
-  * Displays the Error message.
-  */
-  
+  /**
+   * Displays the Error message.
+   */
+
   #displayPlayerValidation(isError) {
     document.getElementById("validation-instructions").classList.add("hide");
     document.getElementById(isError).classList.remove("hide");
+  }
+
+  /**
+   * Save Player to local storage.
+   */
+
+  #addPlayerToLocalStorage() {
+    this.playerName = document
+      .getElementById("player-input")
+      .value.trim()
+      .toUpperCase();
+
+    localStorage.setItem(PLAYER, this.playerName);
   }
 }
 
