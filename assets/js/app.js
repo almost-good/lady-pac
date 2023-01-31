@@ -22,9 +22,9 @@ class App {
     */
   }
 
-  /** 
-  * Display Enter Player screen.
-  */
+  /**
+   * Display Enter Player screen.
+   */
 
   #enterPlayer() {
     const enterPlayerHTML = document.getElementById("enter-player");
@@ -37,7 +37,63 @@ class App {
       .addEventListener("click", this.#enterPlayerContinueBtn);
   }
 
-  #enterPlayerContinueBtn = (event) => {};
+  /** 
+  * Enter Player Continue button event listener.
+  */
+  
+  #enterPlayerContinueBtn = (event) => {
+    event.preventDefault();
+
+    // Prevents displaying multiple errors at once.
+    this.#refreshPlayerValidation()
+
+    let isError = this.#checkPlayerNameInput()
+    if(isError) {
+      this.#displayPlayerValidation(isError)
+    }
+  };
+
+  /** 
+  * Check if the Name a Player inputted is okay.
+  * @summary Checks if the character count is more than more than 10 and less than 3.
+  * Checks if the player entered special characters which are not allowed.
+  * @return {string} Error name, or empty string if there is no error.
+  */
+
+  #checkPlayerNameInput() {
+    const playerInput = document
+      .getElementById("player-input")
+      .value.trim()
+      .toUpperCase();
+    const format = /[^a-zA-Z0-9- ]+$/;
+
+    if (playerInput.length > 10 || playerInput.length < 3) {
+      return 'error-length'
+    } else if (playerInput.match(format)) {
+      return 'error-char'
+    } 
+
+    return ''
+  }
+
+  /** 
+  * Refresh Player validation to original values.
+  */
+  
+  #refreshPlayerValidation() {
+    document.getElementById("validation-instructions").classList.remove("hide");
+    document.getElementById('error-length').classList.add("hide");
+    document.getElementById('error-char').classList.add("hide");
+  }
+
+  /** 
+  * Displays the Error message.
+  */
+  
+  #displayPlayerValidation(isError) {
+    document.getElementById("validation-instructions").classList.add("hide");
+    document.getElementById(isError).classList.remove("hide");
+  }
 }
 
 new App();
