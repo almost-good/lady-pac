@@ -315,80 +315,76 @@ form .validation .error {
 /* --------------------------------------------- HELP SCREEN */
 
 
-.help {
-  display: none;
-}
-
-.help p {
+#help p {
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.help .controls-characters-container {
+.controls-characters-container {
   margin: auto auto;
   width: 90%;
   display: flex;
 }
 
-.help .controls-container {
+.controls-container {
   width: 30%;
   height: max-content;
 }
 
-.help .characters-container {
+.characters-container {
   width: 60%;
   height: max-content;
 }
 
-.help .controls div,
-.help .characters div {
+.controls div,
+.characters div {
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: space-between;
 }
 
-.help .controls div p,
-.help .characters div p {
+.controls div p,
+.characters div p {
   width: 70%;
   
   text-align: left;
 }
 
-.help .controls div i,
-.help .characters div i,
-.help .characters div span {
+.controls div i,
+.characters div i,
+.characters div span {
   margin: 1vh 0;
   width: 30%;
 
   font-weight: bold;
 }
 
-.help .controls div i {
+.controls div i {
   font-size: 2rem;
   color: var(--font-color-accent);
 }
 
-.help .characters div span {
+.characters div span {
   font-family: var(--font-game-name);
   font-size: 3rem;
 }
 
-.help .characters div .icon-lady-pac {
+.characters div .icon-lady-pac {
   color: yellow;
 }
 
-.help .characters div .icon-ghost {
+.characters div .icon-ghost {
   color: blue;
 }
 
-.help .characters div .icon-pellet {
+.characters div .icon-pellet {
   font-size: 1.8rem;
   color: pink;
 }
 
-.help .characters div .icon-energized-pellet {
+.characters div .icon-energized-pellet {
   font-size: 2.5rem;
   color: hotpink;
 }
@@ -504,21 +500,21 @@ form .validation .error {
 
 
   /* ------------------------------ HELP */
-  .help .controls-characters-container {
+  .controls-characters-container {
     flex-direction: column;
   }
 
-  .help .controls-container,
-  .help .characters-container {
+  .controls-container,
+  .characters-container {
     margin: auto;
     width: 85%;
   }
 
-  .help .controls div p {
+  .controls div p {
     width: 55%;
   }
 
-  .help .controls div i {
+  .controls div i {
     width: 35%;
     text-align: right;
   }
@@ -616,11 +612,11 @@ form .validation .error {
 
 
   /* ------------------------------ HELP */
-  .help .controls-characters-container {
+  .controls-characters-container {
     width: 95%;
   }
 
-  .help .characters-container {
+  .characters-container {
     width: 100%;
   }
 
@@ -720,24 +716,24 @@ form .validation .error {
 
 
   /* ------------------------------ HELP */
-  .help p {
+  #help p {
     font-size: 1.3rem;
   }
 
-  .help .controls-container {
+  .controls-container {
     width: 100%;
   }
 
-  .help .controls div,
-  .help .characters div {
+  .controls div,
+  .characters div {
     flex-direction: column;
   }
 
-  .help .controls div p,
-  .help .characters div p,
-  .help .controls div i,
-  .help .characters div i,
-  .help .characters div span {
+  .controls div p,
+  .characters div p,
+  .controls div i,
+  .characters div i,
+  .characters div span {
     width: 100%;
     text-align: center;
   }
