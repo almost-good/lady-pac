@@ -1,25 +1,25 @@
-import { SCORES, PLAYER } from "./constants.js";
+import { SCORES } from "./constants.js";
 
 /**
-* Leaderboard class which represents Leaderboard section in HTML.
-*
-* Manipulates leaderboard object.
-* Stores scores and player names in local storage.
-*
-* Public methods:
-*
-*     displayScore()
-*     displayCurrentScore()
-*     storeCurrentScore()
-*
-* Private methods:
-*
-*     #formatScoreIntoHTML(score)
-*     #highlightCurrentScore(flag, leaderboard, score)
-*     #leaderboardPosition(leaderboardStorage)
-*     #currentNameIsHigher(name1, name2)
-*     #addToLocalStorage(leaderboardStorage)
-*/
+ * Leaderboard class which represents Leaderboard section in HTML.
+ *
+ * Manipulates leaderboard object.
+ * Stores scores and player names in local storage.
+ *
+ * Public methods:
+ *
+ *     displayScore()
+ *     displayCurrentScore()
+ *     storeCurrentScore()
+ *
+ * Private methods:
+ *
+ *     #formatScoreIntoHTML(score)
+ *     #highlightCurrentScore(flag, leaderboard, score)
+ *     #leaderboardPosition(leaderboardStorage)
+ *     #currentNameIsHigher(name1, name2)
+ *     #addToLocalStorage(leaderboardStorage)
+ */
 
 export default class Leaderboard {
   constructor(score, playerName) {
@@ -55,6 +55,7 @@ export default class Leaderboard {
         );
       }
     }
+    // Display every score
   }
 
   /**

@@ -3,12 +3,15 @@ import Leaderboard from "./leaderboard.js";
 
 class App {
   constructor() {
-    this.score = 1500;
+    this.finalScore = 0;
     this.playerName = localStorage.getItem(PLAYER);
 
     /* HTML array event listeners */
     this.playBtns = document.getElementsByClassName("play");
     this.switchPlayerBtns = document.getElementsByClassName("switch-player");
+
+    // Create Leaderboard object.
+    this.leaderboard = new Leaderboard(this.finalScore, this.playerName)
 
     this.init();
   }
@@ -32,12 +35,6 @@ class App {
         this.#switchPlayerEvent
       );
     }
-
-    this.#winLoseScreen();
-    //REMOVE ACCESS TO LEADERBOARD - FOR DEVELOPMENT
-    //leaderboard.storeCurrentScore();
-    //new Leaderboard.displayScore();
-    //this.leaderboard.displayCurrentScore();
   }
 
   /**
@@ -78,13 +75,19 @@ class App {
     }
   };
 
+  /**
+   * Event listener for leaderboard. Display leaderboar content.
+   */
+
   #enterLeaderboardEvent = (event) => {
     const leaderboardHTML = document.getElementById("leaderboard");
 
     this.#closeCurrentModal()
 
     leaderboardHTML.classList.remove("hide");
-    console.log(leaderboardHTML)
+    
+    this.leaderboard.displayScore()
+    this.leaderboard.displayCurrentScore()
   }
 
   /**
@@ -116,6 +119,7 @@ class App {
 
   /**
    * Screen that activates when the game is won or lost and displays the text accordingly.
+   * The result of the game are saved in local storage, if they qualify.
    */
 
   #winLoseScreen() {
@@ -130,6 +134,9 @@ class App {
       this.#displayLoseResult(winLoseHTML);
     }
 
+    // Store the current score, the user may or may not continue to see their score
+    this.leaderboard.storeCurrentScore()
+    
     document
       .getElementById("leaderboard-btn")
       .addEventListener("click", this.#enterLeaderboardEvent);

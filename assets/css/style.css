@@ -396,7 +396,7 @@ form .validation .error {
 /* --------------------------------------------- LEADERBOARD */
 
 
-.leaderboard .highscore-list {
+.highscore-list {
   margin: auto auto;
   padding-top: 4vh;
   width: max-content;
