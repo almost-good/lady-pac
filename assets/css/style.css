@@ -303,12 +303,15 @@ form .validation .error {
   text-transform: uppercase;
 }
 
-
 /* ----------------------------------------- WIN/LOSE SCREEN */
 
 
-.win-lose {
-  display: none;
+#win-lose .win {
+  color: var(--font-color-highlight-secondary);
+}
+
+#win-lose .lose {
+  color: var(--font-color-highlight);
 }
 
 
