@@ -165,7 +165,7 @@ ul {
   border: double 4px var(--background-solid);
 }
 
-.confirm-player .btn:not(.confirm-player .btn:first-of-type),
+.confirm-player-btns .btn:not(.confirm-player-btns .btn:first-of-type),
 .win-lose .btn:not(.win-lose .btn:first-of-type),
 .leaderboard .btn:not(.leaderboard .btn:first-of-type) {
   margin-top: 1vh;
@@ -293,11 +293,7 @@ form .validation .error {
 /* ----------------------------------- CONFIRM PLAYER SCREEN */
 
 
-.confirm-player {
-  display: none;
-}
-
-.confirm-player .display-player {
+.display-player {
   margin-top: 5vh;
   
   color: var(--font-color-highlight-secondary);
@@ -611,7 +607,7 @@ form .validation .error {
 
 
   /* -------------------- CONFIRM PLAYER */
-  .confirm-player .display-player {
+  .display-player {
     margin-top: 3vh;
 
     font-size: 2.5rem;
@@ -712,11 +708,11 @@ form .validation .error {
 
 
   /* -------------------- CONFIRM PLAYER */
-  .confirm-player h2 {
+  .xs-confirm-player {
     font-size: 1.3rem;
   }
 
-  .confirm-player .display-player {
+  .display-player {
     font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 0;
