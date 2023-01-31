@@ -188,6 +188,18 @@ ul {
   max-width: 90%;
 }
 
+h1 {
+  padding-top: 5vh;
+
+  font-family: var(--font-game-name);
+  font-size: 3rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--font-color-highlight-secondary);
+  text-shadow: 2px 2px 10px var(--font-color-highlight-secondary);
+  
+}
+
 h2 {
   padding-top: 3vh;
   
@@ -240,6 +252,55 @@ h4 {
 
 
 /* --------------------------------------------- GAME SCREEN */
+
+
+.game-container {
+  margin: auto;
+  max-width: 700px;
+}
+
+.game-container .highscore-container {
+  padding-top: 10vh;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.game-container .game {
+  margin: auto;
+  padding-top: 2vh;
+  width: max-content;
+}
+
+.game-container .game .game-helpers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 2rem;
+}
+
+.game-container .game .game-helpers .current-game-score {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.game-container .game .game-helpers .interactive-helpers {
+  margin-bottom: 5px;
+}
+
+.game-container .game .game-helpers .interactive-helpers i {
+  margin-left: 5px;
+  
+  cursor: pointer;
+  transition: .3s;
+}
+
+.game-container .game .game-helpers .interactive-helpers i:hover {
+  color: var(--font-color-accent-secondary);
+}
 
 /* ------------------------------------- ENTER PLAYER SCREEN */
 
@@ -458,7 +519,7 @@ form .validation .error {
   justify-content: center;
   align-items: center;
   
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
   
   background-color: var(--background-transparent);
