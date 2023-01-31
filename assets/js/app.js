@@ -11,8 +11,11 @@ class App {
 
   init() {
     // Enter player is ran automatically only the first time, when local storage is empty
+    // Otherwise always ran confirm player screen.
     if (!this.playerName) {
       this.#enterPlayer();
+    } else {
+      this.#confirmPlayer();
     }
 
     /* REMOVE ACCESS TO LEADERBOARD - FOR DEVELOPMENT
@@ -110,6 +113,29 @@ class App {
       .toUpperCase();
 
     localStorage.setItem(PLAYER, this.playerName);
+  }
+
+  /**
+   * Display Confirm Player screen.
+   */
+
+  #confirmPlayer() {
+    const confirmPlayerHTML = document.getElementById("confirm-player");
+
+    confirmPlayerHTML.classList.remove("hide");
+
+    this.#displayPlayerName();
+    // event listener for start
+    // event listener for switch player
+  }
+
+  /**
+   * Display Player name on the confirm player screen.
+   */
+
+  #displayPlayerName() {
+    const playerName = document.getElementById("display-player-name");
+    playerName.innerText = localStorage.getItem(PLAYER);
   }
 }
 
