@@ -33,6 +33,7 @@ class App {
       );
     }
 
+    this.#winLoseScreen();
     /* REMOVE ACCESS TO LEADERBOARD - FOR DEVELOPMENT
     this.leaderboard.storeCurrentScore();
     this.leaderboard.displayScore();
@@ -106,6 +107,23 @@ class App {
   }
 
   /**
+   * Screen that activates when the game is won or lost and displays the text accordingly.
+   */
+
+  #winLoseScreen() {
+    let gameResult = "lose";
+    const winLoseHTML = document.getElementById("win-lose");
+
+    winLoseHTML.classList.remove("hide");
+
+    if (gameResult === "win") {
+      this.#displayWinResult(winLoseHTML);
+    } else if (gameResult === "lose") {
+      this.#displayLoseResult(winLoseHTML);
+    }
+  }
+
+  /**
    * Close currently open modal.
    */
 
@@ -168,6 +186,26 @@ class App {
     document.getElementById("error-char").classList.add("hide");
   }
 
+  /**
+   * Display the win text message.
+   */
+
+  #displayWinResult(modal) {
+    modal.querySelector("h2").innerText = "You won the game!";
+    modal.querySelector("h2").classList.add("win");
+    modal.querySelector("h3").innerText = "...can you do better?";
+  }
+
+  /**
+   * Displays the lose text message.
+   */
+
+  #displayLoseResult(modal) {
+    modal.querySelector("h2").innerText = "You got eaten!";
+    modal.querySelector("h2").classList.add("lose");
+    modal.querySelector("h3").innerText = "...like a Pellet!";
+  }
+  
   /**
    * Save Player to local storage.
    */
