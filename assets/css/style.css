@@ -289,14 +289,6 @@ form .validation .error {
   color: var(--font-color-highlight);
 }
 
-form .validation .error-length {
-  display: none;
-}
-
-form .validation .error-char {
-  display: none;
-}
-
 
 /* ----------------------------------- CONFIRM PLAYER SCREEN */
 
