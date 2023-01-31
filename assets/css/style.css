@@ -166,8 +166,8 @@ ul {
 }
 
 .confirm-player-btns .btn:not(.confirm-player-btns .btn:first-of-type),
-.win-lose .btn:not(.win-lose .btn:first-of-type),
-.leaderboard .btn:not(.leaderboard .btn:first-of-type) {
+#win-lose .btn:not(#win-lose .btn:first-of-type),
+#leaderboard .btn:not(#leaderboard .btn:first-of-type) {
   margin-top: 1vh;
 }
 
@@ -396,17 +396,13 @@ form .validation .error {
 /* --------------------------------------------- LEADERBOARD */
 
 
-.leaderboard {
- display: none;
-}
-
 .leaderboard .highscore-list {
   margin: auto auto;
   padding-top: 4vh;
   width: max-content;
 }
 
-.leaderboard .highscore-list li {
+.highscore-list li {
   margin-top: .5vh;
   display: flex;
   justify-content: space-between;
@@ -417,19 +413,19 @@ form .validation .error {
   text-transform: uppercase;
 }
 
-.leaderboard .highscore-list .highlight-score,
-.leaderboard .highscore-list .highlight-score span {
+.highscore-list .highlight-score,
+.highscore-list .highlight-score span {
   color: var(--font-color-highlight-secondary);
 }
 
-.leaderboard .highscore-list li span {
+.highscore-list li span {
   padding-left: 50px;
   
   font-size: 2.5rem;
   color: var(--font-color-accent-secondary);
 }
 
-.leaderboard .current-score {
+.current-score {
   margin-top: 4vh;
 
   font-size: 2.5rem;
@@ -437,7 +433,7 @@ form .validation .error {
   text-shadow: 2px 2px 5px var(--font-general);
 }
 
-.leaderboard .current-score span {
+.current-score span {
   padding-left: 5px;
 
   font-size: 3rem;
@@ -524,22 +520,22 @@ form .validation .error {
 
 
   /* ----------------------- LEADERBOARD */
-  .leaderboard .highscore-list li {
+  .highscore-list li {
     margin-top: .2vh;
     font-size: 1.7rem;
   }
 
-  .leaderboard .highscore-list li span {
+  .highscore-list li span {
     padding-left: 20px;
     font-size: 2rem;
   }
 
-  .leaderboard .current-score {
+  .current-score {
     margin-top: 4vh;
     font-size: 2rem;
   }
   
-  .leaderboard .current-score span {
+  .current-score span {
     font-size: 2.3rem;
   }
 }
@@ -625,21 +621,21 @@ form .validation .error {
 
 
   /* ----------------------- LEADERBOARD */
-  .leaderboard .highscore-list li {
+  .highscore-list li {
     flex-direction: column;
     justify-content: center;
     border-bottom: 1px solid var(--border-highlight);
   }
 
-  .leaderboard .highscore-list li:not(.leaderboard .highscore-list li:first-of-type) {
+  .highscore-list li:not(.highscore-list li:first-of-type) {
     margin-top: 1vh;
   }
 
-  .leaderboard .highscore-list li span {
+  .highscore-list li span {
     padding-left: 0;
   }
 
-  .leaderboard .current-score {
+  .current-score {
     display: flex;
     flex-direction: column;
   }
@@ -743,15 +739,15 @@ form .validation .error {
 
 
   /* ----------------------- LEADERBOARD */
-  .leaderboard .highscore-list li {
+  .highscore-list li {
     font-size: 1.5rem;
     font-weight: bold;
     line-height: 1;
     letter-spacing: 0;
   }
 
-  .leaderboard .highscore-list li span,
-  .leaderboard .current-score span {
+  .highscore-list li span,
+  .current-score span {
     font-size: 1.7rem;
   }
 }
