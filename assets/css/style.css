@@ -321,6 +321,10 @@ h4 {
 
 /* --------------------------------------------- HELP SCREEN */
 
+/*
+.help {
+  display: none;
+}*/
 
 .help p {
   font-size: 1.5rem;
@@ -332,7 +336,6 @@ h4 {
   margin: auto auto;
   width: 90%;
   display: flex;
-
 }
 
 .help .controls-container {
@@ -582,6 +585,11 @@ h4 {
     max-width: 90%;
   }
 
+  h4 {
+    font-size: 2rem;
+  }
+
+
   /* BREAK LINES */
 
   .br-mobile {
@@ -622,6 +630,14 @@ h4 {
 
 
   /* ------------------------------ HELP */
+
+
+  .help .controls-characters-container {
+    width: 95%;
+  }
+  .help .characters-container {
+    width: 100%;
+  }
 
 
   /* ----------------------- LEADERBOARD */
@@ -675,6 +691,12 @@ h4 {
     letter-spacing: 0;
   }
 
+  h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+
 
   /* BREAK LINES */
 
@@ -719,6 +741,40 @@ h4 {
   }
 
 
+  /* ------------------------------ HELP */
+
+  
+  .help p {
+    font-size: 1.3rem;
+  }
+
+  .help .controls-characters-container {
+    width: 95%;
+  }
+
+  .help .controls-container {
+    width: 100%;
+  }
+
+  .help .controls div,
+  .help .characters div {
+    flex-direction: column;
+  }
+
+  .help .controls div p,
+  .help .characters div p {
+    width: 100%;
+    text-align: center;
+  }
+
+  .help .controls div i,
+  .help .characters div i,
+  .help .characters div span {
+    width: 100%;
+    text-align: center;
+  }
+
+  
   /* ----------------------- LEADERBOARD */
 
   .leaderboard .highscore-list li {
