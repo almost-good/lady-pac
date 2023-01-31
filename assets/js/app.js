@@ -73,8 +73,8 @@ class App {
       this.#displayPlayerValidation(isError);
     } else {
       this.#addPlayerToLocalStorage();
-      // add player to local storage
-      //continue on to the next screen
+      this.#closeCurrentModal();
+      this.#confirmPlayer();
     }
   };
 
