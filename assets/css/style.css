@@ -67,8 +67,8 @@
 
 body {
   position: relative;
-  height: 100vh;
-  padding-bottom: 60px;
+  min-height: 100vh;
+  height: max-content;
 
   background: var(--background-solid) 
     url('../img/background/space.webp') 
@@ -85,11 +85,17 @@ ul {
 
 
 /* SCROLLBARS */
+body::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+}
 
 .scrollbar::-webkit-scrollbar {
   width: .3rem;
+  height: .3rem;
 }
 
+body::-webkit-scrollbar-thumb,
 .scrollbar::-webkit-scrollbar-thumb {
   background-color: var(--font-color-accent);
 }
@@ -103,6 +109,9 @@ ul {
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 10;
+
+  overflow: hidden;
 
   background-color: var(--background-transparent);
 
@@ -259,7 +268,10 @@ h4 {
 .game-container {
   margin: auto;
   padding: 0 10px;
+  min-height: 100vh;
   max-width: 700px;
+
+  overflow-x: hidden;
 
   font-size: 2rem;
 }
@@ -513,11 +525,7 @@ form .validation .error {
 .footer-container {
   margin-top: 3vh;
   width: 100%;
-  /*height: 70px;*/
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
+  min-width: 100%;
 
   display: flex;
   justify-content: center;
@@ -538,11 +546,12 @@ form .validation .error {
 
 .footer-container .social-link {
   color: var(--font-color-highlight-secondary);
+  cursor: pointer;
   transition: .3s;
 }
 
-.footer-container .social-link:hover {
-  color: var(--font-color-accent-secondary);
+.footer-container .social-link:hover{
+  color: red;
 }
 
 /* --------------------------------------------- MEDIA QUERIES */
@@ -651,8 +660,8 @@ form .validation .error {
 
   /* BUTTONS */
   .buttons .btn {
-    padding-right: 2px;
-    padding-left: 2px; 
+    padding-right: 5px;
+    padding-left: 5px; 
   }
 
 
@@ -766,17 +775,17 @@ form .validation .error {
 
 @media screen and (max-width: 300px) {
   /* --------------------------- GENERAL */
-  body {
-    padding-bottom: 160px;
-  }
-
 
   /* BUTTONS */
   .buttons {
+
     width: 95%;
   }
 
-  .buttons .btn {
+  .buttons .btn {    
+    padding-right: 2px;
+    padding-left: 2px;
+
     line-height: 1;
     letter-spacing: 0;
   }
@@ -888,8 +897,8 @@ form .validation .error {
 
   /* ---------------------------- FOOTER */
   .footer-container {
-    height: 160px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
     flex-direction: column;
   }
-
 }
