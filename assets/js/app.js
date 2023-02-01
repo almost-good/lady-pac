@@ -10,6 +10,7 @@ class App {
     this.playBtns = document.getElementsByClassName("play");
     this.switchPlayerBtns = document.getElementsByClassName("switch-player");
     this.helpBtn = document.getElementById("help-btn");
+    this.soundBtn = document.getElementById("sound");
 
     // Create Leaderboard object.
     this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
@@ -20,11 +21,11 @@ class App {
   init() {
     // Enter player is ran automatically only the first time, when local storage is empty
     // Otherwise always ran confirm player screen.
-    if (!this.playerName) {
+    /* if (!this.playerName) {
       this.#enterPlayer();
     } else {
       this.#confirmPlayer();
-    }
+    }*/
 
     // Button event listeners
     for (let i = 0; i < this.playBtns.length; i++) {
@@ -37,6 +38,7 @@ class App {
       );
     }
     this.helpBtn.addEventListener("click", this.#enterHelpEvent);
+    this.soundBtn.addEventListener("click", this.#toggleSoundEvent);
 
     // Display high score
     this.#displayHighScore();
@@ -105,6 +107,22 @@ class App {
 
     this.leaderboard.displayScore();
     this.leaderboard.displayCurrentScore();
+  };
+
+  /**
+   * Toggle between active and muted sound setting.
+   */
+
+  #toggleSoundEvent = (event) => {
+    const volumeOff = "fa-volume-xmark";
+    const volumeOn = "fa-volume-high";
+
+    // Get the current volume setting and change it accordingly.
+    if (this.soundBtn.classList.contains(volumeOff)) {
+      this.#toggleSound(volumeOff, volumeOn);
+    } else {
+      this.#toggleSound(volumeOn, volumeOff);
+    }
   };
 
   /**
@@ -203,7 +221,7 @@ class App {
       localStorage.getItem(SCORES)
     )[0].score;
   }
-  
+
   /**
    * Display Player name on the confirm player screen.
    */
@@ -250,6 +268,17 @@ class App {
     modal.querySelector("h2").innerText = "You got eaten!";
     modal.querySelector("h2").classList.add("lose");
     modal.querySelector("h3").innerText = "...like a Pellet!";
+  }
+
+  /**
+   * Toggle sound settings from muted to active and other way around.
+   * @param {string} removeSetting - Currently active setting.
+   * @param {string} addSetting - Setting that will replace removed setting.
+   */
+
+  #toggleSound(removeSetting, addSetting) {
+    this.soundBtn.classList.remove(removeSetting);
+    this.soundBtn.classList.add(addSetting);
   }
 
   /**
