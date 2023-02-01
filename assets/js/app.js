@@ -1,4 +1,4 @@
-import { PLAYER } from "./constants.js";
+import { PLAYER, SCORES } from "./constants.js";
 import Leaderboard from "./leaderboard.js";
 
 class App {
@@ -9,10 +9,10 @@ class App {
     /* HTML array event listeners */
     this.playBtns = document.getElementsByClassName("play");
     this.switchPlayerBtns = document.getElementsByClassName("switch-player");
-    this.helpBtn = document.getElementById("help-btn")
+    this.helpBtn = document.getElementById("help-btn");
 
     // Create Leaderboard object.
-    this.leaderboard = new Leaderboard(this.finalScore, this.playerName)
+    this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
 
     this.init();
   }
@@ -36,7 +36,10 @@ class App {
         this.#switchPlayerEvent
       );
     }
-    this.helpBtn.addEventListener('click', this.#enterHelpEvent)
+    this.helpBtn.addEventListener("click", this.#enterHelpEvent);
+
+    // Display high score
+    this.#displayHighScore();
   }
 
   /**
@@ -84,10 +87,10 @@ class App {
   #enterHelpEvent = (event) => {
     const helpHTML = document.getElementById("help");
 
-    this.#closeCurrentModal()
+    this.#closeCurrentModal();
 
     helpHTML.classList.remove("hide");
-  }
+  };
 
   /**
    * Event listener for helo screen. Display help content.
@@ -95,14 +98,14 @@ class App {
 
   #enterLeaderboardEvent = (event) => {
     const leaderboardHTML = document.getElementById("leaderboard");
-  
-    this.#closeCurrentModal()
-  
+
+    this.#closeCurrentModal();
+
     leaderboardHTML.classList.remove("hide");
-      
-    this.leaderboard.displayScore()
-    this.leaderboard.displayCurrentScore()
-  }
+
+    this.leaderboard.displayScore();
+    this.leaderboard.displayCurrentScore();
+  };
 
   /**
    * Display Enter Player screen.
@@ -149,8 +152,8 @@ class App {
     }
 
     // Store the current score, the user may or may not continue to see their score
-    this.leaderboard.storeCurrentScore()
-    
+    this.leaderboard.storeCurrentScore();
+
     document
       .getElementById("leaderboard-btn")
       .addEventListener("click", this.#enterLeaderboardEvent);
@@ -191,6 +194,16 @@ class App {
     return "";
   }
 
+  /**
+   * Display top high score ever.
+   */
+  #displayHighScore() {
+    const highScoreTopHTML = document.getElementById("highscore-top");
+    highScoreTopHTML.innerText = JSON.parse(
+      localStorage.getItem(SCORES)
+    )[0].score;
+  }
+  
   /**
    * Display Player name on the confirm player screen.
    */
