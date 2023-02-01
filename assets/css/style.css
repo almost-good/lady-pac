@@ -66,7 +66,9 @@
 }
 
 body {
+  position: relative;
   height: 100vh;
+  padding-bottom: 60px;
 
   background: var(--background-solid) 
     url('../img/background/space.webp') 
@@ -256,12 +258,14 @@ h4 {
 
 .game-container {
   margin: auto;
+  padding: 0 10px;
   max-width: 700px;
+
+  font-size: 2rem;
 }
 
 .game-container .highscore-container {
   padding-top: 10vh;
-  font-size: 2rem;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
@@ -271,18 +275,16 @@ h4 {
   margin: auto;
   padding-top: 2vh;
   width: max-content;
+  max-width: 100%;
 }
 
 .game-container .game .game-helpers {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  font-size: 2rem;
 }
 
 .game-container .game .game-helpers .current-game-score {
-  font-size: 2rem;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -293,7 +295,7 @@ h4 {
 
 .game-container .game .game-helpers .interactive-helpers i {
   margin-left: 5px;
-  
+
   cursor: pointer;
   transition: .3s;
 }
@@ -511,9 +513,11 @@ form .validation .error {
 .footer-container {
   margin-top: 3vh;
   width: 100%;
+  /*height: 70px;*/
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: -1;
 
   display: flex;
   justify-content: center;
@@ -678,6 +682,12 @@ form .validation .error {
   }
 
 
+  /* ------------------------------ GAME */
+  .game-container {
+    font-size: 1.8rem;
+  }
+
+
   /* ---------------------- ENTER PLAYER */
   form .input-container {
     margin-top: 4vh;
@@ -738,6 +748,17 @@ form .validation .error {
     display: flex;
     flex-direction: column;
   }
+
+
+  /* ---------------------------- FOOTER */
+  .footer-container {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .footer-container .author {
+    padding: 20px 20px;
+  }
 }
 
 
@@ -745,6 +766,10 @@ form .validation .error {
 
 @media screen and (max-width: 300px) {
   /* --------------------------- GENERAL */
+  body {
+    padding-bottom: 160px;
+  }
+
 
   /* BUTTONS */
   .buttons {
@@ -758,6 +783,10 @@ form .validation .error {
 
 
   /* TEXT */
+  h1 {
+    font-size: 1.8rem;
+  }
+
   h2 {
     font-size: 1.5rem;
     letter-spacing: 0;
@@ -777,6 +806,12 @@ form .validation .error {
   /* BREAK LINES */
   .br-xs {
     display: block;
+  }
+
+
+  /* ------------------------------ GAME */
+  .game-container .game .game-helpers {
+    flex-direction: column-reverse;
   }
 
 
@@ -849,4 +884,12 @@ form .validation .error {
   .current-score span {
     font-size: 1.7rem;
   }
+
+
+  /* ---------------------------- FOOTER */
+  .footer-container {
+    height: 160px;
+    flex-direction: column;
+  }
+
 }
