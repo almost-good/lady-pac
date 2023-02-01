@@ -9,6 +9,7 @@ class App {
     /* HTML array event listeners */
     this.playBtns = document.getElementsByClassName("play");
     this.switchPlayerBtns = document.getElementsByClassName("switch-player");
+    this.helpBtn = document.getElementById("help-btn")
 
     // Create Leaderboard object.
     this.leaderboard = new Leaderboard(this.finalScore, this.playerName)
@@ -35,6 +36,7 @@ class App {
         this.#switchPlayerEvent
       );
     }
+    this.helpBtn.addEventListener('click', this.#enterHelpEvent)
   }
 
   /**
@@ -79,13 +81,25 @@ class App {
    * Event listener for leaderboard. Display leaderboar content.
    */
 
-  #enterLeaderboardEvent = (event) => {
-    const leaderboardHTML = document.getElementById("leaderboard");
+  #enterHelpEvent = (event) => {
+    const helpHTML = document.getElementById("help");
 
     this.#closeCurrentModal()
 
+    helpHTML.classList.remove("hide");
+  }
+
+  /**
+   * Event listener for helo screen. Display help content.
+   */
+
+  #enterLeaderboardEvent = (event) => {
+    const leaderboardHTML = document.getElementById("leaderboard");
+  
+    this.#closeCurrentModal()
+  
     leaderboardHTML.classList.remove("hide");
-    
+      
     this.leaderboard.displayScore()
     this.leaderboard.displayCurrentScore()
   }
