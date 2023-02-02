@@ -198,6 +198,7 @@ Back to [Table of Contents](#table-of-contents)
 - [Git](https://git-scm.com/) - Used for version control.
 - [GitHub](https://github.com) - Used for code hosting.
 - [Balsamiq](https://balsamiq.com) - Used to create wireframes.
+- [Inkscape](https://inkscape.org) - Used to develop in-game icons and logo.
 - [FontSquirrel](https://www.fontsquirrel.com) - Used to generate a webfont.
 - [Photoresizer](https://www.photoresizer.com) - Used to resize the imgages and to compress them.
 - [Colormind](http://colormind.io) - Used to create color palette.
@@ -238,7 +239,7 @@ All fonts used were sourced from [1001 Fonts](https://www.1001fonts.com).
   - by [Font-a-licious](https://www.1001fonts.com/pacfont-font.html)
 
 ### **Images**
-All fonts used were sourced from [Pexels](https://www.pexels.com).
+All images used were sourced from [Pexels](https://www.pexels.com).
 
 **[Bg Space image](https://www.pexels.com/photo/galaxy-pinwheel-on-starry-sky-7649118)**
 
