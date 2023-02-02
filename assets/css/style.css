@@ -19,6 +19,7 @@ CSS STRUCTURE
 - Help screen
 - Leaderboard screen
 - Footer
+- 404
 
 - Media queries
     - Tablet
@@ -29,6 +30,7 @@ CSS STRUCTURE
         - Enter player
         - Help
         - Leaderboard
+        - 404
 
     - Mobile
         - General
@@ -41,6 +43,7 @@ CSS STRUCTURE
         - Help
         - Leaderboard
         - Footer
+        - 404
 
     - Extra small
         - General
@@ -54,6 +57,7 @@ CSS STRUCTURE
         - Help
         - Leaderboard
         - Footer
+        - 404
 */
 
 /* --------------------------------------------- VARIABLES */
@@ -563,7 +567,7 @@ form .validation .error {
 }
 
 
-/* --------------------------------------------------- FOOTER*/
+/* -------------------------------------------------- FOOTER */
 
 
 .footer-container {
@@ -596,6 +600,47 @@ form .validation .error {
 
 .footer-container .social-link:hover{
   color: red;
+}
+
+
+/* ---------------------------------------------------- 404 */
+
+
+.not-found-container {
+  margin: 0 auto;
+  min-height: calc(100vh - 71px - 3vh);
+  width: 90%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.not-found-container .page-not-found {
+  padding-top: 10vh;
+  font-size: 4rem;
+  color: var(--font-color-accent-secondary);
+}
+
+.not-found-container .four-o-four {
+  font-size: 30rem;
+  color: var(--font-color-highlight);
+}
+
+.not-found-container .home-container {
+  height: 12rem;
+}
+
+.not-found-container .home-container .home {
+  font-size: 10rem;
+  text-decoration: none;
+  color: var(--font-color-accent);
+  text-shadow: 2px 2px 100px var(--font-color-accent);
+  transition: .3s;
+}
+
+.not-found-container .home-container .home:hover {
+  font-size: 12rem;
+  color:var(--font-color-highlight-secondary);
+  text-shadow: 2px 2px 100px var(--font-color-highlight-secondary);
 }
 
 
@@ -694,6 +739,25 @@ form .validation .error {
   
   .current-score span {
     font-size: 2.3rem;
+  }
+
+
+  /* ------------------------------- 404 */
+  .not-found-container .page-not-found {
+    padding-top: 20vh;
+  }
+
+  .not-found-container .four-o-four {
+    font-size: 15rem;
+  }
+
+  .not-found-container .home-container {
+    height: max-content;
+  }
+
+  .not-found-container .home-container .home,
+  .not-found-container .home-container .home:hover {
+    font-size: 5rem;
   }
 }
 
@@ -813,6 +877,17 @@ form .validation .error {
   .footer-container .author {
     padding: 20px 20px;
   }
+
+
+  /* ------------------------------- 404 */
+  .not-found-container .four-o-four {
+    font-size: 10rem;
+  }
+
+  .not-found-container .home-container .home,
+  .not-found-container .home-container .home:hover {
+    font-size: 5rem;
+  }
 }
 
 
@@ -836,7 +911,7 @@ form .validation .error {
 
 
   /* LOGO */
-  .lady-pac-logo {
+  .logo .lady-pac-logo {
     width: 100px;
     height: 40px;
   }
@@ -950,5 +1025,17 @@ form .validation .error {
     padding-top: 2vh;
     padding-bottom: 2vh;
     flex-direction: column;
+  }
+
+
+  /* ------------------------------- 404 */
+  .not-found-container .page-not-found,
+  .not-found-container .home-container .home,
+  .not-found-container .home-container .home:hover {
+    font-size: 3rem;
+  }
+
+  .not-found-container .four-o-four {
+    font-size: 5rem;
   }
 }
