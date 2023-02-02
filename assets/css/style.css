@@ -436,8 +436,7 @@ form .validation .error {
 }
 
 .controls div i,
-.characters div i,
-.characters div span {
+.characters div .char-img {
   margin: 1vh 0;
   width: 30%;
 
@@ -449,27 +448,9 @@ form .validation .error {
   color: var(--font-color-accent);
 }
 
-.characters div span {
-  font-family: var(--font-game-name);
-  font-size: 3rem;
-}
-
-.characters div .icon-lady-pac {
-  color: yellow;
-}
-
-.characters div .icon-ghost {
-  color: blue;
-}
-
-.characters div .icon-pellet {
-  font-size: 1.8rem;
-  color: pink;
-}
-
-.characters div .icon-energized-pellet {
-  font-size: 2.5rem;
-  color: hotpink;
+.characters div .char-img {
+  height: 50px;
+  width: 50px;
 }
 
 
@@ -884,8 +865,7 @@ form .validation .error {
   .controls div p,
   .characters div p,
   .controls div i,
-  .characters div i,
-  .characters div span {
+  .characters div .char-img {
     width: 100%;
     text-align: center;
   }
