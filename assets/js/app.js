@@ -1,9 +1,42 @@
 import { PLAYER, SCORES } from "./constants.js";
 import Leaderboard from "./leaderboard.js";
 
+/**
+ * App class which represents the main JS file.
+ *
+ * Constructor methods:
+ *
+ *     #init()
+ *
+ * Event listener methods:
+ *
+ *     #playEvent()
+ *     #switchPlayerEvent()
+ *     #enterPlayerContinueBtn()
+ *     #enterHelpEvent()
+ *     #enterLeaderboardEvent()
+ *     #toggleSoundEvent()
+ *
+ * Private methods:
+ *
+ *     #enterPlayer()
+ *     #confirmPlayer()
+ *     #winLoseScreen()
+ *     #closeCurrentModal()
+ *     #checkPlayerNameInput()
+ *     #displayHighScore()
+ *     #displayPlayerName()
+ *     #displayPlayerValidation(isError)
+ *     #refreshPlayerValidation()
+ *     #displayWinResult(modal)
+ *     #displayLoseResult(modal)
+ *     #toggleSound(removeSetting, addSetting)
+ *     #addPlayerToLocalStorage()
+ */
+
 class App {
   constructor() {
-    this.finalScore = 0;
+    this.finalScore = 122340;
     this.playerName = localStorage.getItem(PLAYER);
 
     /* HTML array event listeners */
@@ -15,17 +48,17 @@ class App {
     // Create Leaderboard object.
     this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
 
-    this.init();
+    this.#init();
   }
 
-  init() {
+  #init() {
     // Enter player is ran automatically only the first time, when local storage is empty
     // Otherwise always ran confirm player screen.
-    /* if (!this.playerName) {
+    if (!this.playerName) {
       this.#enterPlayer();
     } else {
       this.#confirmPlayer();
-    }*/
+    }
 
     // Button event listeners
     for (let i = 0; i < this.playBtns.length; i++) {
@@ -83,7 +116,7 @@ class App {
   };
 
   /**
-   * Event listener for leaderboard. Display leaderboar content.
+   * Event listener for help screen. Display help content.
    */
 
   #enterHelpEvent = (event) => {
@@ -95,7 +128,7 @@ class App {
   };
 
   /**
-   * Event listener for helo screen. Display help content.
+   * Event listener for leaderboard screen. Display leaderboard content.
    */
 
   #enterLeaderboardEvent = (event) => {
@@ -154,7 +187,7 @@ class App {
 
   /**
    * Screen that activates when the game is won or lost and displays the text accordingly.
-   * The result of the game are saved in local storage, if they qualify.
+   * The result of the game is saved in local storage, if it qualifies.
    */
 
   #winLoseScreen() {
@@ -201,7 +234,7 @@ class App {
       .getElementById("player-input")
       .value.trim()
       .toUpperCase();
-    const format = /[^a-zA-Z0-9- ]+$/;
+    const format = /[^a-zA-Z0-9- ]/;
 
     if (playerInput.length > 10 || playerInput.length < 3) {
       return "error-length";
@@ -213,13 +246,17 @@ class App {
   }
 
   /**
-   * Display top high score ever.
+   * Display top high score.
    */
+
   #displayHighScore() {
     const highScoreTopHTML = document.getElementById("highscore-top");
-    highScoreTopHTML.innerText = JSON.parse(
-      localStorage.getItem(SCORES)
-    )[0].score;
+
+    if (JSON.parse(localStorage.getItem(SCORES))) {
+      highScoreTopHTML.innerText = JSON.parse(
+        localStorage.getItem(SCORES)
+      )[0].score;
+    }
   }
 
   /**
@@ -252,6 +289,7 @@ class App {
 
   /**
    * Display the win text message.
+   * @param {object} modal - Win / Lose screen.
    */
 
   #displayWinResult(modal) {
@@ -262,6 +300,7 @@ class App {
 
   /**
    * Displays the lose text message.
+   * @param {object} modal - Win / Lose screen.
    */
 
   #displayLoseResult(modal) {
