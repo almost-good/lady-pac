@@ -1,4 +1,5 @@
 import { PLAYER, SCORES } from "./constants.js";
+import Game from "./game.js"
 import Leaderboard from "./leaderboard.js";
 
 /**
@@ -39,12 +40,14 @@ class App {
     this.finalScore = 122340;
     this.playerName = localStorage.getItem(PLAYER);
 
-    /* HTML array event listeners */
+    /* HTML array event listeners. */
     this.playBtns = document.getElementsByClassName("play");
     this.switchPlayerBtns = document.getElementsByClassName("switch-player");
     this.helpBtn = document.getElementById("help-btn");
     this.soundBtn = document.getElementById("sound");
 
+    // Create Game object.
+    this.game = new Game()
     // Create Leaderboard object.
     this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
 
@@ -54,14 +57,14 @@ class App {
   #init() {
     // Enter player is ran automatically only the first time, when local storage is empty
     // Otherwise always ran confirm player screen.
-    if (!this.playerName) {
+    /*if (!this.playerName) {
       this.#enterPlayer();
     } else {
       this.#confirmPlayer();
-    }
-
+    }*/
+    this.game.game()
     // Button event listeners
-    for (let i = 0; i < this.playBtns.length; i++) {
+    /*for (let i = 0; i < this.playBtns.length; i++) {
       this.playBtns[i].addEventListener("click", this.#playEvent);
     }
     for (let i = 0; i < this.switchPlayerBtns.length; i++) {
@@ -74,7 +77,7 @@ class App {
     this.soundBtn.addEventListener("click", this.#toggleSoundEvent);
 
     // Display high score
-    this.#displayHighScore();
+    this.#displayHighScore();*/
   }
 
   /**
