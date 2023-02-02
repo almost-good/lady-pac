@@ -120,7 +120,40 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ### **Existing Features**
-
+- **Game screen**
+  - Game screen section starts with the **Lady Pac title** of the game, followed by **high score** display. 
+  - The **High score** section displays the highest score ever reached while playing on the current machine. The user can reset the score only if they empty the local storage of the browser.
+  - **Score** section is dynamically updated while playing the game. It shows how many points the user scored so far in the game. 
+  - **Sound icon** serves as sound control and allows the user to mute or play in-game sounds. 
+  - **Questionmark icon** opens a new screen with directions on how to play the game and additional information about the game itself.
+- **Enter player screen**
+  - Enter player screen contains the game **logo**, and allows users to enter the **player name** using which they wish to play the game.
+  - The user is provided with rules for the naming system. If the user enters an incorrect format, they will be presented with the adequate error message, otherwise, the user can continue to the name confirmation.
+  - **Enter player** screen is displayed automatically when the user first visits the website and chooses their name. Otherwise, to access this particular screen and an option to change the player name, the user will have to select **"switch player"** on one of the other screens with that option.
+- **Confirm player screen**
+  - Confirm player screen serves as a confirmation for the user to play the game using the **displayed name**. 
+  - **Displayed name** is either a name that the user just choose to play with or the name that the user was already playing with.
+  - The user can continue to play the game using the displayed name, or choose to switch players.
+  - **Confirm player** screen is the first screen displayed whenever the user visits the site, except in the case of the first visit or if the user never set their player name.
+- **Help screen**
+  - Help screen contains **objective** of the game, **character list** and **control instructions**.
+  - **Objective** section showcases the general purpose of the game.
+  - **Characters** section contains a list of characters in the game.
+  - **Controls** section contains directions on how to control the game.
+  - After the user has all information they can close the help screen.
+- **Win/Lose screen**
+  - Win/Lose screen is displayed when the user wins or loses the game. Depending on the result either a win message will be displayed or the lose meessage.
+  - The user is presented with a couple of options, where they can choose to **play again** with the same player name, **switch player**, or have a look at the **leaderboard**.
+- **Leaderboard screen**
+  - Leaderboard screen displays the top 10 scores achieved on the current machine.
+  - **Score list** is ordered from top to bottom, where the highest score is at the top of the list and the lowest at the bottom. In the case of equal scores, the list is ordered alphabetically. If the user score managed to get on the list, the score will be highlighted.
+  - **Your score** section displays the user score, even if the score didn't make it to the top 10 list.
+  - The user is also presented with **play again** and **switch player** options.
+- **Footer**
+  - Footer contains the name of the game developer, together with the developer's social links, namely: **GitHub** and **LinkedIn**.
+- **404 page**
+  - 404 page is displayed when the site path is not entered correctly or is non-existent.
+  - A link is provided to redirect the user back to the main page.
 
 ### **Features Left to Implement**
 
