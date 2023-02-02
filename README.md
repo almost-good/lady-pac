@@ -111,6 +111,11 @@ The design for the site is retro arcade, with a deep, dark background and occasi
 There are three different font styles used on the page. **Arcade Regular** was selected for most of the page due to its retro pixel-like design, **Karmatic Arcade Regular** for all of the headings and **Pac Font Regular** for game name title, respectfully. I also included websafe fallback fonts, followed by the generic fonts.
 
 ### **Imagery**
+Images used in the game, as well as logo, were all developed by the site developer.
+The design used was simple and clean.
+<br><br>
+![Logo](assets/docs/img/logo.png)
+<br><br>
 
 
 Back to [Table of Contents](#table-of-contents)
