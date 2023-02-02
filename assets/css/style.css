@@ -187,9 +187,12 @@ body::-webkit-scrollbar-thumb,
 
 .logo {
   padding-top: 2vh;
-  font-size: 3rem;
 }
 
+.lady-pac-logo {
+  width: 150px;
+  height: 61px;
+}
 
 /* TEXT */
 
@@ -775,6 +778,13 @@ form .validation .error {
 
 @media screen and (max-width: 300px) {
   /* --------------------------- GENERAL */
+
+  /* LOGO */
+  
+  .lady-pac-logo {
+    width: 100px;
+    height: 40px;
+  }
 
   /* BUTTONS */
   .buttons {
