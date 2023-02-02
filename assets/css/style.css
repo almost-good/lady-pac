@@ -1,3 +1,61 @@
+/** 
+CSS STRUCTURE
+
+- Variables
+- Fonts
+- Global
+    - Scrollbars
+    - Containers
+    - Buttons
+    - Logo
+    - Text
+    - Break lines
+    - Display
+
+- Game screen
+- Enter player screen
+- Confirm player screen
+- Win/Lose screen
+- Help screen
+- Leaderboard screen
+- Footer
+
+- Media queries
+    - Tablet
+        - General
+            - Buttons
+            - Text
+            - Break lines
+        - Enter player
+        - Help
+        - Leaderboard
+
+    - Mobile
+        - General
+            - Buttons
+            - Text
+            - Break lines
+        - Game
+        - Enter player
+        - Confirm player
+        - Help
+        - Leaderboard
+        - Footer
+
+    - Extra small
+        - General
+            - Buttons
+            - Logo
+            - Text
+            - Break lines
+        - Game
+        - Enter player
+        - Confirm player
+        - Help
+        - Leaderboard
+        - Footer
+*/
+
 /* --------------------------------------------- VARIABLES */
 
 
@@ -85,6 +143,7 @@ ul {
 
 
 /* SCROLLBARS */
+
 body::-webkit-scrollbar {
   width: .5rem;
   height: .5rem;
@@ -189,7 +248,7 @@ body::-webkit-scrollbar-thumb,
   padding-top: 2vh;
 }
 
-.lady-pac-logo {
+.logo .lady-pac-logo {
   width: 150px;
   height: 61px;
 }
@@ -211,7 +270,6 @@ h1 {
   text-align: center;
   color: var(--font-color-highlight-secondary);
   text-shadow: 2px 2px 10px var(--font-color-highlight-secondary);
-  
 }
 
 h2 {
@@ -319,6 +377,7 @@ h4 {
   color: var(--font-color-accent-secondary);
 }
 
+
 /* ------------------------------------- ENTER PLAYER SCREEN */
 
 
@@ -382,6 +441,7 @@ form .validation .error {
   text-align: center;
   text-transform: uppercase;
 }
+
 
 /* ----------------------------------------- WIN/LOSE SCREEN */
 
@@ -454,7 +514,7 @@ form .validation .error {
 }
 
 
-/* --------------------------------------------- LEADERBOARD */
+/* -------------------------------------- LEADERBOARD SCREEN */
 
 
 .highscore-list {
@@ -538,7 +598,8 @@ form .validation .error {
   color: red;
 }
 
-/* --------------------------------------------- MEDIA QUERIES */
+
+/* ------------------------------------------- MEDIA QUERIES */
 
 
  /* TABLET */
@@ -760,16 +821,8 @@ form .validation .error {
 @media screen and (max-width: 300px) {
   /* --------------------------- GENERAL */
 
-  /* LOGO */
-  
-  .lady-pac-logo {
-    width: 100px;
-    height: 40px;
-  }
-
   /* BUTTONS */
   .buttons {
-
     width: 95%;
   }
 
@@ -779,6 +832,13 @@ form .validation .error {
 
     line-height: 1;
     letter-spacing: 0;
+  }
+
+
+  /* LOGO */
+  .lady-pac-logo {
+    width: 100px;
+    height: 40px;
   }
 
 
