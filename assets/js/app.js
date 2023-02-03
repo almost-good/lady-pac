@@ -57,14 +57,14 @@ class App {
   #init() {
     // Enter player is ran automatically only the first time, when local storage is empty
     // Otherwise always ran confirm player screen.
-    /*if (!this.playerName) {
+    if (!this.playerName) {
       this.#enterPlayer();
     } else {
       this.#confirmPlayer();
-    }*/
-    this.game.game()
+    }
+    
     // Button event listeners
-    /*for (let i = 0; i < this.playBtns.length; i++) {
+    for (let i = 0; i < this.playBtns.length; i++) {
       this.playBtns[i].addEventListener("click", this.#playEvent);
     }
     for (let i = 0; i < this.switchPlayerBtns.length; i++) {
@@ -77,7 +77,10 @@ class App {
     this.soundBtn.addEventListener("click", this.#toggleSoundEvent);
 
     // Display high score
-    this.#displayHighScore();*/
+    this.#displayHighScore();
+    
+    // Run the game
+    this.game.game()
   }
 
   /**
