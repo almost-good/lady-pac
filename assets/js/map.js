@@ -5,19 +5,36 @@ export default class GameMap {
     this.squareSize = squareSize;
 
     // Images
-    this.wall = new Image();
-    this.wall.src = "../img/game/wall.png";
+    this.wallImg = new Image();
+    this.wallImg.src = "./assets/img/game/wall.png";
 
-    this.pellet = new Image();
-    this.pellet.src = "../img/game/pellet.png";
+    this.pelletImg = new Image();
+    this.pelletImg.src = "./assets/img/game/pellet.png";
 
     // Current map
     // TO DO - map will be connected with player lvl, for now there is only one lvl
     this.map = mapList;
   }
 
-  create() {
-    console.log(this.squareSize);
+  /** 
+  * Create map and all it's context.
+  * @param {object} ctx - Canvas context. The map is drawn inside ctx.
+  */
+
+  create(ctx) {
+    // Loop over map and get the correct img.
+    for (let row = 0; row < this.map.length; row++){
+      for(let column = 0; column < this.map[0].length; column++){
+        let square = this.map[row][column]
+        let squareImg
+        if (square === 0) {
+          squareImg = this.pelletImg
+        } else if (square === 1) {
+          squareImg = this.wallImg
+        }
+        this.#createSquareImg(ctx, squareImg, column, row)
+      }
+    }
   }
 
   /** 
@@ -28,5 +45,20 @@ export default class GameMap {
   setCanvasSize(canvas) {
     canvas.width = this.map[0].length * this.squareSize;
     canvas.height = this.map.length * this.squareSize;
+  }
+
+  /** 
+  * Add image to the square in the map.
+  * @summary The function calculates current x and y position of map square, and draws a an image.
+  * @param {object} ctx - Canvas context.
+  * @param {object} squareImg - Image to be drawn.
+  * @param {number} column - Current column in the map.
+  * @param {number} row - Current row in the map.
+  */
+
+  #createSquareImg(ctx, squareImg, column, row){
+    let xPosition = column * this.squareSize
+    let yPosition = row * this.squareSize
+    ctx.drawImage(squareImg, xPosition, yPosition, this.squareSize, this.squareSize)
   }
 }
