@@ -2,27 +2,22 @@ import GameMap from "./map.js";
 
 export default class Game {
   constructor() {
-    this.squareSize = 40;
-
     // Canvas
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
 
     // Create new Map object.
-    this.gameMap = new GameMap(this.squareSize);
+    this.gameMap = new GameMap();
   }
 
   /** 
   * Call the game.
   * @summary 
-  * Allows us to start the game. 
+  * Allows us to start the game and continue playing it. 
   * This function contains all setup needed for game to run.
   */
   
   game() {
-    // Set the size of canvas.
-    this.gameMap.setCanvasSize(this.canvas);
-
     // Run the game once every second.
     setInterval(this.#runGame.bind(this), 1000);
   }
@@ -33,6 +28,11 @@ export default class Game {
   */
   
   #runGame() {
+    // Set the size of square, and canvas.
+    this.gameMap.setSquareSize()
+    this.gameMap.setCanvasSize(this.canvas);
+
+    // Create map and it's content.
     this.gameMap.create(this.ctx);
   }
 }
