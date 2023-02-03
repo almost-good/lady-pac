@@ -1,5 +1,17 @@
 import GameMap from "./map.js";
 
+/**
+ * Game class used to start the game.
+ * 
+ * Public methods:
+ * 
+ *     game()
+ * 
+ * Private methods:
+ *
+ *     #runGame()
+ */
+
 export default class Game {
   constructor() {
     // Canvas

@@ -1,5 +1,19 @@
 import mapList from "./map-list.js";
 
+/**
+ * GameMap class used to create the map and it's content.
+ * 
+ * Public methods:
+ * 
+ *     create(ctx)
+ *     setSquareSize()
+ *     setCanvasSize(canvas)
+ * 
+ * Private methods:
+ *
+ *     #createSquareImg(ctx, squareImg, column, row)
+ */
+
 export default class GameMap {
   constructor() {
     // Images
