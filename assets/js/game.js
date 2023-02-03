@@ -42,10 +42,11 @@ export default class Game {
 
   #runGame() {
     // Set the size of square, and canvas.
-    this.gameMap.setSquareSize();
-    this.gameMap.setCanvasSize(this.canvas);
+    this.squareSize = this.gameMap.setSquareSize();
+    this.gameMap.setCanvasSize(this.canvas, this.squareSize);
 
-    // Create map and it's content.
-    this.gameMap.create(this.ctx);
+    // Create map, create Pacman.
+    this.gameMap.create(this.ctx, this.squareSize);
+    this.ladyPac.create(this.ctx, this.squareSize)
   }
 }

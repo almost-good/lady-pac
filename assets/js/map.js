@@ -31,11 +31,12 @@ export default class GameMap {
   }
 
   /**
-   * Create map and all it's context.
+   * Create map and all it's content.
    * @param {object} ctx - Canvas context. The map is drawn inside ctx.
+   * @param {number} squareSize - Size of one side of the square.
    */
 
-  create(ctx) {
+  create(ctx, squareSize) {
     // Loop over map and get the correct img.
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
@@ -50,7 +51,7 @@ export default class GameMap {
           continue;
         }
 
-        this.#createSquareImg(ctx, squareImg, column, row);
+        this.#createSquareImg(ctx, squareImg, column, row, squareSize);
       }
     }
   }
@@ -62,24 +63,25 @@ export default class GameMap {
 
   setSquareSize() {
     let browserWidth = window.innerWidth;
-
+    
     if (browserWidth >= 700) {
-      this.squareSize = 40;
+      return 40;
     } else if (browserWidth >= 360) {
-      this.squareSize = 26;
-    } else {
-      this.squareSize = 20;
+      return 26;
     }
+
+    return 20;
   }
 
   /**
    * Set the size of canvas.
    * @param {object} canvas - Canvas element from HTML. The game area.
+   * @param {number} squareSize - Size of one side of the square.
    */
 
-  setCanvasSize(canvas) {
-    canvas.width = this.map[0].length * this.squareSize;
-    canvas.height = this.map.length * this.squareSize;
+  setCanvasSize(canvas, squareSize) {
+    canvas.width = this.map[0].length * squareSize;
+    canvas.height = this.map.length * squareSize;
   }
 
   /**
@@ -91,13 +93,8 @@ export default class GameMap {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
 
-        this.setSquareSize();
-        let xPosition = column * this.squareSize;
-        let yPosition = row * this.squareSize;
-
         if (square === 2) {
-          console.log(xPosition, yPosition, this.squareSize);
-          return new LadyPac(xPosition, yPosition, this.squareSize, this);
+          return new LadyPac(column, row, this);
         }
       }
     }
@@ -112,15 +109,15 @@ export default class GameMap {
    * @param {number} row - Current row in the map.
    */
 
-  #createSquareImg(ctx, squareImg, column, row) {
-    let xPosition = column * this.squareSize;
-    let yPosition = row * this.squareSize;
+  #createSquareImg(ctx, squareImg, column, row, squareSize) {
+    let xPosition = column * squareSize;
+    let yPosition = row * squareSize;
     ctx.drawImage(
       squareImg,
       xPosition,
       yPosition,
-      this.squareSize,
-      this.squareSize
+      squareSize,
+      squareSize
     );
   }
 }
