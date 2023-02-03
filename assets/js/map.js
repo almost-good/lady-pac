@@ -1,14 +1,16 @@
 import mapList from "./map-list.js";
+import LadyPac from "./ladypac.js";
 
 /**
  * GameMap class used to create the map and it's content.
- * 
+ *
  * Public methods:
- * 
+ *
  *     create(ctx)
  *     setSquareSize()
  *     setCanvasSize(canvas)
- * 
+ *     getLadyPac()
+ *
  * Private methods:
  *
  *     #createSquareImg(ctx, squareImg, column, row)
@@ -39,11 +41,15 @@ export default class GameMap {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
         let squareImg;
+
         if (square === 0) {
           squareImg = this.pelletImg;
         } else if (square === 1) {
           squareImg = this.wallImg;
+        } else {
+          continue;
         }
+
         this.#createSquareImg(ctx, squareImg, column, row);
       }
     }
@@ -74,6 +80,27 @@ export default class GameMap {
   setCanvasSize(canvas) {
     canvas.width = this.map[0].length * this.squareSize;
     canvas.height = this.map.length * this.squareSize;
+  }
+
+  /**
+   * Get the initial Lady Pac position and create new Lady Pac object.
+   */
+
+  getLadyPac() {
+    for (let row = 0; row < this.map.length; row++) {
+      for (let column = 0; column < this.map[0].length; column++) {
+        let square = this.map[row][column];
+
+        this.setSquareSize();
+        let xPosition = column * this.squareSize;
+        let yPosition = row * this.squareSize;
+
+        if (square === 2) {
+          console.log(xPosition, yPosition, this.squareSize);
+          return new LadyPac(xPosition, yPosition, this.squareSize, this);
+        }
+      }
+    }
   }
 
   /**

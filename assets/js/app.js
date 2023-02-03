@@ -57,7 +57,7 @@ class App {
   #init() {
     // Enter player is ran automatically only the first time, when local storage is empty
     // Otherwise always ran confirm player screen.
-    if (!this.playerName) {
+    /*if (!this.playerName) {
       this.#enterPlayer();
     } else {
       this.#confirmPlayer();
@@ -78,7 +78,7 @@ class App {
 
     // Display high score
     this.#displayHighScore();
-    
+    */
     // Run the game
     this.game.game()
   }
