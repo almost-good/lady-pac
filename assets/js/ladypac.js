@@ -44,6 +44,10 @@ export default class LadyPac {
     this.xMoveSteps = 0;
     this.yMoveSteps = 0;
 
+    // Timers
+    this.timerDef = 8;
+    this.timer = this.timerDef;
+
     // Event listeners for key and swipes
     document.addEventListener("keydown", this.#checkKeyPressedEvent);
     document.addEventListener("touchstart", this.#touchStartEvent);
@@ -70,6 +74,8 @@ export default class LadyPac {
       this.#adjustPosition(squareSize);
       this.speed = this.gameMap.setSpeed();
     }
+
+    this.#animate();
 
     this.#move(squareSize);
 
@@ -366,16 +372,37 @@ export default class LadyPac {
     img1.src = "./assets/img/game/ladypac-open-half.png";
 
     const img2 = new Image();
-    img1.src = "./assets/img/game/ladypac-closed.png";
+    img2.src = "./assets/img/game/ladypac-closed.png";
 
     const img3 = new Image();
-    img1.src = "./assets/img/game/ladypac-open-half.png";
+    img3.src = "./assets/img/game/ladypac-open-half.png";
 
     const img4 = new Image();
-    img1.src = "./assets/img/game/ladypac-open-full.png";
+    img4.src = "./assets/img/game/ladypac-open-full.png";
 
     this.ladyPacImgs = [img1, img2, img3, img4];
 
     this.ladyPacImgIndex = 0;
+  }
+
+  /**
+   * Animate Lady Pac.
+   */
+
+  #animate() {
+    if (this.timer === null) {
+      return;
+    }
+
+    this.timer--;
+    // When the timer times out it's time to switch to new img and reset.
+    if (this.timer === 0) {
+      this.timer = this.timerDef;
+      this.ladyPacImgIndex++;
+
+      if (this.ladyPacImgIndex === this.ladyPacImgs.length) {
+        this.ladyPacImgIndex = 0;
+      }
+    }
   }
 }
