@@ -14,13 +14,15 @@ import GameMap from "./map.js";
 
 export default class Game {
   constructor() {
+    this.speed = 1;
+
     // Canvas
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
 
-    // Create new Map object.
+    // Create new Map object and Lady Pac.
     this.gameMap = new GameMap();
-    this.ladyPac = this.gameMap.getLadyPac();
+    this.ladyPac = this.gameMap.getLadyPac(this.speed);
   }
 
   /**
@@ -47,6 +49,6 @@ export default class Game {
 
     // Create map, create Pacman.
     this.gameMap.create(this.ctx, this.squareSize);
-    this.ladyPac.create(this.ctx, this.squareSize)
+    this.ladyPac.create(this.ctx, this.squareSize);
   }
 }
