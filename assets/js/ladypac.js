@@ -24,6 +24,7 @@ import { MoveDirection } from "./constants.js";
  *     #compareMoveAndCheckDirection(squareSize)
  *     #requestMoveDirection(directionCode)
  *     #setOrCheckRequestedDirection(oppositeDirection, requestedDirection)
+ *     #getSwipeDirectionCode(xDiff, yDiff)
  *     #positionInMiddleOfSquare(squareSize)
  *     #getImages()
  */
@@ -102,7 +103,8 @@ export default class LadyPac {
    * @summary
    * Get one touch position, positioned immediately after initial touch position.
    * Get difference bewteen current touch and initial touch positions.
-   * Use the difference to get final direction.
+   * Use the difference to get final direction code.
+   * Request move direction using direction code.
    */
 
   #touchDirectionEvent = (event) => {
@@ -117,33 +119,14 @@ export default class LadyPac {
     let xTouchDiff = this.xInitialTouch - xCurrentTouch;
     let yTouchDiff = this.yInitialTouch - yCurrentTouch;
 
-    let directionCode;
-
-    // Get swipe direction.
-    if (Math.abs(xTouchDiff) > Math.abs(yTouchDiff)) {
-      // Horizontal swipe
-      if (xTouchDiff > 0) {
-        // To the left.
-        directionCode = 37;
-      } else {
-        // To the right.
-        directionCode = 39;
-      }
-    } else {
-      // Vertical swipe.
-      if (xTouchDiff > 0) {
-        // To up.
-        directionCode = 38;
-      } else {
-        // To down.
-        directionCode = 40;
-      }
-    }
+    // Get direction code.
+    let directionCode = this.#getSwipeDirectionCode(xTouchDiff, yTouchDiff);
 
     // Reset initial touch.
     this.xInitialTouch = null;
     this.yInitialTouch = null;
 
+    // Pass direction code.
     this.#requestMoveDirection(directionCode);
   };
 
@@ -298,6 +281,37 @@ export default class LadyPac {
       this.moveDirection = requestedDirection;
     }
     this.checkDirection = requestedDirection;
+  }
+
+  /**
+   * Get direction code.
+   * @summary If the description is long, write your summary here. Otherwise, feel free to remove this.
+   * @param {number} xDiff - X coordinate difference between initial and current touch.
+   * @param {number} yDiff - Y coordinate difference between initial and current touch.
+   * @return {number} Direction code.
+   */
+
+  #getSwipeDirectionCode(xDiff, yDiff) {
+    // Get swipe direction.
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      // Horizontal swipe
+      if (xDiff > 0) {
+        // To the left.
+        return 37;
+      } else {
+        // To the right.
+        return 39;
+      }
+    } else {
+      // Vertical swipe.
+      if (xDiff > 0) {
+        // To up.
+        return 38;
+      } else {
+        // To down.
+        return 40;
+      }
+    }
   }
 
   /**
