@@ -39,7 +39,7 @@ export default class Game {
     };
 
     // Run the game once every second.
-    setInterval(this.#runGame.bind(this), 1000 / 60);
+    setInterval(this.#runGame.bind(this), 1000 / 80);
   }
 
   /**

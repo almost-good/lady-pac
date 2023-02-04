@@ -1,4 +1,5 @@
 import mapList from "./map-list.js";
+import { MoveDirection } from "./constants.js";
 import LadyPac from "./ladypac.js";
 
 /**
@@ -6,14 +7,17 @@ import LadyPac from "./ladypac.js";
  *
  * Public methods:
  *
- *     create(ctx)
+ *     create(ctx, squareSize)
  *     setSquareSize()
- *     setCanvasSize(canvas)
- *     getLadyPac()
+ *     setCanvasSize(canvas, squareSize)
+ *     bumpIntoWall()
+ *     getLadyPac(speed)
+ *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
+ *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
  *
  * Private methods:
  *
- *     #createSquareImg(ctx, squareImg, column, row)
+ *     #createSquareImg(ctx, squareImg, column, row, squareSize)
  */
 
 export default class GameMap {
@@ -64,7 +68,7 @@ export default class GameMap {
 
   setSquareSize() {
     let browserWidth = window.innerWidth;
-    
+
     if (browserWidth >= 700) {
       return 40;
     } else if (browserWidth >= 360) {
@@ -94,12 +98,77 @@ export default class GameMap {
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
-        
+
         if (square === 2) {
           return new LadyPac(speed, column, row, this);
         }
       }
     }
+  }
+
+  /**
+   * Check if object bumped into wall.
+   * @summary
+   * Check the type of a square, positioned 1 square size in front of the object
+   * in the specified direction.
+   * If the type of square stationed at that position is 1, that is a wall sqaure
+   * and return value should be true.
+   * @param {number} xPosition - X coordinate of the object.
+   * @param {number} yPosition - Y coordinate of the object.
+   * @param {number} direction - Direction where the object is headed.
+   * @param {number} squareSize - Size of one side of the square.
+   * @return {boolean} If it bumped - true, otherwise false.
+   */
+
+  bumpIntoWall(xPosition, yPosition, direction, squareSize) {
+    // Check if object is not centered.
+    if (!this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
+      return false;
+    }
+
+    let column = 0;
+    let row = 0;
+
+    // If moving up/left the value is subtracted, otherwise added.
+    switch (direction) {
+      case MoveDirection.up:
+        row = (yPosition - squareSize) / squareSize;
+        column = xPosition / squareSize;
+        break;
+      case MoveDirection.down:
+        row = (yPosition + squareSize) / squareSize;
+        column = xPosition / squareSize;
+        break;
+      case MoveDirection.left:
+        row = yPosition / squareSize;
+        column = (xPosition - squareSize) / squareSize;
+        break;
+      case MoveDirection.right:
+        row = yPosition / squareSize;
+        column = (xPosition + squareSize) / squareSize;
+        break;
+    }
+
+    const square = this.map[row][column];
+    if (square === 1) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Check if current position is aligned perfectly in middle of square.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   * @return {boolean}
+   */
+
+  positionInMiddleOfSquare(xPosition, yPosition, squareSize) {
+    return (
+      Number.isInteger(xPosition / squareSize) &&
+      Number.isInteger(yPosition / squareSize)
+    );
   }
 
   /**
@@ -114,12 +183,6 @@ export default class GameMap {
   #createSquareImg(ctx, squareImg, column, row, squareSize) {
     let xPosition = column * squareSize;
     let yPosition = row * squareSize;
-    ctx.drawImage(
-      squareImg,
-      xPosition,
-      yPosition,
-      squareSize,
-      squareSize
-    );
+    ctx.drawImage(squareImg, xPosition, yPosition, squareSize, squareSize);
   }
 }

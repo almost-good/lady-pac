@@ -21,11 +21,10 @@ import { MoveDirection } from "./constants.js";
  *     #adjustPosition(squareSize)
  *     #calcStepDiff(moveSteps, squareSize)
  *     #move(squareSize)
- *     #compareMoveAndCheckDirection(squareSize)
+ *     #setMoveToCheckDirection(squareSize)
  *     #requestMoveDirection(directionCode)
  *     #setOrCheckRequestedDirection(oppositeDirection, requestedDirection)
  *     #getSwipeDirectionCode(xDiff, yDiff)
- *     #positionInMiddleOfSquare(squareSize)
  *     #getImages()
  */
 
@@ -86,7 +85,7 @@ export default class LadyPac {
    */
 
   #checkKeyPressedEvent = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     this.#requestMoveDirection(event.keyCode);
   };
 
@@ -190,8 +189,25 @@ export default class LadyPac {
    */
 
   #move(squareSize) {
-    this.#compareMoveAndCheckDirection(squareSize);
+    // Only change move direction to check direction if they are different.
+    if (this.moveDirection !== this.checkDirection) {
+      this.#setMoveToCheckDirection(squareSize);
+    }
 
+    // Lady Pac movement without change of direction continuosly checks
+    // if there is wall in front. If there is, do not move.
+    if (
+      this.gameMap.bumpIntoWall(
+        this.xPosition,
+        this.yPosition,
+        this.moveDirection,
+        squareSize
+      )
+    ) {
+      return;
+    }
+
+    // Lady Pac movement.
     switch (this.moveDirection) {
       case MoveDirection.up:
         // To move up subtract speed from yPosition,
@@ -221,11 +237,25 @@ export default class LadyPac {
    * @param {number} squareSize - Size of one side of the square.
    */
 
-  #compareMoveAndCheckDirection(squareSize) {
-    // Only change move direction to check direction if they are different.
-    if (this.moveDirection !== this.checkDirection) {
-      // Lady Pac can only change direction if she is aligned perfectly in middle of square.
-      if (this.#positionInMiddleOfSquare(squareSize)) {
+  #setMoveToCheckDirection(squareSize) {
+    // Lady Pac can only change direction if she is aligned perfectly in middle of square.
+    if (
+      this.gameMap.positionInMiddleOfSquare(
+        this.xPosition,
+        this.yPosition,
+        squareSize
+      )
+    ) {
+      // Check if Lady Pac did not bump into wall.
+      if (
+        !this.gameMap.bumpIntoWall(
+          this.xPosition,
+          this.yPosition,
+          this.checkDirection,
+          squareSize
+        )
+      ) {
+        // Set move direction.
         this.moveDirection = this.checkDirection;
       }
     }
@@ -321,13 +351,6 @@ export default class LadyPac {
    * @param {number} squareSize - Size of one side of the square.
    * @return {boolean}
    */
-
-  #positionInMiddleOfSquare(squareSize) {
-    return (
-      Number.isInteger(this.xPosition / squareSize) &&
-      Number.isInteger(this.yPosition / squareSize)
-    );
-  }
 
   /**
    * Get all images and allow for their access.
