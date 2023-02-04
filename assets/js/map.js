@@ -86,15 +86,16 @@ export default class GameMap {
 
   /**
    * Get the initial Lady Pac position and create new Lady Pac object.
+   * @param {number} speed - Speed of lady Pac, number of steps per instance of game.
    */
 
-  getLadyPac() {
+  getLadyPac(speed) {
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
-
+        
         if (square === 2) {
-          return new LadyPac(column, row, this);
+          return new LadyPac(speed, column, row, this);
         }
       }
     }
