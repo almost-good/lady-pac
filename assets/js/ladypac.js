@@ -46,7 +46,7 @@ export default class LadyPac {
 
     // Timers
     this.timerDef = 8;
-    this.timer = this.timerDef;
+    this.timer = null;
 
     // Event listeners for key and swipes
     document.addEventListener("keydown", this.#checkKeyPressedEvent);
@@ -75,9 +75,8 @@ export default class LadyPac {
       this.speed = this.gameMap.setSpeed();
     }
 
-    this.#animate();
-
     this.#move(squareSize);
+    this.#animate();
 
     ctx.drawImage(
       this.ladyPacImgs[this.ladyPacImgIndex],
@@ -194,7 +193,7 @@ export default class LadyPac {
   }
 
   /**
-   * Move LadyPac.
+   * Move LadyPac and start .
    *
    * @param {number} squareSize - Size of one side of the square.
    */
@@ -387,11 +386,18 @@ export default class LadyPac {
 
   /**
    * Animate Lady Pac.
+   * @summary
+   * Animation is only active when there is movement.
    */
 
   #animate() {
+    // If animation is not active then check for movement.
     if (this.timer === null) {
-      return;
+      if (this.moveDirection != null) {
+        this.timer = this.timerDef;
+      } else {
+        return;
+      }
     }
 
     this.timer--;
