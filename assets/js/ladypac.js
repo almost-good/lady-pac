@@ -15,6 +15,10 @@ import { MoveDirection } from "./constants.js";
  *
  * Private methods:
  *
+ *     #definePosition(squareSize)
+ *     #move(squareSize)
+ *     #compareMoveAndCheckDirection(squareSize)
+ *     #positionInMiddleOfSquare(squareSize)
  *     #getImages()
  */
 
@@ -47,15 +51,13 @@ export default class LadyPac {
    */
 
   create(ctx, squareSize) {
-    // If xPosition and yPosition are not defined, define them.
+    // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
-      this.xPosition = this.column * squareSize;
-      this.yPosition = this.row * squareSize;
-      this.squarePreResize = squareSize;
+      this.#definePosition(squareSize);
     }
 
     this.#move(squareSize);
-    
+
     ctx.drawImage(
       this.ladyPacImgs[this.ladyPacImgIndex],
       this.xPosition,
@@ -105,6 +107,16 @@ export default class LadyPac {
   };
 
   /**
+   * Define x and y positions, set square pre resize size.
+   */
+
+  #definePosition(squareSize) {
+    this.xPosition = this.column * squareSize;
+    this.yPosition = this.row * squareSize;
+    this.squarePreResize = squareSize;
+  }
+
+  /**
    * Move LadyPac.
    *
    * @param {number} squareSize - Size of one side of the square.
@@ -146,9 +158,7 @@ export default class LadyPac {
     // Only change move direction to check direction if they are different.
     if (this.moveDirection !== this.checkDirection) {
       // Lady Pac can only change direction if she is aligned perfectly in middle of square.
-      if (
-        this.#positionInMiddleOfSquare(squareSize)
-      ) {
+      if (this.#positionInMiddleOfSquare(squareSize)) {
         this.moveDirection = this.checkDirection;
       }
     }
@@ -161,8 +171,11 @@ export default class LadyPac {
    * @return {boolean}
    */
 
-  #positionInMiddleOfSquare(squareSize){
-    return (Number.isInteger(this.xPosition / squareSize) && Number.isInteger(this.yPosition / squareSize))
+  #positionInMiddleOfSquare(squareSize) {
+    return (
+      Number.isInteger(this.xPosition / squareSize) &&
+      Number.isInteger(this.yPosition / squareSize)
+    );
   }
 
   /**
