@@ -12,6 +12,8 @@ import { MoveDirection } from "./constants.js";
  * Event methods:
  *
  *     #checkKeyPressedEvent
+ *     #touchStartEvent
+ *     #touchDirectionEvent
  *
  * Private methods:
  *
@@ -40,8 +42,10 @@ export default class LadyPac {
     this.xMoveSteps = 0;
     this.yMoveSteps = 0;
 
-    // Event listeners
+    // Event listeners for key and swipes
     document.addEventListener("keydown", this.#checkKeyPressedEvent);
+    document.addEventListener("touchstart", this.#touchStartEvent);
+    document.addEventListener("touchmove", this.#touchDirectionEvent);
 
     this.#getImages();
   }
@@ -111,6 +115,61 @@ export default class LadyPac {
       }
       this.checkDirection = MoveDirection.right;
     }
+  };
+
+  /**
+   * Starting position of swipe Event.
+   */
+
+  #touchStartEvent = (event) => {
+    this.xInitialTouch = event.touches[0].clientX;
+    this.yInitialTouch = event.touches[0].clientY;
+  };
+
+  /**
+   * Direction of the swipe Event.
+   * @summary
+   * Get one touch position, positioned immediately after initial touch position.
+   * Get difference bewteen current touch and initial touch positions.
+   * Use the difference to get final direction.
+   */
+
+  #touchDirectionEvent = (event) => {
+    // Do not run if initial touch haven't been positioned.
+    if (this.xInitialTouch === null || this.yInitialTouch === null) {
+      return;
+    }
+
+    let xCurrentTouch = event.touches[0].clientX;
+    let yCurrentTouch = event.touches[0].clientY;
+
+    let xTouchDiff = this.xInitialTouch - xCurrentTouch;
+    let yTouchDiff = this.yInitialTouch - yCurrentTouch;
+
+    // Get swipe direction.
+    if (Math.abs(xTouchDiff) > Math.abs(yTouchDiff)) {
+      // Horizontal swipe
+      if (xTouchDiff > 0) {
+        // To the left.
+        console.log("left");
+      } else {
+        // To the right.
+        console.log("right");
+      }
+    } else {
+      // Vertical swipe.
+      if (xTouchDiff > 0) {
+        // To up.
+        console.log("up");
+      } else {
+        // To down.
+        console.log("down");
+      }
+    }
+
+    // Reset initial touch.
+    this.xInitialTouch = null;
+    this.yInitialTouch = null;
   };
 
   /**
