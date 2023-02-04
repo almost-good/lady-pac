@@ -86,6 +86,7 @@ export default class LadyPac {
    */
 
   #checkKeyPressedEvent = (event) => {
+    event.preventDefault()
     this.#requestMoveDirection(event.keyCode);
   };
 
@@ -304,7 +305,7 @@ export default class LadyPac {
       }
     } else {
       // Vertical swipe.
-      if (xDiff > 0) {
+      if (yDiff > 0) {
         // To up.
         return 38;
       } else {

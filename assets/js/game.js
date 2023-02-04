@@ -33,8 +33,13 @@ export default class Game {
    */
 
   game() {
+    // Scroll the game into position when playing it.
+    window.onscroll = (event) => {
+      this.canvas.scrollIntoView({ block: "end" });
+    };
+
     // Run the game once every second.
-    setInterval(this.#runGame.bind(this), 1000);
+    setInterval(this.#runGame.bind(this), 1000 / 60);
   }
 
   /**
