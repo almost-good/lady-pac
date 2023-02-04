@@ -23,6 +23,7 @@ import { MoveDirection } from "./constants.js";
  *     #move(squareSize)
  *     #compareMoveAndCheckDirection(squareSize)
  *     #requestMoveDirection(directionCode)
+ *     #setOrCheckRequestedDirection(oppositeDirection, requestedDirection)
  *     #positionInMiddleOfSquare(squareSize)
  *     #getImages()
  */
@@ -116,7 +117,7 @@ export default class LadyPac {
     let xTouchDiff = this.xInitialTouch - xCurrentTouch;
     let yTouchDiff = this.yInitialTouch - yCurrentTouch;
 
-    let directionCode = 0;
+    let directionCode;
 
     // Get swipe direction.
     if (Math.abs(xTouchDiff) > Math.abs(yTouchDiff)) {
@@ -247,45 +248,56 @@ export default class LadyPac {
   }
 
   /**
-   * Request move direction, done by using a key or swipe.
-   * @summary 
-   * If current moving direction is opposite then requested one, set moving direction straight away.
-   * If it's different then pass new direction to be checked.
+   * Request move direction by comparing the code recieved with direction numbers.
    * @param {number} directionCode - Contains code which dictates direction.
    */
 
   #requestMoveDirection(directionCode) {
-    // Up key.
-    if (directionCode === 38) {
-      if (this.moveDirection === MoveDirection.down) {
-        this.moveDirection = MoveDirection.up;
-      }
-      this.checkDirection = MoveDirection.up;
+    switch (directionCode) {
+      case 38:
+        // To up.
+        this.#setOrCheckRequestedDirection(
+          MoveDirection.down,
+          MoveDirection.up
+        );
+        break;
+      case 40:
+        // To down.
+        this.#setOrCheckRequestedDirection(
+          MoveDirection.up,
+          MoveDirection.down
+        );
+        break;
+      case 37:
+        // To left.
+        this.#setOrCheckRequestedDirection(
+          MoveDirection.right,
+          MoveDirection.left
+        );
+        break;
+      case 39:
+        // To right.
+        this.#setOrCheckRequestedDirection(
+          MoveDirection.left,
+          MoveDirection.right
+        );
     }
+  }
 
-    // Down key.
-    if (directionCode === 40) {
-      if (this.moveDirection === MoveDirection.up) {
-        this.moveDirection = MoveDirection.down;
-      }
-      this.checkDirection = MoveDirection.down;
-    }
+  /**
+   * Set or Check requested moving direction.
+   * @summary
+   * If current moving direction is opposite then requested one, set moving direction straight away.
+   * If it's different then pass new direction to be checked.
+   * @param {number} oppositeDirection - Direction opposite then requested one.
+   * @param {number} requestedDirection - Direction being requested.
+   */
 
-    // Left key.
-    if (directionCode === 37) {
-      if (this.moveDirection === MoveDirection.right) {
-        this.moveDirection = MoveDirection.left;
-      }
-      this.checkDirection = MoveDirection.left;
+  #setOrCheckRequestedDirection(oppositeDirection, requestedDirection) {
+    if (this.moveDirection === oppositeDirection) {
+      this.moveDirection = requestedDirection;
     }
-
-    // Right key.
-    if (directionCode === 39) {
-      if (this.moveDirection === MoveDirection.left) {
-        this.moveDirection = MoveDirection.right;
-      }
-      this.checkDirection = MoveDirection.right;
-    }
+    this.checkDirection = requestedDirection;
   }
 
   /**
