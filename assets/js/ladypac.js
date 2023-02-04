@@ -26,6 +26,8 @@ import { MoveDirection } from "./constants.js";
  *     #setOrCheckRequestedDirection(oppositeDirection, requestedDirection)
  *     #getSwipeDirectionCode(xDiff, yDiff)
  *     #getImages()
+ *     #animate()
+ *     #stopAnimation()
  */
 
 export default class LadyPac {
@@ -214,6 +216,8 @@ export default class LadyPac {
         squareSize
       )
     ) {
+      // When the movement stops, so does the animation.
+      this.#stopAnimation()
       return;
     }
 
@@ -410,5 +414,14 @@ export default class LadyPac {
         this.ladyPacImgIndex = 0;
       }
     }
+  }
+
+  /**
+   * Stops animation.
+   */
+
+  #stopAnimation() {
+    this.timer = null;
+    this.ladyPacImgIndex = 0;
   }
 }
