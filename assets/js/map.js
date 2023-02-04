@@ -74,7 +74,7 @@ export default class GameMap {
 
     if (browserWidth > 700) {
       return 40;
-    } else if (browserWidth > 360) {
+    } else if (browserWidth > 375) {
       return 28;
     }
 
@@ -90,7 +90,7 @@ export default class GameMap {
   setSpeed() {
     let browserWidth = window.innerWidth;
 
-    if (browserWidth <= 360) {
+    if (browserWidth <= 700) {
       return 2;
     }
 
