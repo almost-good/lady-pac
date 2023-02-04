@@ -59,6 +59,7 @@ export default class GameMap {
   /**
    * Set the size of one square in map.
    * @summary The square size is changed dynamically, depending on browser width.
+   * @return {number} Square Size.
    */
 
   setSquareSize() {

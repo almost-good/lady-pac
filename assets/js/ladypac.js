@@ -28,7 +28,7 @@ export default class LadyPac {
 
     // Moving directions
     this.moveDirection = null;
-    this.checkMoveDirection = null;
+    this.checkDirection = null;
 
     // How much Lady Pac moved
     this.xMoveSteps = 0;
@@ -54,6 +54,8 @@ export default class LadyPac {
       this.squarePreResize = squareSize;
     }
 
+    this.#move(squareSize);
+    
     ctx.drawImage(
       this.ladyPacImgs[this.ladyPacImgIndex],
       this.xPosition,
@@ -74,7 +76,7 @@ export default class LadyPac {
       if (this.moveDirection === MoveDirection.down) {
         this.moveDirection = MoveDirection.up;
       }
-      this.checkMoveDirection = MoveDirection.up;
+      this.checkDirection = MoveDirection.up;
     }
 
     // Down key.
@@ -82,7 +84,7 @@ export default class LadyPac {
       if (this.moveDirection === MoveDirection.up) {
         this.moveDirection = MoveDirection.down;
       }
-      this.checkMoveDirection = MoveDirection.down;
+      this.checkDirection = MoveDirection.down;
     }
 
     // Left key.
@@ -90,7 +92,7 @@ export default class LadyPac {
       if (this.moveDirection === MoveDirection.right) {
         this.moveDirection = MoveDirection.left;
       }
-      this.checkMoveDirection = MoveDirection.left;
+      this.checkDirection = MoveDirection.left;
     }
 
     // Right key.
@@ -98,9 +100,70 @@ export default class LadyPac {
       if (this.moveDirection === MoveDirection.left) {
         this.moveDirection = MoveDirection.right;
       }
-      this.checkMoveDirection = MoveDirection.right;
+      this.checkDirection = MoveDirection.right;
     }
   };
+
+  /**
+   * Move LadyPac.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #move(squareSize) {
+    this.#compareMoveAndCheckDirection(squareSize);
+
+    switch (this.moveDirection) {
+      case MoveDirection.up:
+        // To move up subtract speed from yPosition,
+        this.yPosition -= this.speed;
+        this.yMoveSteps--;
+        break;
+
+      case MoveDirection.down:
+        this.yPosition += this.speed;
+        this.yMoveSteps++;
+        break;
+
+      case MoveDirection.left:
+        this.xPosition -= this.speed;
+        this.xMoveSteps--;
+        break;
+
+      case MoveDirection.right:
+        this.xPosition += this.speed;
+        this.xMoveSteps++;
+    }
+  }
+
+  /**
+   * Set move direction to check direction if applicable.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #compareMoveAndCheckDirection(squareSize) {
+    // Only change move direction to check direction if they are different.
+    if (this.moveDirection !== this.checkDirection) {
+      // Lady Pac can only change direction if she is aligned perfectly in middle of square.
+      if (
+        this.#positionInMiddleOfSquare(squareSize)
+      ) {
+        this.moveDirection = this.checkDirection;
+      }
+    }
+  }
+
+  /**
+   * Check if current position is aligned perfectly in middle of square.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   * @return {boolean}
+   */
+
+  #positionInMiddleOfSquare(squareSize){
+    return (Number.isInteger(this.xPosition / squareSize) && Number.isInteger(this.yPosition / squareSize))
+  }
 
   /**
    * Get all images and allow for their access.
