@@ -14,15 +14,13 @@ import GameMap from "./map.js";
 
 export default class Game {
   constructor() {
-    this.speed = 1;
-
     // Canvas
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
 
     // Create new Map object and Lady Pac.
     this.gameMap = new GameMap();
-    this.ladyPac = this.gameMap.getLadyPac(this.speed);
+    this.ladyPac = this.gameMap.getLadyPac();
   }
 
   /**
@@ -39,7 +37,7 @@ export default class Game {
     };
 
     // Run the game once every second.
-    setInterval(this.#runGame.bind(this), 1000 / 80);
+    setInterval(this.#runGame.bind(this), 1000/50);
   }
 
   /**

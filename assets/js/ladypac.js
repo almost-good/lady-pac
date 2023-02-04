@@ -65,8 +65,10 @@ export default class LadyPac {
     }
 
     // If the screen is resized, "remember" lady pac position prior to resize.
+    // Adjust the speed.
     if (this.squarePreResize != squareSize) {
       this.#adjustPosition(squareSize);
+      this.speed = this.gameMap.setSpeed()
     }
 
     this.#move(squareSize);
@@ -178,8 +180,11 @@ export default class LadyPac {
 
   #calcStepDiff(moveSteps, squareSize) {
     let squareSizeDiff = this.squarePreResize - squareSize;
-
-    return Math.round((moveSteps / this.squarePreResize) * squareSizeDiff);
+    let diff = Math.round((moveSteps / this.squarePreResize) * squareSizeDiff)
+    
+    // If the speed is two, diff has to be pair number,
+    // othervise Lady Pac will go out of the position.
+    return diff - (diff % this.speed)
   }
 
   /**
@@ -212,22 +217,22 @@ export default class LadyPac {
       case MoveDirection.up:
         // To move up subtract speed from yPosition,
         this.yPosition -= this.speed;
-        this.yMoveSteps--;
+        this.yMoveSteps -= this.speed;
         break;
 
       case MoveDirection.down:
         this.yPosition += this.speed;
-        this.yMoveSteps++;
+        this.yMoveSteps += this.speed;
         break;
 
       case MoveDirection.left:
         this.xPosition -= this.speed;
-        this.xMoveSteps--;
+        this.xMoveSteps -= this.speed;
         break;
 
       case MoveDirection.right:
         this.xPosition += this.speed;
-        this.xMoveSteps++;
+        this.xMoveSteps += this.speed;
     }
   }
 

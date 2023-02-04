@@ -9,9 +9,10 @@ import LadyPac from "./ladypac.js";
  *
  *     create(ctx, squareSize)
  *     setSquareSize()
+ *     setSpeed()
  *     setCanvasSize(canvas, squareSize)
  *     bumpIntoWall()
- *     getLadyPac(speed)
+ *     getLadyPac()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
  *
@@ -22,6 +23,8 @@ import LadyPac from "./ladypac.js";
 
 export default class GameMap {
   constructor() {
+    this.speed = this.setSpeed()
+    
     // Images
     this.wallImg = new Image();
     this.wallImg.src = "./assets/img/game/wall.png";
@@ -69,13 +72,29 @@ export default class GameMap {
   setSquareSize() {
     let browserWidth = window.innerWidth;
 
-    if (browserWidth >= 700) {
+    if (browserWidth > 700) {
       return 40;
-    } else if (browserWidth >= 360) {
-      return 26;
+    } else if (browserWidth > 360) {
+      return 28;
     }
 
     return 20;
+  }
+
+  /**
+   * Set the speed of moving objects.
+   * @summary The speed is changed dynamically, depending on browser width.
+   * @return {number} Speed.
+   */
+
+  setSpeed() {
+    let browserWidth = window.innerWidth;
+
+    if (browserWidth <= 360) {
+      return 2;
+    }
+
+    return 4;
   }
 
   /**
@@ -91,16 +110,15 @@ export default class GameMap {
 
   /**
    * Get the initial Lady Pac position and create new Lady Pac object.
-   * @param {number} speed - Speed of lady Pac, number of steps per instance of game.
    */
 
-  getLadyPac(speed) {
+  getLadyPac() {
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
 
         if (square === 2) {
-          return new LadyPac(speed, column, row, this);
+          return new LadyPac(this.speed, column, row, this);
         }
       }
     }
