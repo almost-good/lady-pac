@@ -68,7 +68,7 @@ export default class LadyPac {
     // Adjust the speed.
     if (this.squarePreResize != squareSize) {
       this.#adjustPosition(squareSize);
-      this.speed = this.gameMap.setSpeed()
+      this.speed = this.gameMap.setSpeed();
     }
 
     this.#move(squareSize);
@@ -180,11 +180,11 @@ export default class LadyPac {
 
   #calcStepDiff(moveSteps, squareSize) {
     let squareSizeDiff = this.squarePreResize - squareSize;
-    let diff = Math.round((moveSteps / this.squarePreResize) * squareSizeDiff)
-    
+    let diff = Math.round((moveSteps / this.squarePreResize) * squareSizeDiff);
+
     // If the speed is two, diff has to be pair number,
     // othervise Lady Pac will go out of the position.
-    return diff - (diff % this.speed)
+    return diff - (diff % this.speed);
   }
 
   /**
@@ -365,7 +365,16 @@ export default class LadyPac {
     const img1 = new Image();
     img1.src = "./assets/img/game/ladypac-open-half.png";
 
-    this.ladyPacImgs = [img1];
+    const img2 = new Image();
+    img1.src = "./assets/img/game/ladypac-closed.png";
+
+    const img3 = new Image();
+    img1.src = "./assets/img/game/ladypac-open-half.png";
+
+    const img4 = new Image();
+    img1.src = "./assets/img/game/ladypac-open-full.png";
+
+    this.ladyPacImgs = [img1, img2, img3, img4];
 
     this.ladyPacImgIndex = 0;
   }
