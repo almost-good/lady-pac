@@ -22,6 +22,7 @@ import { MoveDirection } from "./constants.js";
  *     #calcStepDiff(moveSteps, squareSize)
  *     #move(squareSize)
  *     #compareMoveAndCheckDirection(squareSize)
+ *     #requestMoveDirection(directionCode)
  *     #positionInMiddleOfSquare(squareSize)
  *     #getImages()
  */
@@ -79,42 +80,11 @@ export default class LadyPac {
   }
 
   /**
-   * Check which key was pressed event.
-   * Set the position to be checked and if applicable set the move direction.
+   * Check which key was pressed event. Request key direction.
    */
 
   #checkKeyPressedEvent = (event) => {
-    // Up key.
-    if (event.keyCode === 38) {
-      if (this.moveDirection === MoveDirection.down) {
-        this.moveDirection = MoveDirection.up;
-      }
-      this.checkDirection = MoveDirection.up;
-    }
-
-    // Down key.
-    if (event.keyCode === 40) {
-      if (this.moveDirection === MoveDirection.up) {
-        this.moveDirection = MoveDirection.down;
-      }
-      this.checkDirection = MoveDirection.down;
-    }
-
-    // Left key.
-    if (event.keyCode === 37) {
-      if (this.moveDirection === MoveDirection.right) {
-        this.moveDirection = MoveDirection.left;
-      }
-      this.checkDirection = MoveDirection.left;
-    }
-
-    // Right key.
-    if (event.keyCode === 39) {
-      if (this.moveDirection === MoveDirection.left) {
-        this.moveDirection = MoveDirection.right;
-      }
-      this.checkDirection = MoveDirection.right;
-    }
+    this.#requestMoveDirection(event.keyCode);
   };
 
   /**
@@ -146,30 +116,34 @@ export default class LadyPac {
     let xTouchDiff = this.xInitialTouch - xCurrentTouch;
     let yTouchDiff = this.yInitialTouch - yCurrentTouch;
 
+    let directionCode = 0;
+
     // Get swipe direction.
     if (Math.abs(xTouchDiff) > Math.abs(yTouchDiff)) {
       // Horizontal swipe
       if (xTouchDiff > 0) {
         // To the left.
-        console.log("left");
+        directionCode = 37;
       } else {
         // To the right.
-        console.log("right");
+        directionCode = 39;
       }
     } else {
       // Vertical swipe.
       if (xTouchDiff > 0) {
         // To up.
-        console.log("up");
+        directionCode = 38;
       } else {
         // To down.
-        console.log("down");
+        directionCode = 40;
       }
     }
 
     // Reset initial touch.
     this.xInitialTouch = null;
     this.yInitialTouch = null;
+
+    this.#requestMoveDirection(directionCode);
   };
 
   /**
@@ -269,6 +243,48 @@ export default class LadyPac {
       if (this.#positionInMiddleOfSquare(squareSize)) {
         this.moveDirection = this.checkDirection;
       }
+    }
+  }
+
+  /**
+   * Request move direction, done by using a key or swipe.
+   * @summary 
+   * If current moving direction is opposite then requested one, set moving direction straight away.
+   * If it's different then pass new direction to be checked.
+   * @param {number} directionCode - Contains code which dictates direction.
+   */
+
+  #requestMoveDirection(directionCode) {
+    // Up key.
+    if (directionCode === 38) {
+      if (this.moveDirection === MoveDirection.down) {
+        this.moveDirection = MoveDirection.up;
+      }
+      this.checkDirection = MoveDirection.up;
+    }
+
+    // Down key.
+    if (directionCode === 40) {
+      if (this.moveDirection === MoveDirection.up) {
+        this.moveDirection = MoveDirection.down;
+      }
+      this.checkDirection = MoveDirection.down;
+    }
+
+    // Left key.
+    if (directionCode === 37) {
+      if (this.moveDirection === MoveDirection.right) {
+        this.moveDirection = MoveDirection.left;
+      }
+      this.checkDirection = MoveDirection.left;
+    }
+
+    // Right key.
+    if (directionCode === 39) {
+      if (this.moveDirection === MoveDirection.left) {
+        this.moveDirection = MoveDirection.right;
+      }
+      this.checkDirection = MoveDirection.right;
     }
   }
 
