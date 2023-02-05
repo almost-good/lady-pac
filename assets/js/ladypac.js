@@ -28,7 +28,7 @@ import { MoveDirection } from "./constants.js";
  *     #getImages()
  *     #animate()
  *     #stopAnimation()
- *     #rotate()
+ *     #rotate(ctx, squareSize)
  */
 
 export default class LadyPac {
