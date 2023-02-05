@@ -28,6 +28,7 @@ import { MoveDirection } from "./constants.js";
  *     #getImages()
  *     #animate()
  *     #stopAnimation()
+ *     #rotate()
  */
 
 export default class LadyPac {
@@ -79,14 +80,7 @@ export default class LadyPac {
 
     this.#move(squareSize);
     this.#animate();
-
-    ctx.drawImage(
-      this.ladyPacImgs[this.ladyPacImgIndex],
-      this.xPosition,
-      this.yPosition,
-      squareSize,
-      squareSize
-    );
+    this.#rotate(ctx, squareSize);
   }
 
   /**
@@ -217,7 +211,7 @@ export default class LadyPac {
       )
     ) {
       // When the movement stops, so does the animation.
-      this.#stopAnimation()
+      this.#stopAnimation();
       return;
     }
 
@@ -228,21 +222,21 @@ export default class LadyPac {
         this.yPosition -= this.speed;
         this.yMoveSteps -= this.speed;
         break;
-
       case MoveDirection.down:
         this.yPosition += this.speed;
         this.yMoveSteps += this.speed;
         break;
-
       case MoveDirection.left:
         this.xPosition -= this.speed;
         this.xMoveSteps -= this.speed;
         break;
-
       case MoveDirection.right:
         this.xPosition += this.speed;
         this.xMoveSteps += this.speed;
     }
+
+    // Set rotation to face same direction as move direction.
+    this.imgRotation = this.moveDirection;
   }
 
   /**
@@ -423,5 +417,34 @@ export default class LadyPac {
   #stopAnimation() {
     this.timer = null;
     this.ladyPacImgIndex = 0;
+  }
+
+  /**
+   * Rotate Lady Pac and draw image on screen.
+   * @summary
+   * Save the original state of the image, after redrawing the image
+   * restore original image state and start new rotation from there.
+   * @param {object} ctx - Canvas context.
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #rotate(ctx, squareSize) {
+    const halfSquareSize = squareSize / 2;
+
+    // Rotate Lady Pac.
+    ctx.save();
+    ctx.translate(
+      this.xPosition + halfSquareSize,
+      this.yPosition + halfSquareSize
+    );
+    ctx.rotate((this.imgRotation * 90 * Math.PI) / 180);
+    ctx.drawImage(
+      this.ladyPacImgs[this.ladyPacImgIndex],
+      -halfSquareSize,
+      -halfSquareSize,
+      squareSize,
+      squareSize
+    );
+    ctx.restore();
   }
 }
