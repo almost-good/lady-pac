@@ -26,6 +26,8 @@ export default class GameMap {
   constructor() {
     this.speed = this.setSpeed();
 
+    this.score = 0
+
     // Images
     this.wallImg = new Image();
     this.wallImg.src = "./assets/img/game/wall.png";
@@ -193,6 +195,9 @@ export default class GameMap {
       // Get the position in the map, and if pellet, change it to empty.
       if (this.map[row][column] === 0) {
         this.map[row][column] = 5;
+        
+        // Add score.
+        this.score +=20;
 
         return true;
       }
