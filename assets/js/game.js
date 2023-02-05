@@ -10,6 +10,7 @@ import GameMap from "./map.js";
  * Private methods:
  *
  *     #runGame()
+ *     #createGhosts(ctx, squareSize)
  */
 
 export default class Game {
@@ -20,7 +21,7 @@ export default class Game {
 
     // Create new Map object and Lady Pac.
     this.gameMap = new GameMap();
-    this.ladyPac = this.gameMap.getLadyPac();
+    [this.ladyPac, this.ghosts] = this.gameMap.getMovingObjects();
   }
 
   /**
@@ -35,9 +36,8 @@ export default class Game {
     window.onscroll = (event) => {
       this.canvas.scrollIntoView({ block: "end" });
     };
-
     // Run the game once every second.
-    setInterval(this.#runGame.bind(this), 1000/60);
+    setInterval(this.#runGame.bind(this), 1000 / 60);
   }
 
   /**
@@ -50,8 +50,21 @@ export default class Game {
     this.squareSize = this.gameMap.setSquareSize();
     this.gameMap.setCanvasSize(this.canvas, this.squareSize);
 
-    // Create map, create Pacman.
+    // Create map, Lady Pac and ghosts.
     this.gameMap.create(this.ctx, this.squareSize);
     this.ladyPac.create(this.ctx, this.squareSize);
+    this.#createGhosts(this.ctx, this.squareSize);
+  }
+
+  /**
+   * Loop over ghosts and create each one.
+   * @param {object} ctx - Canvas context. The map is drawn inside ctx.
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #createGhosts(ctx, squareSize) {
+    for (let ghost of this.ghosts) {
+      ghost.create(ctx, squareSize);
+    }
   }
 }
