@@ -6,8 +6,8 @@ export const PLAYER = "player";
 
 // Constant used for moving direction.
 export const MoveDirection = {
-  up: 0,
+  up: 3,
   down: 1,
   left: 2,
-  right: 3
+  right: 0
 }

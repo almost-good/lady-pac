@@ -219,24 +219,27 @@ export default class LadyPac {
     switch (this.moveDirection) {
       case MoveDirection.up:
         // To move up subtract speed from yPosition,
+        // Remember flip value for rotation.
         this.yPosition -= this.speed;
         this.yMoveSteps -= this.speed;
+        this.flipY = -1
         break;
       case MoveDirection.down:
         this.yPosition += this.speed;
         this.yMoveSteps += this.speed;
+        this.flipY = 1
         break;
       case MoveDirection.left:
         this.xPosition -= this.speed;
         this.xMoveSteps -= this.speed;
+        this.flipY = -1
+        console.log(MoveDirection.up)
         break;
       case MoveDirection.right:
         this.xPosition += this.speed;
         this.xMoveSteps += this.speed;
+        this.flipY = 1
     }
-
-    // Set rotation to face same direction as move direction.
-    this.imgRotation = this.moveDirection;
   }
 
   /**
@@ -420,7 +423,7 @@ export default class LadyPac {
   }
 
   /**
-   * Rotate Lady Pac and draw image on screen.
+   * Set Lady Pac to face correct direction and draw image on screen.
    * @summary
    * Save the original state of the image, after redrawing the image
    * restore original image state and start new rotation from there.
@@ -431,13 +434,15 @@ export default class LadyPac {
   #rotate(ctx, squareSize) {
     const halfSquareSize = squareSize / 2;
 
-    // Rotate Lady Pac.
     ctx.save();
     ctx.translate(
       this.xPosition + halfSquareSize,
       this.yPosition + halfSquareSize
     );
-    ctx.rotate((this.imgRotation * 90 * Math.PI) / 180);
+    // Rotate the image based on move direction.
+    ctx.rotate((this.moveDirection * 90 * Math.PI) / 180);
+    // Flip image by Y coordinate.
+    ctx.scale(1,this.flipY)
     ctx.drawImage(
       this.ladyPacImgs[this.ladyPacImgIndex],
       -halfSquareSize,
