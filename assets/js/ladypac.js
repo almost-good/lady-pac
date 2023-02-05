@@ -40,22 +40,26 @@ export default class LadyPac {
     this.row = row;
     this.gameMap = gameMap;
 
-    // Moving directions
+    // Moving directions.
     this.moveDirection = null;
     this.checkDirection = null;
 
-    // How much Lady Pac moved
+    // How much Lady Pac moved.
     this.xMoveSteps = 0;
     this.yMoveSteps = 0;
 
-    // Timers
-    this.timerDef = 8;
+    // Timers.
+    this.timerDef = 6;
     this.timer = null;
 
-    // Event listeners for key and swipes
+    // Event listeners for key and swipes.
     document.addEventListener("keydown", this.#checkKeyPressedEvent);
     document.addEventListener("touchstart", this.#touchStartEvent);
     document.addEventListener("touchmove", this.#touchDirectionEvent);
+
+    // Sounds.
+    this.eatPelletSound = new Audio("./assets/sounds/eat-pellet-sound.wav");
+    this.sound = null;
 
     this.#getImages();
   }
@@ -456,11 +460,14 @@ export default class LadyPac {
   }
 
   /**
-   * Eat pellet if applicable.
+   * Eat pellet if applicable and play a sound.
    *
    * @param {number} squareSize - Size of one side of the square.
    */
   #eatPellet(squareSize) {
-    this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize);
+    if (this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize)) {
+      this.sound = null;
+      this.sound = this.eatPelletSound.play();
+    }
   }
 }
