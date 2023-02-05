@@ -11,6 +11,7 @@ import GameMap from "./map.js";
  *
  *     #runGame()
  *     #createGhosts(ctx, squareSize)
+ *     #positionGameIntoView()
  */
 
 export default class Game {
@@ -22,6 +23,8 @@ export default class Game {
     // Create new Map object and Lady Pac.
     this.gameMap = new GameMap();
     [this.ladyPac, this.ghosts] = this.gameMap.getMovingObjects();
+
+    this.browserWidth = window.innerWidth;
   }
 
   /**
@@ -32,10 +35,8 @@ export default class Game {
    */
 
   game() {
-    // Scroll the game into position when playing it.
-    window.onscroll = (event) => {
-      this.canvas.scrollIntoView({ block: "end" });
-    };
+    this.#positionGameIntoView();
+
     // Run the game once every second.
     setInterval(this.#runGame.bind(this), 1000 / 60);
   }
@@ -46,6 +47,12 @@ export default class Game {
    */
 
   #runGame() {
+    // If the game area is resized, position back into view.
+    let currentWidth = window.innerWidth;
+    if (currentWidth != this.browserWidth) {
+      this.#positionGameIntoView();
+    }
+
     // Set the size of square, and canvas.
     this.squareSize = this.gameMap.setSquareSize();
     this.gameMap.setCanvasSize(this.canvas, this.squareSize);
@@ -66,5 +73,17 @@ export default class Game {
     for (let ghost of this.ghosts) {
       ghost.create(ctx, squareSize);
     }
+  }
+
+  /**
+   * Position game perfectly into view.
+   * @summary
+   */
+
+  #positionGameIntoView() {
+    setTimeout(() => {
+      this.canvas.scrollIntoView({ block: "end" });
+      document.body.classList.add("remove-overflow");
+    }, 500);
   }
 }

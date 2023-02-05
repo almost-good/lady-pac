@@ -130,7 +130,8 @@ CSS STRUCTURE
 body {
   position: relative;
   min-height: 100vh;
-  height: max-content;
+  height: 100%;
+  overflow: visible;
 
   background: var(--background-solid) 
     url('../img/background/space.webp') 
@@ -326,6 +327,10 @@ h4 {
   display: none;
 }
 
+.remove-overflow {
+  overflow: hidden;
+}
+
 
 /* --------------------------------------------- GAME SCREEN */
 
@@ -384,6 +389,7 @@ h4 {
   background-color: var(--background-transparent);
   margin: 2vh 0 5vh;
 }
+
 
 /* ------------------------------------- ENTER PLAYER SCREEN */
 
