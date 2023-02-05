@@ -1,6 +1,7 @@
 import mapList from "./map-list.js";
 import { MoveDirection } from "./constants.js";
 import LadyPac from "./ladypac.js";
+import Ghost from "./ghost.js";
 
 /**
  * GameMap class used to create the map and it's content.
@@ -11,8 +12,7 @@ import LadyPac from "./ladypac.js";
  *     setSquareSize()
  *     setSpeed()
  *     setCanvasSize(canvas, squareSize)
- *     bumpIntoWall()
- *     getLadyPac()
+ *     getMovingObjects()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
  *     pelletEaten(xPosition, yPosition, squareSize)
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
@@ -114,19 +114,32 @@ export default class GameMap {
   }
 
   /**
-   * Get the initial Lady Pac position and create new Lady Pac object.
+   * Create Lady Pac and ghost objects.
+   * @summary
+   * Get the initial position of moving elements and create objects.
    */
 
-  getLadyPac() {
+  getMovingObjects() {
+    let ladyPac;
+    const ghosts = [];
+
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
 
         if (square === 2) {
-          return new LadyPac(this.speed, column, row, this);
+          // Get the Lady Pac object.
+          ladyPac = new LadyPac(this.speed, column, row, this);
+        } else if (square === 3) {
+          // The ghost should be 'over' pellet.
+          this.map[row][column] = 0;
+          // Get one ghost object.
+          ghosts.push(new Ghost(this.speed, column, row, this));
         }
       }
     }
+
+    return [ladyPac, ghosts];
   }
 
   /**
@@ -201,7 +214,7 @@ export default class GameMap {
         // Add score and display score
         this.score += 20;
         this.scoreHTML.innerText = this.score;
-        
+
         return true;
       }
     }
