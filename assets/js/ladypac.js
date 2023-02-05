@@ -30,6 +30,7 @@ import { MoveDirection } from "./constants.js";
  *     #stopAnimation()
  *     #rotate(ctx, squareSize)
  *     #eatPellet(squareSize)
+ *     #playSound()
  */
 
 export default class LadyPac {
@@ -59,6 +60,7 @@ export default class LadyPac {
 
     // Sounds.
     this.eatPelletSound = new Audio("./assets/sounds/eat-pellet-sound.wav");
+    this.soundBtn = document.getElementById("sound");
     this.sound = null;
 
     this.#getImages();
@@ -460,13 +462,26 @@ export default class LadyPac {
   }
 
   /**
-   * Eat pellet if applicable and play a sound.
+   * Eat pellet if applicable.
    *
    * @param {number} squareSize - Size of one side of the square.
    */
   #eatPellet(squareSize) {
     if (this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize)) {
       this.sound = null;
+      this.#playSound();
+    }
+  }
+
+  /**
+   * Play sound only if the sound is not muted.
+   */
+
+  #playSound() {
+    const volumeOff = "fa-volume-xmark";
+    const volumeOn = "fa-volume-high";
+
+    if (this.soundBtn.classList.contains(volumeOn)) {
       this.sound = this.eatPelletSound.play();
     }
   }
