@@ -26,17 +26,19 @@ export default class GameMap {
   constructor() {
     this.speed = this.setSpeed();
 
-    this.score = 0
+    // Score.
+    this.scoreHTML = document.getElementById("current-score");
+    this.score = 0;
 
-    // Images
+    // Images.
     this.wallImg = new Image();
     this.wallImg.src = "./assets/img/game/wall.png";
 
     this.pelletImg = new Image();
     this.pelletImg.src = "./assets/img/game/pellet.png";
 
-    // Current map
-    // TO DO - map will be connected with player lvl, for now there is only one lvl
+    // Current map.
+    // TO DO - map will be connected with player lvl, for now there is only one lvl.
     this.map = mapList;
   }
 
@@ -195,10 +197,11 @@ export default class GameMap {
       // Get the position in the map, and if pellet, change it to empty.
       if (this.map[row][column] === 0) {
         this.map[row][column] = 5;
-        
-        // Add score.
-        this.score +=20;
 
+        // Add score and display score
+        this.score += 20;
+        this.scoreHTML.innerText = this.score;
+        
         return true;
       }
     }
