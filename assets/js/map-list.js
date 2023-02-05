@@ -1,8 +1,9 @@
 // List of all game maps.
 
-// 2 - Lady Pac
-// 1 - Wall
-// 0 - Pellet
+// 5 - Empty.
+// 2 - Lady Pac.
+// 1 - Wall.
+// 0 - Pellet.
 
 let mapList = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
