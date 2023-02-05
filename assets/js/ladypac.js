@@ -29,6 +29,7 @@ import { MoveDirection } from "./constants.js";
  *     #animate()
  *     #stopAnimation()
  *     #rotate(ctx, squareSize)
+ *     #eatPellet(squareSize)
  */
 
 export default class LadyPac {
@@ -60,7 +61,7 @@ export default class LadyPac {
   }
 
   /**
-   * Create Lady Pac and all it's content.
+   * Create Lady Pac and all it's content and functionalities.
    * @param {object} ctx - Canvas context.
    * @param {number} squareSize - Size of one side of the square.
    */
@@ -81,6 +82,7 @@ export default class LadyPac {
     this.#move(squareSize);
     this.#animate();
     this.#rotate(ctx, squareSize);
+    this.#eatPellet(squareSize);
   }
 
   /**
@@ -222,23 +224,23 @@ export default class LadyPac {
         // Remember flip value for rotation.
         this.yPosition -= this.speed;
         this.yMoveSteps -= this.speed;
-        this.flipY = -1
+        this.flipY = -1;
         break;
       case MoveDirection.down:
         this.yPosition += this.speed;
         this.yMoveSteps += this.speed;
-        this.flipY = 1
+        this.flipY = 1;
         break;
       case MoveDirection.left:
         this.xPosition -= this.speed;
         this.xMoveSteps -= this.speed;
-        this.flipY = -1
-        console.log(MoveDirection.up)
+        this.flipY = -1;
+        console.log(MoveDirection.up);
         break;
       case MoveDirection.right:
         this.xPosition += this.speed;
         this.xMoveSteps += this.speed;
-        this.flipY = 1
+        this.flipY = 1;
     }
   }
 
@@ -442,7 +444,7 @@ export default class LadyPac {
     // Rotate the image based on move direction.
     ctx.rotate((this.moveDirection * 90 * Math.PI) / 180);
     // Flip image by Y coordinate.
-    ctx.scale(1,this.flipY)
+    ctx.scale(1, this.flipY);
     ctx.drawImage(
       this.ladyPacImgs[this.ladyPacImgIndex],
       -halfSquareSize,
@@ -451,5 +453,14 @@ export default class LadyPac {
       squareSize
     );
     ctx.restore();
+  }
+
+  /**
+   * Eat pellet if applicable.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   */
+  #eatPellet(squareSize) {
+    this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize);
   }
 }

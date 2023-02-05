@@ -14,6 +14,7 @@ import LadyPac from "./ladypac.js";
  *     bumpIntoWall()
  *     getLadyPac()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
+ *     pelletEaten(xPosition, yPosition, squareSize)
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
  *
  * Private methods:
@@ -23,8 +24,8 @@ import LadyPac from "./ladypac.js";
 
 export default class GameMap {
   constructor() {
-    this.speed = this.setSpeed()
-    
+    this.speed = this.setSpeed();
+
     // Images
     this.wallImg = new Image();
     this.wallImg.src = "./assets/img/game/wall.png";
@@ -176,8 +177,34 @@ export default class GameMap {
   }
 
   /**
+   * Check if pellet is eaten.
+   * @summary
+   * @param {number} xPosition - X coordinate of the object.
+   * @param {number} yPosition - Y coordinate of the object.
+   * @param {number} squareSize - Size of one side of the square.
+   * @return {boolean} If pellet eaten return true, otherwise false.
+   */
+
+  pelletEaten(xPosition, yPosition, squareSize) {
+    if (this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
+      let column = xPosition / squareSize;
+      let row = yPosition / squareSize;
+
+      // Get the position in the map, and if pellet, change it to empty.
+      if (this.map[row][column] === 0) {
+        this.map[row][column] = 5;
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Check if current position is aligned perfectly in middle of square.
-   *
+   * @param {number} xPosition - X coordinate of the object.
+   * @param {number} yPosition - Y coordinate of the object.
    * @param {number} squareSize - Size of one side of the square.
    * @return {boolean}
    */
