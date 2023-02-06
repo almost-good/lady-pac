@@ -408,6 +408,7 @@ h4 {
   background-color: var(--background-transparent);
 
   cursor: pointer;
+  transition: .5s;
 }
 
 .game-container .game .canvas-cover-out {
@@ -415,7 +416,6 @@ h4 {
   background-color: transparent;
   cursor: default;
   visibility: hidden;
-  transition: .5s;
 }
 
 

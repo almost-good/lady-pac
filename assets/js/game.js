@@ -6,7 +6,12 @@ import GameMap from "./map.js";
  * Public methods:
  *
  *     game()
+ * 
+ * Event methods:
  *
+ *     #gameStartEvent
+ *     #gamePauseEvent
+ * 
  * Private methods:
  *
  *     #runGame()
@@ -20,7 +25,7 @@ export default class Game {
     // Canvas
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.canvasCover = document.getElementById('canvas-cover')
+    this.canvasCover = document.getElementById("canvas-cover");
 
     // Create new Map object and Lady Pac.
     this.gameMap = new GameMap();
@@ -30,6 +35,7 @@ export default class Game {
 
     // Event listeners.
     this.canvasCover.addEventListener("mousedown", this.#gameStartEvent);
+    document.addEventListener("mousedown", this.#gamePauseEvent);
   }
 
   /**
@@ -42,17 +48,37 @@ export default class Game {
   game() {
     // Create the game by running it only once.
     setTimeout(() => {
-      this.#runGame()
+      this.#runGame();
     }, 100);
-    
+
     // Run the game once every second.
     //setInterval(this.#runGame.bind(this), 1000 / 60);
   }
 
+  /**
+   * Uncover the gaming area, position into view.
+   */
+
   #gameStartEvent = (event) => {
-    this.canvasCover.classList.add('canvas-cover-out')
+    this.canvasCover.classList.add("canvas-cover-out");
     this.#positionGameIntoView();
-  }
+  };
+
+  /**
+   * Cover the gaming area, allow scrolling.
+   */
+  
+  #gamePauseEvent = (event) => {
+    // If click is outside of canvas area, and the game is not covered.
+    if (
+      !this.canvas.contains(event.target) &&
+      !this.canvasCover.contains(event.target) &&
+      this.canvasCover.classList.contains("canvas-cover-out")
+    ) {
+      this.canvasCover.classList.remove("canvas-cover-out");
+      document.body.classList.remove("remove-overflow");
+    }
+  };
 
   /**
    * Run the game.
