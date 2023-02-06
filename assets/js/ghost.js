@@ -11,6 +11,9 @@ import { MoveDirection } from "./constants.js";
  *
  * Private methods:
  *
+ *     #setPosition(squareSize)
+ *     #adjustPosition(squareSize)
+ *     #calcStepDiff(moveSteps, squareSize)
  *     #move(squareSize)
  *     #getImages()
  *     #random(min, max)
@@ -45,9 +48,16 @@ export default class Ghost {
    */
 
   create(ctx, squareSize) {
+    // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
-      this.xPosition = this.column * squareSize;
-      this.yPosition = this.row * squareSize;
+      this.#setPosition(squareSize);
+    }
+
+    // If the screen is resized, "remember" ghost position prior to resize.
+    // Adjust the speed.
+    if (this.squarePreResize != squareSize) {
+      this.#adjustPosition(squareSize);
+      this.speed = this.gameMap.setSpeed();
     }
 
     this.#move(squareSize);
@@ -59,6 +69,61 @@ export default class Ghost {
       squareSize,
       squareSize
     );
+  }
+
+  /**
+   * Set x and y positions, set square pre resize size.
+   * @summary
+   * If ghost moved, then add offset to the original position.
+   * @param {number} squareSize - Size of one side of the square.
+   * @param {number} xOffset - OPTIONAL. X coordinate offset value.
+   * @param {number} yOffset - OPTIONAL. Y coordinate offset value.
+   */
+
+  #setPosition(squareSize, xOffset = 0, yOffset = 0) {
+    this.xPosition = this.column * squareSize + xOffset;
+    this.yPosition = this.row * squareSize + yOffset;
+    this.squarePreResize = squareSize;
+  }
+
+  /**
+   * Adjust Lady Pac position after square size changes it's value.
+   * @summary Allows Lady Pac to remain on exact same position in map,
+   * after square size has changed as a result of screen being resized.
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #adjustPosition(squareSize) {
+    // Get the step difference.
+    let xStepDiff = this.#calcStepDiff(this.xMoveSteps, squareSize);
+    let yStepDiff = this.#calcStepDiff(this.yMoveSteps, squareSize);
+
+    // Set new ghost position adjusted for screen resize.
+    this.#setPosition(
+      squareSize,
+      this.xMoveSteps - xStepDiff,
+      this.yMoveSteps - yStepDiff
+    );
+
+    // Refresh the number of steps ghost made to match current square size.
+    this.xMoveSteps -= xStepDiff;
+    this.yMoveSteps -= yStepDiff;
+  }
+
+  /**
+   * Calculate step difference that comes with differently sized squares.
+   * @param {number} moveSteps - Number of steps from original position.
+   * @param {number} squareSize - Size of one side of the square.
+   * @return {number} Step difference.
+   */
+
+  #calcStepDiff(moveSteps, squareSize) {
+    let squareSizeDiff = this.squarePreResize - squareSize;
+    let diff = Math.round((moveSteps / this.squarePreResize) * squareSizeDiff);
+
+    // If the speed is two, diff has to be pair number,
+    // othervise ghost will go out of the position.
+    return diff - (diff % this.speed);
   }
 
   /**
