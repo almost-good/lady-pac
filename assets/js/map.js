@@ -20,6 +20,7 @@ import Ghost from "./ghost.js";
  * Private methods:
  *
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
+ *     #setPelletImg()
  */
 
 export default class GameMap {
@@ -36,6 +37,14 @@ export default class GameMap {
 
     this.pelletImg = new Image();
     this.pelletImg.src = "./assets/img/game/pellet.png";
+
+    this.energizedPelletImg = new Image();
+    this.energizedPelletImg.src = "./assets/img/game/energized-pellet.png";
+    this.switchPelletImg = this.energizedPelletImg;
+
+    // Timers.
+    this.pelletTimerDef = 30;
+    this.pelletTimer = this.pelletTimerDef;
 
     // Current map.
     // TO DO - map will be connected with player lvl, for now there is only one lvl.
@@ -59,6 +68,8 @@ export default class GameMap {
           squareImg = this.pelletImg;
         } else if (square === 1) {
           squareImg = this.wallImg;
+        } else if (square === 4) {
+          squareImg = this.#setPelletImg();
         } else {
           continue;
         }
@@ -250,5 +261,26 @@ export default class GameMap {
     let xPosition = column * squareSize;
     let yPosition = row * squareSize;
     ctx.drawImage(squareImg, xPosition, yPosition, squareSize, squareSize);
+  }
+
+  /**
+   * Set the image of energized pellet.
+   * @return {object} Image for energized pellet.
+   */
+
+  #setPelletImg() {
+    this.pelletTimer--;
+
+    if (this.pelletTimer === 0) {
+      this.pelletTimer = this.pelletTimerDef;
+
+      if (this.switchPelletImg === this.pelletImg) {
+        this.switchPelletImg = this.energizedPelletImg;
+      } else {
+        this.switchPelletImg = this.pelletImg;
+      }
+    }
+
+    return this.switchPelletImg;
   }
 }
