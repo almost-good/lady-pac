@@ -6,15 +6,17 @@ import GameMap from "./map.js";
  * Public methods:
  *
  *     game()
- * 
+ *
  * Event methods:
  *
  *     #gameStartEvent
  *     #gamePauseEvent
- * 
+ *     #resizeGameWhileCoveredEvent
+ *
  * Private methods:
  *
  *     #runGame()
+ *     #gameInstance()
  *     #createGhosts(ctx, squareSize)
  *     #pause()
  *     #positionGameIntoView()
@@ -34,8 +36,9 @@ export default class Game {
     this.browserWidth = window.innerWidth;
 
     // Event listeners.
-    this.canvasCover.addEventListener("mousedown", this.#gameStartEvent);
-    document.addEventListener("mousedown", this.#gamePauseEvent);
+    this.canvasCover.addEventListener("mousedown", this.#gameUncoverEvent);
+    document.addEventListener("mousedown", this.#gameCoverEvent);
+    window.addEventListener("resize", this.#resizeGameWhileCoveredEvent);
   }
 
   /**
@@ -46,9 +49,9 @@ export default class Game {
    */
 
   game() {
-    // Create the game by running it only once.
+    // Create the game by creating it's instance.
     setTimeout(() => {
-      this.#runGame();
+      this.#gameInstance();
     }, 100);
 
     // Run the game once every second.
@@ -59,7 +62,7 @@ export default class Game {
    * Uncover the gaming area, position into view.
    */
 
-  #gameStartEvent = (event) => {
+  #gameUncoverEvent = (event) => {
     this.canvasCover.classList.add("canvas-cover-out");
     this.#positionGameIntoView();
   };
@@ -67,8 +70,8 @@ export default class Game {
   /**
    * Cover the gaming area, allow scrolling.
    */
-  
-  #gamePauseEvent = (event) => {
+
+  #gameCoverEvent = (event) => {
     // If click is outside of canvas area, and the game is not covered.
     if (
       !this.canvas.contains(event.target) &&
@@ -77,6 +80,16 @@ export default class Game {
     ) {
       this.canvasCover.classList.remove("canvas-cover-out");
       document.body.classList.remove("remove-overflow");
+    }
+  };
+
+  /**
+   * Resize the game while the game is covered and not actively running.
+   */
+
+  #resizeGameWhileCoveredEvent = (event) => {
+    if (!this.canvasCover.classList.contains("canvas-cover-out")) {
+      this.#gameInstance();
     }
   };
 
@@ -92,6 +105,14 @@ export default class Game {
       this.#positionGameIntoView();
     }
 
+    this.#gameInstance();
+  }
+
+  /**
+   * One instance of the game. Contains all game objects.
+   */
+
+  #gameInstance() {
     // Set the size of square, and canvas.
     this.squareSize = this.gameMap.setSquareSize();
     this.gameMap.setCanvasSize(this.canvas, this.squareSize);
@@ -131,6 +152,7 @@ export default class Game {
     setTimeout(() => {
       this.canvas.scrollIntoView({ block: "end" });
       document.body.classList.add("remove-overflow");
+      this.browserWidth = window.innerWidth;
     }, 100);
   }
 }
