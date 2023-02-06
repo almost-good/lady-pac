@@ -201,6 +201,12 @@ body::-webkit-scrollbar-thumb,
   text-transform: uppercase;
 }
 
+.game-container .game .canvas-container {
+  margin: 2vh 0 5vh;
+  height: max-content;
+  width: max-content;
+  position: relative;
+}
 
 /* BUTTONS */
 
@@ -387,7 +393,20 @@ h4 {
 
 .game-container .game canvas {
   background-color: var(--background-transparent);
-  margin: 2vh 0 5vh;
+}
+
+.game-container .game .canvas-cover {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  backdrop-filter: blur(2px);
+  background-color: var(--background-transparent);
+
+  cursor: pointer;
 }
 
 
