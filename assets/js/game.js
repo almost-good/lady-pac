@@ -84,6 +84,6 @@ export default class Game {
     setTimeout(() => {
       this.canvas.scrollIntoView({ block: "end" });
       document.body.classList.add("remove-overflow");
-    }, 500);
+    }, 100);
   }
 }

@@ -15,6 +15,8 @@ import { MoveDirection } from "./constants.js";
  *     #adjustPosition(squareSize)
  *     #calcStepDiff(moveSteps, squareSize)
  *     #move(squareSize)
+ *     #changeMoveDirection(squareSize)
+ *     #resetMoveSettings()
  *     #getImages()
  *     #random(min, max)
  */
@@ -28,7 +30,7 @@ export default class Ghost {
     this.gameMap = gameMap;
 
     // Initial move direction is random.
-    this.moveDirection = this.#random(0, 4);
+    this.moveDirection = this.#random(0, 3);
 
     // How much Ghost moved.
     this.xMoveSteps = 0;
@@ -61,7 +63,7 @@ export default class Ghost {
     }
 
     this.#move(squareSize);
-
+    this.#changeMoveDirection(squareSize);
     ctx.drawImage(
       this.ghostImg,
       this.xPosition,
@@ -87,8 +89,8 @@ export default class Ghost {
   }
 
   /**
-   * Adjust Lady Pac position after square size changes it's value.
-   * @summary Allows Lady Pac to remain on exact same position in map,
+   * Adjust Ghost position after square size changes it's value.
+   * @summary Allows ghost to remain on exact same position in map,
    * after square size has changed as a result of screen being resized.
    * @param {number} squareSize - Size of one side of the square.
    */
@@ -165,6 +167,62 @@ export default class Ghost {
   }
 
   /**
+   * Change move direction. Call until the direction is changed.
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #changeMoveDirection(squareSize) {
+    this.newMoveDirection = null;
+    this.moveTimer--;
+
+    // Reset timer and new move direction.
+    if (this.moveTimer === 0) {
+      this.#resetMoveSettings();
+    }
+
+    // Change move direction.
+    if (
+      this.newMoveDirection != null &&
+      this.moveDirection != this.newMoveDirection
+    ) {
+      if (
+        this.gameMap.positionInMiddleOfSquare(
+          this.xPosition,
+          this.yPosition,
+          squareSize
+        )
+      ) {
+        // Check if ghost did not bump into wall.
+        if (
+          !this.gameMap.bumpIntoWall(
+            this.xPosition,
+            this.yPosition,
+            this.newMoveDirection,
+            squareSize
+          )
+        ) {
+          this.moveDirection = this.newMoveDirection;
+        } else {
+          // Run again, until the direction is changed.
+          this.moveTimer === 1;
+          this.#changeMoveDirection(squareSize);
+        }
+      }
+    }
+  }
+
+  /**
+   * Reset move settings.
+   */
+
+  #resetMoveSettings() {
+    this.moveTimerDef = this.#random(1, 15);
+    this.moveTimer = this.moveTimerDef;
+
+    this.newMoveDirection = this.#random(0, 3);
+  }
+
+  /**
    * Get all images and allow for their access.
    */
 
@@ -189,6 +247,6 @@ export default class Ghost {
    */
 
   #random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min) + 1) + min;
   }
 }
