@@ -219,7 +219,7 @@ export default class Ghost {
     this.moveTimerDef = this.#random(1, 15);
     this.moveTimer = this.moveTimerDef;
 
-    this.newMoveDirection = this.#random(0, 3);
+    this.newMoveDirection = this.#random(0, 4);
   }
 
   /**
@@ -247,6 +247,6 @@ export default class Ghost {
    */
 
   #random(min, max) {
-    return Math.floor(Math.random() * (max - min) + 1) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
