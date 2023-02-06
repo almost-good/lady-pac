@@ -19,6 +19,8 @@ import Ghost from "./ghost.js";
  *
  * Private methods:
  *
+ *     #canBeEaten(xPosition, yPosition, squareSize, mapItem)
+ *     #addScore(scoreToAdd)
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
  *     #setPelletImg()
  */
@@ -30,6 +32,8 @@ export default class GameMap {
     // Score.
     this.scoreHTML = document.getElementById("current-score");
     this.score = 0;
+    this.pelletScore = 20;
+    this.energizedPelletScore = 50;
 
     // Images.
     this.wallImg = new Image();
@@ -205,29 +209,19 @@ export default class GameMap {
   }
 
   /**
-   * Check if pellet is eaten.
+   * Check if pellet is eaten, if it is add score.
    * @summary
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
    * @param {number} squareSize - Size of one side of the square.
-   * @return {boolean} If pellet eaten return true, otherwise false.
+   * @return {boolean} If pellet is eaten return true, otherwise false.
    */
 
   pelletEaten(xPosition, yPosition, squareSize) {
-    if (this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
-      let column = xPosition / squareSize;
-      let row = yPosition / squareSize;
+    if (this.#canBeEaten(xPosition, yPosition, squareSize, 0)) {
+      this.#addScore(this.pelletScore);
 
-      // Get the position in the map, and if pellet, change it to empty.
-      if (this.map[row][column] === 0) {
-        this.map[row][column] = 5;
-
-        // Add score and display score
-        this.score += 20;
-        this.scoreHTML.innerText = this.score;
-
-        return true;
-      }
+      return true;
     }
 
     return false;
@@ -246,6 +240,42 @@ export default class GameMap {
       Number.isInteger(xPosition / squareSize) &&
       Number.isInteger(yPosition / squareSize)
     );
+  }
+
+  /**
+   * Check if map item can be eaten, if it can, eat item.
+   * @summary
+   * @param {number} xPosition - X coordinate of the object.
+   * @param {number} yPosition - Y coordinate of the object.
+   * @param {number} squareSize - Size of one side of the square.
+   * @param {number} mapItem - Item from map list, represented by number.
+   * @return {boolean} If item can be eaten return true, otherwise false.
+   */
+
+  #canBeEaten(xPosition, yPosition, squareSize, mapItem) {
+    if (this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
+      let column = xPosition / squareSize;
+      let row = yPosition / squareSize;
+
+      // Get the position in the map, and if the map item is correct, change it to empty.
+      if (this.map[row][column] === mapItem) {
+        this.map[row][column] = 5;
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Add and display score.
+   * @summary
+   * @param {number} scoreToAdd - Score that needs to be added.
+   */
+  
+  #addScore(scoreToAdd) {
+    this.score += scoreToAdd;
+    this.scoreHTML.innerText = this.score;
   }
 
   /**
