@@ -42,10 +42,7 @@ export default class Game {
   }
 
   /**
-   * Call the game.
-   * @summary
-   * Allows us to start the game and continue playing it.
-   * This function contains all setup needed for game to run.
+   * Call the instance of the game to be shown on screen.
    */
 
   game() {
@@ -53,22 +50,21 @@ export default class Game {
     setTimeout(() => {
       this.#gameInstance();
     }, 100);
-
-    // Run the game once every second.
-    //setInterval(this.#runGame.bind(this), 1000 / 60);
   }
 
   /**
-   * Uncover the gaming area, position into view.
+   * Uncover the gaming area, position into view and run the game.
    */
 
   #gameUncoverEvent = (event) => {
     this.canvasCover.classList.add("canvas-cover-out");
     this.#positionGameIntoView();
+
+    this.gameLoop = setInterval(this.#runGame.bind(this), 1000 / 60);
   };
 
   /**
-   * Cover the gaming area, allow scrolling.
+   * Cover the gaming area, allow scrolling and stop the game.
    */
 
   #gameCoverEvent = (event) => {
@@ -80,6 +76,8 @@ export default class Game {
     ) {
       this.canvasCover.classList.remove("canvas-cover-out");
       document.body.classList.remove("remove-overflow");
+
+      clearInterval(this.gameLoop);
     }
   };
 
@@ -89,6 +87,8 @@ export default class Game {
 
   #resizeGameWhileCoveredEvent = (event) => {
     if (!this.canvasCover.classList.contains("canvas-cover-out")) {
+      // Falsify Lady Pac initial move to pause the ghosts.
+      this.ladyPac.initialMove = false;
       this.#gameInstance();
     }
   };
