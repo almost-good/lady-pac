@@ -40,8 +40,6 @@ export default class Game {
    */
 
   game() {
-    //this.#positionGameIntoView();
-    
     // Create the game by running it only once.
     setTimeout(() => {
       this.#runGame()
@@ -52,7 +50,8 @@ export default class Game {
   }
 
   #gameStartEvent = (event) => {
-    console.log('click')
+    this.canvasCover.classList.add('canvas-cover-out')
+    this.#positionGameIntoView();
   }
 
   /**
