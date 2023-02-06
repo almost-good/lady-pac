@@ -49,7 +49,7 @@ export default class Ghost {
    * @param {number} squareSize - Size of one side of the square.
    */
 
-  create(ctx, squareSize) {
+  create(ctx, squareSize, pause) {
     // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
       this.#setPosition(squareSize);
@@ -62,8 +62,12 @@ export default class Ghost {
       this.speed = this.gameMap.setSpeed();
     }
 
-    this.#move(squareSize);
-    this.#changeMoveDirection(squareSize);
+    // Only move if Lady Pac made initial movement.
+    if (!pause) {
+      this.#move(squareSize);
+      this.#changeMoveDirection(squareSize);
+    }
+
     ctx.drawImage(
       this.ghostImg,
       this.xPosition,

@@ -41,9 +41,10 @@ export default class LadyPac {
     this.row = row;
     this.gameMap = gameMap;
 
-    // Moving directions.
+    // Movement.
     this.moveDirection = null;
     this.checkDirection = null;
+    this.initialMove = false;
 
     // How much Lady Pac moved.
     this.xMoveSteps = 0;
@@ -197,7 +198,7 @@ export default class LadyPac {
   }
 
   /**
-   * Move LadyPac and start .
+   * Move LadyPac and start.
    *
    * @param {number} squareSize - Size of one side of the square.
    */
@@ -221,6 +222,11 @@ export default class LadyPac {
       // When the movement stops, so does the animation.
       this.#stopAnimation();
       return;
+    }
+
+    // Flag that initial move occured.
+    if (!this.initialMove) {
+      this.initialMove = true;
     }
 
     // Lady Pac movement.

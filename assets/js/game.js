@@ -11,6 +11,7 @@ import GameMap from "./map.js";
  *
  *     #runGame()
  *     #createGhosts(ctx, squareSize)
+ *     #pause()
  *     #positionGameIntoView()
  */
 
@@ -71,13 +72,21 @@ export default class Game {
 
   #createGhosts(ctx, squareSize) {
     for (let ghost of this.ghosts) {
-      ghost.create(ctx, squareSize);
+      ghost.create(ctx, squareSize, this.#pause());
     }
   }
 
   /**
+   * Pause is triggered if Lady Pac didn't make initial movement.
+   * @return {boolean} Return true if the pause is triggered, otherwise false.
+   */
+
+  #pause() {
+    return !this.ladyPac.initialMove;
+  }
+
+  /**
    * Position game perfectly into view.
-   * @summary
    */
 
   #positionGameIntoView() {
