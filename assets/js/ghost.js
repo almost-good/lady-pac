@@ -1,3 +1,5 @@
+import { MoveDirection } from "./constants.js";
+
 /**
  * Ghost object.
  *
@@ -10,6 +12,7 @@
  * Private methods:
  *
  *     #getImages()
+ *     #random(min, max)
  */
 
 export default class Ghost {
@@ -19,6 +22,13 @@ export default class Ghost {
     this.column = column;
     this.row = row;
     this.gameMap = gameMap;
+
+    // Initial move direction is random.
+    this.moveDirection = this.#random(0, 4);
+
+    // Timers.
+    this.moveTimerDef = this.#random(10, 50);
+    this.moveTimer = this.moveTimerDef;
 
     this.#getImages();
   }
@@ -57,5 +67,16 @@ export default class Ghost {
     ghostSwitchingImg.src = "./assets/img/game/ghost-switching.png";
 
     this.ghostImg = ghostNormalImg;
+  }
+
+  /**
+   * Get the random number between two numbers.
+   * @param {number} min - Minimum value.
+   * @param {number} max - Maximum value.
+   * @return {number} Random number between min and max.
+   */
+
+  #random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
