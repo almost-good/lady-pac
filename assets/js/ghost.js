@@ -11,6 +11,7 @@ import { MoveDirection } from "./constants.js";
  *
  * Private methods:
  *
+ *     #move(squareSize)
  *     #getImages()
  *     #random(min, max)
  */
@@ -26,6 +27,10 @@ export default class Ghost {
     // Initial move direction is random.
     this.moveDirection = this.#random(0, 4);
 
+    // How much Ghost moved.
+    this.xMoveSteps = 0;
+    this.yMoveSteps = 0;
+
     // Timers.
     this.moveTimerDef = this.#random(10, 50);
     this.moveTimer = this.moveTimerDef;
@@ -40,8 +45,12 @@ export default class Ghost {
    */
 
   create(ctx, squareSize) {
-    this.xPosition = this.column * squareSize;
-    this.yPosition = this.row * squareSize;
+    if (!this.xPosition && !this.yPosition) {
+      this.xPosition = this.column * squareSize;
+      this.yPosition = this.row * squareSize;
+    }
+
+    this.#move(squareSize);
 
     ctx.drawImage(
       this.ghostImg,
@@ -50,6 +59,44 @@ export default class Ghost {
       squareSize,
       squareSize
     );
+  }
+
+  /**
+   * Ghost movement.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #move(squareSize) {
+    // If the ghost did not bump into wall, then move.
+    if (
+      !this.gameMap.bumpIntoWall(
+        this.xPosition,
+        this.yPosition,
+        this.moveDirection,
+        squareSize
+      )
+    ) {
+      // Ghost movement.
+      switch (this.moveDirection) {
+        case MoveDirection.up:
+          // To move up subtract speed from yPosition.
+          this.yPosition -= this.speed;
+          this.yMoveSteps -= this.speed;
+          break;
+        case MoveDirection.down:
+          this.yPosition += this.speed;
+          this.yMoveSteps += this.speed;
+          break;
+        case MoveDirection.left:
+          this.xPosition -= this.speed;
+          this.xMoveSteps -= this.speed;
+          break;
+        case MoveDirection.right:
+          this.xPosition += this.speed;
+          this.xMoveSteps += this.speed;
+      }
+    }
   }
 
   /**

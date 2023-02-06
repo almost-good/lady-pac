@@ -241,7 +241,6 @@ export default class LadyPac {
         this.xPosition -= this.speed;
         this.xMoveSteps -= this.speed;
         this.flipY = -1;
-        console.log(MoveDirection.up);
         break;
       case MoveDirection.right:
         this.xPosition += this.speed;
