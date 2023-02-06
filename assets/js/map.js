@@ -228,6 +228,26 @@ export default class GameMap {
   }
 
   /**
+   * Check if energized pellet is eaten, if it is add score.
+   * @summary
+   * @param {number} xPosition - X coordinate of the object.
+   * @param {number} yPosition - Y coordinate of the object.
+   * @param {number} squareSize - Size of one side of the square.
+   * @return {boolean} If energized pellet is eaten return true, otherwise false.
+   */
+
+  energizedPelletEaten(xPosition, yPosition, squareSize) {
+    if (this.#canBeEaten(xPosition, yPosition, squareSize, 4)) {
+      this.#addScore(this.energizedPelletScore);
+
+      return true;
+    }
+
+    return false;
+  }
+
+
+  /**
    * Check if current position is aligned perfectly in middle of square.
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.

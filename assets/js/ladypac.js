@@ -29,7 +29,9 @@ import { MoveDirection } from "./constants.js";
  *     #animate()
  *     #stopAnimation()
  *     #rotate(ctx, squareSize)
+ *     #eat(squareSize)
  *     #eatPellet(squareSize)
+ *     #eatEnergizedPellet(squareSize)
  *     #playSound()
  */
 
@@ -89,7 +91,7 @@ export default class LadyPac {
     this.#move(squareSize);
     this.#animate();
     this.#rotate(ctx, squareSize);
-    this.#eatPellet(squareSize);
+    this.#eat(squareSize);
   }
 
   /**
@@ -467,6 +469,17 @@ export default class LadyPac {
   }
 
   /**
+   * Eat something if its eatable.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #eat(squareSize) {
+    this.#eatPellet(squareSize);
+    this.#eatEnergizedPellet(squareSize);
+  }
+
+  /**
    * Eat pellet if applicable.
    *
    * @param {number} squareSize - Size of one side of the square.
@@ -475,6 +488,24 @@ export default class LadyPac {
     if (this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize)) {
       this.sound = null;
       this.#playSound();
+    }
+  }
+
+  /**
+   * Eat pellet if applicable.
+   *
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #eatEnergizedPellet(squareSize) {
+    if (
+      this.gameMap.energizedPelletEaten(
+        this.xPosition,
+        this.yPosition,
+        squareSize
+      )
+    ) {
+      // Pass
     }
   }
 
