@@ -20,12 +20,16 @@ export default class Game {
     // Canvas
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
+    this.canvasCover = document.getElementById('canvas-cover')
 
     // Create new Map object and Lady Pac.
     this.gameMap = new GameMap();
     [this.ladyPac, this.ghosts] = this.gameMap.getMovingObjects();
 
     this.browserWidth = window.innerWidth;
+
+    // Event listeners.
+    this.canvasCover.addEventListener("mousedown", this.#gameStartEvent);
   }
 
   /**
@@ -36,10 +40,19 @@ export default class Game {
    */
 
   game() {
-    this.#positionGameIntoView();
-
+    //this.#positionGameIntoView();
+    
+    // Create the game by running it only once.
+    setTimeout(() => {
+      this.#runGame()
+    }, 100);
+    
     // Run the game once every second.
-    setInterval(this.#runGame.bind(this), 1000 / 60);
+    //setInterval(this.#runGame.bind(this), 1000 / 60);
+  }
+
+  #gameStartEvent = (event) => {
+    console.log('click')
   }
 
   /**
