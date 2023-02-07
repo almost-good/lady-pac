@@ -7,7 +7,7 @@ import { MoveDirection } from "./constants.js";
  *
  * Public methods:
  *
- *     create(ctx, squareSize)
+ *     create(ctx, squareSize, pause, ghostFoodState, ghostSwitchingState)
  *
  * Private methods:
  *
@@ -18,7 +18,8 @@ import { MoveDirection } from "./constants.js";
  *     #changeMoveDirection(squareSize)
  *     #resetMoveSettings()
  *     #getImages()
- *     #setImage(ctx, ghostFood, ghostSwitching)
+ *     #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState)
+ *     #switchGhostImages()
  *     #random(min, max)
  */
 
@@ -40,6 +41,8 @@ export default class Ghost {
     // Timers.
     this.moveTimerDef = this.#random(10, 50);
     this.moveTimer = this.moveTimerDef;
+    this.ghostSwitchingTimerDef = 10;
+    this.ghostSwitchingTimer = this.ghostSwitchingTimerDef;
 
     this.#getImages();
   }
@@ -53,7 +56,7 @@ export default class Ghost {
    * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  create(ctx, squareSize, pause, ghostFood, ghostSwitching) {
+  create(ctx, squareSize, pause, ghostFoodState, ghostSwitchingState) {
     // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
       this.#setPosition(squareSize);
@@ -72,8 +75,7 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
-    ghostFood = true;
-    this.#setImage(ctx, ghostFood, ghostSwitching);
+    this.#setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState);
   }
 
   /**
@@ -245,13 +247,16 @@ export default class Ghost {
   /**
    * Set ghost image and draw it.
    * @param {object} ctx - Canvas context.
+   * @param {number} squareSize - Size of one side of the square.
    * @param {boolean} ghostFood - Energized pellet is active and ghost is food.
    * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  #setImage(ctx, ghostFood, ghostSwitching) {
-    if (ghostFood) {
+  #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState) {
+    if (ghostFoodState) {
       this.ghostImg = this.ghostFoodImg;
+    } else if (ghostSwitchingState) {
+      this.#switchGhostImages();
     } else {
       this.ghostImg = this.ghostNormalImg;
     }
@@ -263,6 +268,24 @@ export default class Ghost {
       squareSize,
       squareSize
     );
+  }
+
+  /**
+   * Switch ghost images between two, while ghost is in switching state.
+   */
+
+  #switchGhostImages() {
+    this.ghostSwitchingTimer--;
+
+    if (this.ghostSwitchingTimer === 0) {
+      this.ghostSwitchingTimer = this.ghostSwitchingTimerDef;
+
+      if (this.ghostImg === this.ghostFoodImg) {
+        this.ghostImg = this.ghostSwitchingImg;
+      } else {
+        this.ghostImg = this.ghostFoodImg;
+      }
+    }
   }
 
   /**
