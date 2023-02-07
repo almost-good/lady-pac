@@ -402,7 +402,7 @@ h4 {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 8;
 
   backdrop-filter: blur(2px);
   background-color: var(--background-transparent);

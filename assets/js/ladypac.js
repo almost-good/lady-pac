@@ -92,7 +92,6 @@ export default class LadyPac {
     // Adjust the speed.
     if (this.squarePreResize != squareSize) {
       this.#adjustPosition(squareSize);
-      this.speed = this.gameMap.setSpeed();
     }
 
     this.#move(squareSize);

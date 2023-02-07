@@ -10,7 +10,6 @@ import Ghost from "./ghost.js";
  *
  *     create(ctx, squareSize)
  *     setSquareSize()
- *     setSpeed()
  *     setCanvasSize(canvas, squareSize)
  *     getMovingObjects()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
@@ -27,7 +26,7 @@ import Ghost from "./ghost.js";
 
 export default class GameMap {
   constructor() {
-    this.speed = this.setSpeed();
+    this.speed = 2;
 
     // Score.
     this.scoreHTML = document.getElementById("current-score");
@@ -99,22 +98,6 @@ export default class GameMap {
     }
 
     return 20;
-  }
-
-  /**
-   * Set the speed of moving objects.
-   * @summary The speed is changed dynamically, depending on browser width.
-   * @return {number} Speed.
-   */
-
-  setSpeed() {
-    let browserWidth = window.innerWidth;
-
-    if (browserWidth <= 700) {
-      return 2;
-    }
-
-    return 4;
   }
 
   /**
@@ -201,6 +184,7 @@ export default class GameMap {
     }
 
     const square = this.map[row][column];
+
     if (square === 1) {
       return true;
     }

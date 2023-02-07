@@ -66,7 +66,6 @@ export default class Ghost {
     // Adjust the speed.
     if (this.squarePreResize != squareSize) {
       this.#adjustPosition(squareSize);
-      this.speed = this.gameMap.setSpeed();
     }
 
     // Only move if Lady Pac made initial movement.
