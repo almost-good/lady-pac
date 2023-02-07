@@ -131,7 +131,13 @@ export default class Game {
 
   #createGhosts(ctx, squareSize) {
     for (let ghost of this.ghosts) {
-      ghost.create(ctx, squareSize, this.#pause());
+      ghost.create(
+        ctx,
+        squareSize,
+        this.#pause(),
+        this.ladyPac.energizedPelletActive,
+        this.ladyPac.energizedPelletFinish
+      );
     }
   }
 

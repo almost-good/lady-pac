@@ -56,16 +56,22 @@ export default class LadyPac {
     this.timerDef = 6;
     this.timer = null;
 
+    // Sounds.
+    this.eatPelletSound = new Audio("./assets/sounds/eat-pellet-sound.wav");
+    this.eatEnergizedPelletSound = new Audio(
+      "./assets/sounds/eat-energized-pellet-sound.wav"
+    );
+    this.soundBtn = document.getElementById("sound");
+    this.sound = null;
+
+    // Energized pellet.
+    this.energizedPelletActive = false;
+    this.energizedPelletFinish = false;
+
     // Event listeners for key and swipes.
     document.addEventListener("keydown", this.#checkKeyPressedEvent);
     document.addEventListener("touchstart", this.#touchStartEvent);
     document.addEventListener("touchmove", this.#touchDirectionEvent);
-
-    // Sounds.
-    this.eatPelletSound = new Audio("./assets/sounds/eat-pellet-sound.wav");
-    this.eatEnergizedPelletSound = new Audio("./assets/sounds/eat-energized-pellet-sound.wav");
-    this.soundBtn = document.getElementById("sound");
-    this.sound = null;
 
     this.#getImages();
   }
@@ -485,9 +491,9 @@ export default class LadyPac {
    *
    * @param {number} squareSize - Size of one side of the square.
    */
+
   #eatPellet(squareSize) {
     if (this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize)) {
-      //this.sound = null;
       this.#playSound(this.eatPelletSound);
     }
   }
@@ -519,8 +525,8 @@ export default class LadyPac {
     const volumeOn = "fa-volume-high";
 
     if (this.soundBtn.classList.contains(volumeOn)) {
-      this.sound = null
-      this.sound = soundEffect.play()
+      this.sound = null;
+      this.sound = soundEffect.play();
     }
   }
 }

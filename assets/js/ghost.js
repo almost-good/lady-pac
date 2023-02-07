@@ -18,6 +18,7 @@ import { MoveDirection } from "./constants.js";
  *     #changeMoveDirection(squareSize)
  *     #resetMoveSettings()
  *     #getImages()
+ *     #setImage(ctx, ghostFood, ghostSwitching)
  *     #random(min, max)
  */
 
@@ -47,9 +48,12 @@ export default class Ghost {
    * Create Ghost and all it's content and functionalities.
    * @param {object} ctx - Canvas context.
    * @param {number} squareSize - Size of one side of the square.
+   * @param {boolean} pause - Ghost movements are paused.
+   * @param {boolean} ghostFood - Energized pellet is active and ghost is food.
+   * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  create(ctx, squareSize, pause) {
+  create(ctx, squareSize, pause, ghostFood, ghostSwitching) {
     // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
       this.#setPosition(squareSize);
@@ -68,13 +72,8 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
-    ctx.drawImage(
-      this.ghostImg,
-      this.xPosition,
-      this.yPosition,
-      squareSize,
-      squareSize
-    );
+    ghostFood = true;
+    this.#setImage(ctx, ghostFood, ghostSwitching);
   }
 
   /**
@@ -231,16 +230,39 @@ export default class Ghost {
    */
 
   #getImages() {
-    const ghostNormalImg = new Image();
-    ghostNormalImg.src = "./assets/img/game/ghost-normal.png";
+    this.ghostNormalImg = new Image();
+    this.ghostNormalImg.src = "./assets/img/game/ghost-normal.png";
 
-    const ghostFoodImg = new Image();
-    ghostFoodImg.src = "./assets/img/game/ghost-food.png";
+    this.ghostFoodImg = new Image();
+    this.ghostFoodImg.src = "./assets/img/game/ghost-food.png";
 
-    const ghostSwitchingImg = new Image();
-    ghostSwitchingImg.src = "./assets/img/game/ghost-switching.png";
+    this.ghostSwitchingImg = new Image();
+    this.ghostSwitchingImg.src = "./assets/img/game/ghost-switching.png";
 
-    this.ghostImg = ghostNormalImg;
+    this.ghostImg = this.ghostNormalImg;
+  }
+
+  /**
+   * Set ghost image and draw it.
+   * @param {object} ctx - Canvas context.
+   * @param {boolean} ghostFood - Energized pellet is active and ghost is food.
+   * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
+   */
+
+  #setImage(ctx, ghostFood, ghostSwitching) {
+    if (ghostFood) {
+      this.ghostImg = this.ghostFoodImg;
+    } else {
+      this.ghostImg = this.ghostNormalImg;
+    }
+
+    ctx.drawImage(
+      this.ghostImg,
+      this.xPosition,
+      this.yPosition,
+      squareSize,
+      squareSize
+    );
   }
 
   /**
