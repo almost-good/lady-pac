@@ -8,7 +8,6 @@ import { MoveDirection } from "./constants.js";
  * Public methods:
  *
  *     create(ctx, squareSize, pause, ghostFoodState, ghostSwitchingState)
- *     bumpIntoLadyPac(squareSize, ladyPac)
  *
  * Private methods:
  *
@@ -21,7 +20,10 @@ import { MoveDirection } from "./constants.js";
  *     #getImages()
  *     #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState)
  *     #switchGhostImages(img1, img2)
- *     #checkIfCanBeEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState)
+ *     #checkIfBumpedIntoLadyPac(squareSize, ladyPac, ghostFoodState, ghostSwitchingState)
+ *     #didBump(squareSize, ladyPac)
+ *     #eatLadyPac()
+ *     #ghostIsEaten(ladyPac)
  *     #eatenStateOn()
  *     #eatenFinishingStateOnOff(onOffState)
  *     #playGhostSound(ladyPac)
@@ -46,6 +48,7 @@ export default class Ghost {
     // Ghost eaten states.
     this.ghostEaten = false;
     this.ghostEatenSwitching = false;
+    this.ghostAteLadyPac = false;
 
     // Score points.
     this.scorePoints = 200;
@@ -81,23 +84,21 @@ export default class Ghost {
     }
 
     // If the screen is resized, "remember" ghost position prior to resize.
-    // Adjust the speed.
     if (this.squarePreResize != squareSize) {
       this.#adjustPosition(squareSize);
     }
 
-    // Only move if Lady Pac made initial movement.
+    // Only move and do checks if Lady Pac made initial movement.
     if (!pause) {
       this.#move(squareSize);
       this.#changeMoveDirection(squareSize);
+      this.#checkIfBumpedIntoLadyPac(
+        squareSize,
+        ladyPac,
+        ladyPac.energizedPelletActive,
+        ladyPac.energizedPelletFinishing
+      );
     }
-
-    this.#checkIfCanBeEaten(
-      squareSize,
-      ladyPac,
-      ladyPac.energizedPelletActive,
-      ladyPac.energizedPelletFinishing
-    );
 
     this.#setImage(
       ctx,
@@ -105,34 +106,6 @@ export default class Ghost {
       ladyPac.energizedPelletActive,
       ladyPac.energizedPelletFinishing
     );
-  }
-
-  /**
-   * Check if the ghost bumped into Lady Pac.
-   * @param {number} squareSize - Size of one side of the square.
-   * @param {object} ladyPac - Lady Pac object.
-   * @return {boolean} Return true if ghost bumped into Lady Pac, false otherwise.
-   */
-
-  bumpIntoLadyPac(squareSize, ladyPac) {
-    const halfSize = squareSize / 2;
-
-    /*
-    Following code in the if statement is inspired by MDN docs. 
-    Original code from MDN docs has been altered to suit app purposes.
-    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    */
-    if (
-      this.xPosition < ladyPac.xPosition + halfSize &&
-      this.xPosition + halfSize > ladyPac.xPosition &&
-      this.yPosition < ladyPac.yPosition + halfSize &&
-      this.yPosition + halfSize > ladyPac.yPosition
-    ) {
-      this.#changeMoveDirection(squareSize);
-      return true;
-    }
-
-    return false;
   }
 
   /**
@@ -355,38 +328,101 @@ export default class Ghost {
   }
 
   /**
-   * Check if the ghost can be eaten.
-   * @summary
-   * The ghost can only be eaten if:
-   * - The ghost is in food or switching state,
-   * - The ghost is not already eaten, or switching back from being eaten,
-   * - The ghost did bump into Lady Pac.
+   * Check if the ghost bumped into Lady Pac and do ation, depending if the ghost of Lady Pac is eaten.
    * @param {number} squareSize - Size of one side of the square.
    * @param {object} ladyPac - Lady Pac object.
    * @param {boolean} ghostFoodState - Energized pellet is active and ghost is food.
    * @param {boolean} ghostSwitchingState - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  #checkIfCanBeEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState) {
+  #checkIfBumpedIntoLadyPac(
+    squareSize,
+    ladyPac,
+    ghostFoodState,
+    ghostSwitchingState
+  ) {
     if (
-      (ghostFoodState || ghostSwitchingState) &&
+      this.#didBump(squareSize, ladyPac) &&
       !this.ghostEaten &&
-      !this.ghostEatenSwitching &&
-      this.bumpIntoLadyPac(squareSize, ladyPac)
+      !this.ghostEatenSwitching
     ) {
-      // Eat ghost.
-      this.#eatenStateOn();
-      this.#playGhostSound(ladyPac);
-      
-      this.gameMap.addScore(this.scorePoints);
+      this.#changeMoveDirection(squareSize);
 
-      // Call the timer when the eaten state will switch to off and eaten finishing state to on.
-      this.ghostEatenTimer = setTimeout(
-        this.#eatenFinishingStateOnOff.bind(this),
-        this.ghostEatenTime,
-        true
-      );
+      if (ghostFoodState || ghostSwitchingState) {
+        // Ghost is eaten.
+        this.#ghostIsEaten(ladyPac);
+      } else if (
+        // Eat Lady Pac.
+        !ghostFoodState &&
+        !ghostSwitchingState &&
+        !this.ghostAteLadyPac
+      ) {
+        this.#eatLadyPac();
+      }
     }
+  }
+
+  /**
+   * Check if the collision happened between Lady Pac and ghost.
+   * @param {number} squareSize - Size of one side of the square.
+   * @param {object} ladyPac - Lady Pac object.
+   * @returns {boolean} 
+   */
+  
+  #didBump(squareSize, ladyPac) {
+    const halfSize = squareSize / 2;
+    
+    /*
+    Following code in the if statement is inspired by MDN docs. 
+    Original code from MDN docs has been altered to suit app purposes.
+    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    */
+    if (
+      this.xPosition < ladyPac.xPosition + halfSize &&
+      this.xPosition + halfSize > ladyPac.xPosition &&
+      this.yPosition < ladyPac.yPosition + halfSize &&
+      this.yPosition + halfSize > ladyPac.yPosition
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Ghost eaten Lady pac
+   */
+
+  #eatLadyPac() {
+    this.ghostAteLadyPac = true;
+    // TO DO
+  }
+
+  /**
+   * Method that manipulates game elements when ghost is eaten.
+   * @summary
+   * This method:
+   * - Eats a ghost.
+   * - Plays the sound.
+   * - Adds the score.
+   * - Calls the timer to switch the current eaten state.
+   * @param {object} ladyPac - Lady Pac object.
+   */
+
+  #ghostIsEaten(ladyPac) {
+    // Eat ghost.
+    this.#eatenStateOn();
+
+    // Play sound, add score.
+    this.#playGhostSound(ladyPac);
+    this.gameMap.addScore(this.scorePoints);
+
+    // Call the timer when the eaten state will switch to off and eaten finishing state to on.
+    this.ghostEatenTimer = setTimeout(
+      this.#eatenFinishingStateOnOff.bind(this),
+      this.ghostEatenTime,
+      true
+    );
   }
 
   /**
@@ -431,6 +467,7 @@ export default class Ghost {
    */
 
   #playGhostSound(ladyPac) {
+    console.log("ttt");
     ladyPac.eatEnergizedPelletSound.pause();
 
     ladyPac.playSound(this.eatGhostSound);
