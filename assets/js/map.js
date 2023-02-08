@@ -21,6 +21,7 @@ import Ghost from "./ghost.js";
  * Private methods:
  *
  *     #canBeEaten(xPosition, yPosition, squareSize, mapItem)
+ *     #addLife() 
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
  *     #setEnergizedPelletImg()
  */
@@ -38,8 +39,9 @@ export default class GameMap {
     // Life.
     this.lifesHTML = document.getElementById("lifes");
     this.lifeHTML = this.lifesHTML.getElementsByTagName("li");
-    this.lifes = this.lifeHTML.length;
+    this.lifes = this.lifeHTML.length - 1;
     this.loseLife = false;
+    this.lifeAdded = false;
 
     // Images.
     this.wallImg = new Image();
@@ -242,8 +244,9 @@ export default class GameMap {
    */
 
   removeLife() {
-    this.lifeHTML[this.lifes - 1].classList.add("hide");
     this.lifes--;
+    this.lifeHTML[this.lifes].classList.add("hidden");
+    console.log(this.lifes);
     this.loseLife = true;
   }
 
@@ -256,6 +259,11 @@ export default class GameMap {
   addScore(scoreToAdd) {
     this.score += scoreToAdd;
     this.scoreHTML.innerText = this.score;
+
+    // If score went above 7000 add another life, only once.
+    if (!this.lifeAdded && this.score > 7000) {
+      this.#addLife();
+    }
   }
 
   /**
@@ -296,6 +304,15 @@ export default class GameMap {
     }
 
     return false;
+  }
+
+  /**
+   * Add life. This method can be called only once.
+   */
+  #addLife() {
+    this.lifeHTML[this.lifes].classList.remove("hidden");
+    this.lifes++;
+    this.lifeAdded = true;
   }
 
   /**
