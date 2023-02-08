@@ -8,6 +8,7 @@ import { MoveDirection } from "./constants.js";
  * Public methods:
  *
  *     create(ctx, squareSize, pause, ghostFoodState, ghostSwitchingState)
+ *     bumpIntoLadyPac(squareSize, ladyPac)
  *
  * Private methods:
  *
@@ -52,8 +53,7 @@ export default class Ghost {
    * @param {object} ctx - Canvas context.
    * @param {number} squareSize - Size of one side of the square.
    * @param {boolean} pause - Ghost movements are paused.
-   * @param {boolean} ghostFood - Energized pellet is active and ghost is food.
-   * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
+   * @param {object} ladyPac - Lady Pac object.
    */
 
   create(ctx, squareSize, pause, ladyPac) {
@@ -74,8 +74,39 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
+    this.bumpIntoLadyPac(squareSize, ladyPac)
+
     //this.#setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState);
-    this.#setImage(ctx, squareSize, ladyPac.energizedPelletActive, ladyPac.energizedPelletFinishing);
+    this.#setImage(
+      ctx,
+      squareSize,
+      ladyPac.energizedPelletActive,
+      ladyPac.energizedPelletFinishing
+    );
+  }
+
+  /**
+   * Check if the ghost bumped into Lady Pac.
+   * @param {number} squareSize - Size of one side of the square.
+   * @param {object} ladyPac - Lady Pac object.
+   */
+
+  bumpIntoLadyPac(squareSize, ladyPac) {
+    const halfSize = squareSize / 2;
+
+    /*
+    Following code in the if statement is inspired by MDN docs. 
+    Original code from MDN docs has been altered to suit app purposes.
+    https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    */
+    if (
+      this.xPosition < ladyPac.xPosition + halfSize &&
+      this.xPosition + halfSize > ladyPac.xPosition &&
+      this.yPosition < ladyPac.yPosition + halfSize &&
+      this.yPosition + halfSize > ladyPac.yPosition
+    ) {
+      this.#changeMoveDirection(squareSize)
+    }
   }
 
   /**
@@ -248,8 +279,8 @@ export default class Ghost {
    * Set ghost image and draw it.
    * @param {object} ctx - Canvas context.
    * @param {number} squareSize - Size of one side of the square.
-   * @param {boolean} ghostFood - Energized pellet is active and ghost is food.
-   * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
+   * @param {boolean} ghostFoodState - Energized pellet is active and ghost is food.
+   * @param {boolean} ghostSwitchingState - Energizing pellet effects are expiring and ghost is switching back.
    */
 
   #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState) {
