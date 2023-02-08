@@ -45,6 +45,8 @@ export default class Ghost {
     this.ghostSwitchingTimerDef = 10;
     this.ghostSwitchingTimer = this.ghostSwitchingTimerDef;
 
+    this.ghostEaten = false;
+
     this.#getImages();
   }
 
@@ -74,9 +76,8 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
-    this.bumpIntoLadyPac(squareSize, ladyPac)
+    this.#checkIfEaten(squareSize, ladyPac);
 
-    //this.#setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState);
     this.#setImage(
       ctx,
       squareSize,
@@ -89,6 +90,7 @@ export default class Ghost {
    * Check if the ghost bumped into Lady Pac.
    * @param {number} squareSize - Size of one side of the square.
    * @param {object} ladyPac - Lady Pac object.
+   * @return {boolean} Return true if ghost bumped into Lady Pac, false otherwise.
    */
 
   bumpIntoLadyPac(squareSize, ladyPac) {
@@ -105,8 +107,11 @@ export default class Ghost {
       this.yPosition < ladyPac.yPosition + halfSize &&
       this.yPosition + halfSize > ladyPac.yPosition
     ) {
-      this.#changeMoveDirection(squareSize)
+      this.#changeMoveDirection(squareSize);
+      return true;
     }
+
+    return false;
   }
 
   /**
@@ -272,6 +277,9 @@ export default class Ghost {
     this.ghostSwitchingImg = new Image();
     this.ghostSwitchingImg.src = "./assets/img/game/ghost-switching.png";
 
+    this.ghostEatenImg = new Image();
+    this.ghostEatenImg.src = "./assets/img/game/ghost-eaten.png";
+
     this.ghostImg = this.ghostNormalImg;
   }
 
@@ -284,7 +292,9 @@ export default class Ghost {
    */
 
   #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState) {
-    if (ghostFoodState) {
+    if (this.ghostEaten) {
+      this.ghostImg = this.ghostEatenImg;
+    } else if (ghostFoodState) {
       this.ghostImg = this.ghostFoodImg;
     } else if (ghostSwitchingState) {
       this.#switchGhostImages();
@@ -316,6 +326,26 @@ export default class Ghost {
       } else {
         this.ghostImg = this.ghostFoodImg;
       }
+    }
+  }
+
+  /**
+   * Check if the ghost is in eaten state.
+   * @param {number} squareSize - Size of one side of the square.
+   * @param {object} ladyPac - Lady Pac object.
+   */
+
+  #checkIfEaten(squareSize, ladyPac) {
+    if (
+      this.ghostImg != this.ghostNormalImg &&
+      this.bumpIntoLadyPac(squareSize, ladyPac)
+    ) {
+      this.ghostEaten = true;
+
+      // Ghost will be respawned after number of seconds
+      setTimeout(() => {
+        this.ghostEaten = false;
+      }, 1000 * 8);
     }
   }
 
