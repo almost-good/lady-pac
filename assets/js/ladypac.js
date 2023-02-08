@@ -524,7 +524,7 @@ export default class LadyPac {
    */
 
   #switchEnergizedPelletState() {
-    this.activeState();
+    this.#activeStateOn();
 
     // Call the timer when the active state will switch to off and finishing state to on.
     this.energizedPelletActiveTimer = setTimeout(
