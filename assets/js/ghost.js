@@ -26,7 +26,7 @@ import { MoveDirection } from "./constants.js";
  *     #ghostIsEaten(ladyPac)
  *     #eatenStateOn()
  *     #eatenFinishingStateOnOff(onOffState)
- *     #playGhostSound(ladyPac)
+ *     #playGhostSound(ladyPac, soundEffect)
  *     #random(min, max)
  */
 
@@ -55,6 +55,7 @@ export default class Ghost {
 
     // Sounds.
     this.eatGhostSound = new Audio("./assets/sounds/eat-ghost-sound.wav");
+    this.ladyPacEatenSound = new Audio("./assets/sounds/bump-into-ghost.wav");
 
     // Timers.
     this.moveTimerDef = this.#random(10, 50);
@@ -357,7 +358,7 @@ export default class Ghost {
         !ghostSwitchingState &&
         !this.ghostAteLadyPac
       ) {
-        this.#eatLadyPac();
+        this.#eatLadyPac(ladyPac);
       }
     }
   }
@@ -393,9 +394,9 @@ export default class Ghost {
    * Ghost eaten Lady pac
    */
 
-  #eatLadyPac() {
+  #eatLadyPac(ladyPac) {
     this.ghostAteLadyPac = true;
-    // TO DO
+    this.#playGhostSound(ladyPac, this.ladyPacEatenSound)
   }
 
   /**
@@ -414,7 +415,7 @@ export default class Ghost {
     this.#eatenStateOn();
 
     // Play sound, add score.
-    this.#playGhostSound(ladyPac);
+    this.#playGhostSound(ladyPac, this.eatGhostSound);
     this.gameMap.addScore(this.scorePoints);
 
     // Call the timer when the eaten state will switch to off and eaten finishing state to on.
@@ -464,13 +465,13 @@ export default class Ghost {
   /**
    * Play the sound when the ghost is eaten.
    * @param {object} ladyPac - Lady Pac object.
+   * @param {object} soundEffect - Object containing a sound to be played.
    */
 
-  #playGhostSound(ladyPac) {
-    console.log("ttt");
+  #playGhostSound(ladyPac, soundEffect) {
     ladyPac.eatEnergizedPelletSound.pause();
 
-    ladyPac.playSound(this.eatGhostSound);
+    ladyPac.playSound(soundEffect);
   }
 
   /**
