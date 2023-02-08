@@ -56,7 +56,7 @@ export default class Ghost {
    * @param {boolean} ghostSwitching - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  create(ctx, squareSize, pause, ghostFoodState, ghostSwitchingState) {
+  create(ctx, squareSize, pause, ladyPac) {
     // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
       this.#setPosition(squareSize);
@@ -74,7 +74,8 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
-    this.#setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState);
+    //this.#setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState);
+    this.#setImage(ctx, squareSize, ladyPac.energizedPelletActive, ladyPac.energizedPelletFinishing);
   }
 
   /**

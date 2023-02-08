@@ -529,7 +529,7 @@ export default class LadyPac {
     // Call the timer when the active state will switch to off and finishing state to on.
     this.energizedPelletActiveTimer = setTimeout(
       this.#finishingStateOnOff.bind(this),
-      4000,
+      4 * 1000,
       true
     );
   }
@@ -564,7 +564,7 @@ export default class LadyPac {
       // Call the timer to switch finishing state to off.
       this.energizedPelletFinishingTimer = setTimeout(
         this.#finishingStateOnOff.bind(this),
-        2000,
+        1000 * 4,
         false
       );
     }
