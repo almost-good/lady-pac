@@ -21,7 +21,7 @@ import { MoveDirection } from "./constants.js";
  *     #getImages()
  *     #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState)
  *     #switchGhostImages(img1, img2)
- *     #checkIfEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState)
+ *     #checkIfCanBeEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState)
  *     #eatenStateOn()
  *     #eatenFinishingStateOnOff(onOffState)
  *     #random(min, max)
@@ -46,13 +46,16 @@ export default class Ghost {
     this.ghostEaten = false;
     this.ghostEatenSwitching = false;
 
+    // Score points.
+    this.scorePoints = 200
+
     // Timers.
     this.moveTimerDef = this.#random(10, 50);
     this.moveTimer = this.moveTimerDef;
-    
+
     this.ghostSwitchingTimerDef = 10;
     this.ghostSwitchingTimer = this.ghostSwitchingTimerDef;
-    
+
     this.ghostEatenTime = 4 * 1000;
     this.ghostEatenFinishingTime = 2 * 1000;
 
@@ -85,7 +88,7 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
-    this.#checkIfEaten(
+    this.#checkIfCanBeEaten(
       squareSize,
       ladyPac,
       ladyPac.energizedPelletActive,
@@ -348,19 +351,30 @@ export default class Ghost {
   }
 
   /**
-   * Check if the ghost is in eaten state.
+   * Check if the ghost can be eaten.
+   * @summary
+   * The ghost can only be eaten if:
+   * - The ghost is in food or switching state,
+   * - The ghost is not already eaten, or switching back from being eaten,
+   * - The ghost did bump into Lady Pac.
    * @param {number} squareSize - Size of one side of the square.
    * @param {object} ladyPac - Lady Pac object.
    * @param {boolean} ghostFoodState - Energized pellet is active and ghost is food.
    * @param {boolean} ghostSwitchingState - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  #checkIfEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState) {
+  #checkIfCanBeEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState) {
     if (
       (ghostFoodState || ghostSwitchingState) &&
+      !this.ghostEaten &&
+      !this.ghostEatenSwitching &&
       this.bumpIntoLadyPac(squareSize, ladyPac)
     ) {
-      this.#eatenStateOn()
+      // Eat ghost.
+      this.#eatenStateOn();
+      
+      // Add score.
+      this.gameMap.addScore(this.scorePoints)
 
       // Call the timer when the eaten state will switch to off and eaten finishing state to on.
       this.ghostEatenTimer = setTimeout(

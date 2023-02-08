@@ -14,12 +14,12 @@ import Ghost from "./ghost.js";
  *     getMovingObjects()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
  *     pelletEaten(xPosition, yPosition, squareSize)
+ *     addScore(scoreToAdd)
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
  *
  * Private methods:
  *
  *     #canBeEaten(xPosition, yPosition, squareSize, mapItem)
- *     #addScore(scoreToAdd)
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
  *     #setEnergizedPelletImg()
  */
@@ -203,7 +203,7 @@ export default class GameMap {
 
   pelletEaten(xPosition, yPosition, squareSize) {
     if (this.#canBeEaten(xPosition, yPosition, squareSize, 0)) {
-      this.#addScore(this.pelletScore);
+      this.addScore(this.pelletScore);
 
       return true;
     }
@@ -222,7 +222,7 @@ export default class GameMap {
 
   energizedPelletEaten(xPosition, yPosition, squareSize) {
     if (this.#canBeEaten(xPosition, yPosition, squareSize, 4)) {
-      this.#addScore(this.energizedPelletScore);
+      this.addScore(this.energizedPelletScore);
 
       return true;
     }
@@ -230,6 +230,16 @@ export default class GameMap {
     return false;
   }
 
+  /**
+   * Add and display score.
+   * @summary
+   * @param {number} scoreToAdd - Score that needs to be added.
+   */
+  
+  addScore(scoreToAdd) {
+    this.score += scoreToAdd;
+    this.scoreHTML.innerText = this.score;
+  }
 
   /**
    * Check if current position is aligned perfectly in middle of square.
@@ -269,17 +279,6 @@ export default class GameMap {
     }
 
     return false;
-  }
-
-  /**
-   * Add and display score.
-   * @summary
-   * @param {number} scoreToAdd - Score that needs to be added.
-   */
-  
-  #addScore(scoreToAdd) {
-    this.score += scoreToAdd;
-    this.scoreHTML.innerText = this.score;
   }
 
   /**
