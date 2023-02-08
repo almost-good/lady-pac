@@ -20,7 +20,10 @@ import { MoveDirection } from "./constants.js";
  *     #resetMoveSettings()
  *     #getImages()
  *     #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState)
- *     #switchGhostImages()
+ *     #switchGhostImages(img1, img2)
+ *     #checkIfEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState)
+ *     #eatenStateOn()
+ *     #eatenFinishingStateOnOff(onOffState)
  *     #random(min, max)
  */
 
@@ -39,13 +42,19 @@ export default class Ghost {
     this.xMoveSteps = 0;
     this.yMoveSteps = 0;
 
+    // Ghost eaten states.
+    this.ghostEaten = false;
+    this.ghostEatenSwitching = false;
+
     // Timers.
     this.moveTimerDef = this.#random(10, 50);
     this.moveTimer = this.moveTimerDef;
+    
     this.ghostSwitchingTimerDef = 10;
     this.ghostSwitchingTimer = this.ghostSwitchingTimerDef;
-
-    this.ghostEaten = false;
+    
+    this.ghostEatenTime = 4 * 1000;
+    this.ghostEatenFinishingTime = 2 * 1000;
 
     this.#getImages();
   }
@@ -76,7 +85,12 @@ export default class Ghost {
       this.#changeMoveDirection(squareSize);
     }
 
-    this.#checkIfEaten(squareSize, ladyPac);
+    this.#checkIfEaten(
+      squareSize,
+      ladyPac,
+      ladyPac.energizedPelletActive,
+      ladyPac.energizedPelletFinishing
+    );
 
     this.#setImage(
       ctx,
@@ -294,10 +308,12 @@ export default class Ghost {
   #setImage(ctx, squareSize, ghostFoodState, ghostSwitchingState) {
     if (this.ghostEaten) {
       this.ghostImg = this.ghostEatenImg;
+    } else if (this.ghostEatenSwitching) {
+      this.#switchGhostImages(this.ghostEatenImg, this.ghostNormalImg);
     } else if (ghostFoodState) {
       this.ghostImg = this.ghostFoodImg;
     } else if (ghostSwitchingState) {
-      this.#switchGhostImages();
+      this.#switchGhostImages(this.ghostSwitchingImg, this.ghostFoodImg);
     } else {
       this.ghostImg = this.ghostNormalImg;
     }
@@ -313,18 +329,20 @@ export default class Ghost {
 
   /**
    * Switch ghost images between two, while ghost is in switching state.
+   * @param {object} img1 - Image object 1.
+   * @param {object} img2 - Image object 2.
    */
 
-  #switchGhostImages() {
+  #switchGhostImages(img1, img2) {
     this.ghostSwitchingTimer--;
 
     if (this.ghostSwitchingTimer === 0) {
       this.ghostSwitchingTimer = this.ghostSwitchingTimerDef;
 
-      if (this.ghostImg === this.ghostFoodImg) {
-        this.ghostImg = this.ghostSwitchingImg;
+      if (this.ghostImg === img1) {
+        this.ghostImg = img2;
       } else {
-        this.ghostImg = this.ghostFoodImg;
+        this.ghostImg = img1;
       }
     }
   }
@@ -333,19 +351,59 @@ export default class Ghost {
    * Check if the ghost is in eaten state.
    * @param {number} squareSize - Size of one side of the square.
    * @param {object} ladyPac - Lady Pac object.
+   * @param {boolean} ghostFoodState - Energized pellet is active and ghost is food.
+   * @param {boolean} ghostSwitchingState - Energizing pellet effects are expiring and ghost is switching back.
    */
 
-  #checkIfEaten(squareSize, ladyPac) {
+  #checkIfEaten(squareSize, ladyPac, ghostFoodState, ghostSwitchingState) {
     if (
-      this.ghostImg != this.ghostNormalImg &&
+      (ghostFoodState || ghostSwitchingState) &&
       this.bumpIntoLadyPac(squareSize, ladyPac)
     ) {
-      this.ghostEaten = true;
+      this.#eatenStateOn()
 
-      // Ghost will be respawned after number of seconds
-      setTimeout(() => {
-        this.ghostEaten = false;
-      }, 1000 * 8);
+      // Call the timer when the eaten state will switch to off and eaten finishing state to on.
+      this.ghostEatenTimer = setTimeout(
+        this.#eatenFinishingStateOnOff.bind(this),
+        this.ghostEatenTime,
+        true
+      );
+    }
+  }
+
+  /**
+   * Switch eaten ghost state to active.
+   */
+
+  #eatenStateOn() {
+    this.ghostEaten = true;
+    this.ghostEatenSwitching = false;
+
+    // Clear timers.
+    clearTimeout(this.ghostEatenTimer);
+    clearTimeout(this.ghostEatenFinishingTimer);
+  }
+
+  /**
+   * Switch eaten finishing state to active or inactive.
+   * @summary
+   * Turn off the eaten state.
+   * When the method is called from outside it will set the finishing state to on.
+   * When the method is called with recursion it will set the finishing state to off.
+   * @param {boolean} onOffState - Setting which turns the ghost eaten finishing state to on or off.
+   */
+
+  #eatenFinishingStateOnOff(onOffState) {
+    this.ghostEaten = false;
+    this.ghostEatenSwitching = onOffState;
+
+    if (this.ghostEaten || this.ghostEatenSwitching) {
+      // Call the timer to switch finishing state to off.
+      this.ghostEatenFinishingTimer = setTimeout(
+        this.#eatenFinishingStateOnOff.bind(this),
+        this.ghostEatenFinishingTime,
+        false
+      );
     }
   }
 
