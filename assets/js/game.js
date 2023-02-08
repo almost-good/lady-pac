@@ -136,7 +136,7 @@ export default class Game {
         squareSize,
         this.#pause(),
         this.ladyPac.energizedPelletActive,
-        this.ladyPac.energizedPelletFinish
+        this.ladyPac.energizedPelletFinishing
       );
     }
   }

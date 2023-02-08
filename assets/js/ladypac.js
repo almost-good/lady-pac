@@ -32,6 +32,9 @@ import { MoveDirection } from "./constants.js";
  *     #eat(squareSize)
  *     #eatPellet(squareSize)
  *     #eatEnergizedPellet(squareSize)
+ *     #switchEnergizedPelletState()
+ *     #activeStateOn()
+ *     #finishingStateOnOff(onOffState)
  *     #playSound(soundEffect)
  */
 
@@ -66,7 +69,7 @@ export default class LadyPac {
 
     // Energized pellet.
     this.energizedPelletActive = false;
-    this.energizedPelletFinish = false;
+    this.energizedPelletFinishing = false;
 
     // Event listeners for key and swipes.
     document.addEventListener("keydown", this.#checkKeyPressedEvent);
@@ -498,7 +501,7 @@ export default class LadyPac {
   }
 
   /**
-   * Eat energized pellet if applicable.
+   * Eat energized pellet if applicable, switch it's states.
    *
    * @param {number} squareSize - Size of one side of the square.
    */
@@ -512,6 +515,58 @@ export default class LadyPac {
       )
     ) {
       this.#playSound(this.eatEnergizedPelletSound);
+      this.#switchEnergizedPelletState();
+    }
+  }
+
+  /**
+   * Switch energized pellet states on and off.
+   */
+
+  #switchEnergizedPelletState() {
+    this.activeState();
+
+    // Call the timer when the active state will switch to off and finishing state to on.
+    this.energizedPelletActiveTimer = setTimeout(
+      this.#finishingStateOnOff.bind(this),
+      4000,
+      true
+    );
+  }
+
+  /**
+   * Switch energized pellet state to active.
+   */
+
+  #activeStateOn() {
+    this.energizedPelletActive = true;
+    this.energizedPelletFinishing = false;
+
+    // Clear timers.
+    clearTimeout(this.energizedPelletActiveTimer);
+    clearTimeout(this.energizedPelletFinishingTimer);
+  }
+
+  /**
+   * Switch finishing state to active or inactive.
+   * @summary
+   * Turn off the active state.
+   * When the method is called from outside it will set the finishing state to on.
+   * When the method is called with recursion it will set the finishing state to off.
+   * @param {boolean} onOffState - Setting which turns the energized pellet finishing state to on or off.
+   */
+
+  #finishingStateOnOff(onOffState) {
+    this.energizedPelletActive = false;
+    this.energizedPelletFinishing = onOffState;
+
+    if (this.energizedPelletActive || this.energizedPelletFinishing) {
+      // Call the timer to switch finishing state to off.
+      this.energizedPelletFinishingTimer = setTimeout(
+        this.#finishingStateOnOff.bind(this),
+        2000,
+        false
+      );
     }
   }
 

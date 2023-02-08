@@ -21,12 +21,12 @@ import Ghost from "./ghost.js";
  *     #canBeEaten(xPosition, yPosition, squareSize, mapItem)
  *     #addScore(scoreToAdd)
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
- *     #setPelletImg()
+ *     #setEnergizedPelletImg()
  */
 
 export default class GameMap {
   constructor() {
-    this.speed = 2;
+    this.speed = 4;
 
     // Score.
     this.scoreHTML = document.getElementById("current-score");
@@ -46,8 +46,8 @@ export default class GameMap {
     this.switchPelletImg = this.energizedPelletImg;
 
     // Timers.
-    this.pelletTimerDef = 30;
-    this.pelletTimer = this.pelletTimerDef;
+    this.energizedPelletTimerDef = 30;
+    this.energizedPelletTimer = this.energizedPelletTimerDef;
 
     // Current map.
     // TO DO - map will be connected with player lvl, for now there is only one lvl.
@@ -72,7 +72,7 @@ export default class GameMap {
         } else if (square === 1) {
           squareImg = this.wallImg;
         } else if (square === 4) {
-          squareImg = this.#setPelletImg();
+          squareImg = this.#setEnergizedPelletImg();
         } else {
           continue;
         }
@@ -302,11 +302,11 @@ export default class GameMap {
    * @return {object} Image for energized pellet.
    */
 
-  #setPelletImg() {
-    this.pelletTimer--;
+  #setEnergizedPelletImg() {
+    this.energizedPelletTimer--;
 
-    if (this.pelletTimer === 0) {
-      this.pelletTimer = this.pelletTimerDef;
+    if (this.energizedPelletTimer === 0) {
+      this.energizedPelletTimer = this.energizedPelletTimerDef;
 
       if (this.switchPelletImg === this.pelletImg) {
         this.switchPelletImg = this.energizedPelletImg;
