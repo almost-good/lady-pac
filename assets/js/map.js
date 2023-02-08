@@ -14,6 +14,7 @@ import Ghost from "./ghost.js";
  *     getMovingObjects()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
  *     pelletEaten(xPosition, yPosition, squareSize)
+ *     removeLife()
  *     addScore(scoreToAdd)
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
  *
@@ -33,6 +34,12 @@ export default class GameMap {
     this.score = 0;
     this.pelletScore = 20;
     this.energizedPelletScore = 50;
+
+    // Life.
+    this.lifesHTML = document.getElementById("lifes");
+    this.lifeHTML = this.lifesHTML.getElementsByTagName("li");
+    this.lifes = this.lifeHTML.length;
+    this.loseLife = false;
 
     // Images.
     this.wallImg = new Image();
@@ -231,11 +238,21 @@ export default class GameMap {
   }
 
   /**
+   * Remove a life.
+   */
+
+  removeLife() {
+    this.lifeHTML[this.lifes - 1].classList.add("hide");
+    this.lifes--;
+    this.loseLife = true;
+  }
+
+  /**
    * Add and display score.
    * @summary
    * @param {number} scoreToAdd - Score that needs to be added.
    */
-  
+
   addScore(scoreToAdd) {
     this.score += scoreToAdd;
     this.scoreHTML.innerText = this.score;

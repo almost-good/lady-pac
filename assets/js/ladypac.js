@@ -8,6 +8,7 @@ import { MoveDirection } from "./constants.js";
  * Public methods:
  *
  *     create(ctx, squareSize)
+ *     playSound(soundEffect)
  *
  * Event methods:
  *
@@ -35,7 +36,6 @@ import { MoveDirection } from "./constants.js";
  *     #switchEnergizedPelletState()
  *     #activeStateOn()
  *     #finishingStateOnOff(onOffState)
- *     playSound(soundEffect)
  */
 
 export default class LadyPac {
@@ -101,6 +101,20 @@ export default class LadyPac {
     this.#animate();
     this.#rotate(ctx, squareSize);
     this.#eat(squareSize);
+  }
+
+  /**
+   * Play sound only if the sound is not muted.
+   * @param {object} soundEffect - Object containing a sound to be played.
+   */
+
+  playSound(soundEffect) {
+    const volumeOn = "fa-volume-high";
+
+    if (this.soundBtn.classList.contains(volumeOn)) {
+      soundEffect.currentTime = 0;
+      soundEffect.play();
+    }
   }
 
   /**
@@ -235,11 +249,6 @@ export default class LadyPac {
       return;
     }
 
-    // Flag that initial move occured.
-    if (!this.initialMove) {
-      this.initialMove = true;
-    }
-
     // Lady Pac movement.
     switch (this.moveDirection) {
       case MoveDirection.up:
@@ -302,6 +311,11 @@ export default class LadyPac {
    */
 
   #requestMoveDirection(directionCode) {
+    // Flag that initial move occured.
+    if (!this.initialMove) {
+      this.initialMove = true;
+    }
+
     switch (directionCode) {
       case 38:
         // To up.
@@ -570,20 +584,6 @@ export default class LadyPac {
         1000 * 4,
         false
       );
-    }
-  }
-
-  /**
-   * Play sound only if the sound is not muted.
-   * @param {object} soundEffect - Object containing a sound to be played.
-   */
-
-  playSound(soundEffect) {
-    const volumeOn = "fa-volume-high";
-
-    if (this.soundBtn.classList.contains(volumeOn)) {
-      soundEffect.currentTime = 0;
-      soundEffect.play();
     }
   }
 }

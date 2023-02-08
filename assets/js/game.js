@@ -131,22 +131,17 @@ export default class Game {
 
   #createGhosts(ctx, squareSize) {
     for (let ghost of this.ghosts) {
-      ghost.create(
-        ctx,
-        squareSize,
-        this.#pause(),
-        this.ladyPac
-      );
+      ghost.create(ctx, squareSize, this.#pause(), this.ladyPac);
     }
   }
 
   /**
-   * Pause is triggered if Lady Pac didn't make initial movement.
+   * Pause is triggered if Lady Pac didn't make initial movement or player lost a life.
    * @return {boolean} Return true if the pause is triggered, otherwise false.
    */
 
   #pause() {
-    return !this.ladyPac.initialMove;
+    return !this.ladyPac.initialMove || this.gameMap.loseLife;
   }
 
   /**

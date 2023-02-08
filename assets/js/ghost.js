@@ -22,7 +22,8 @@ import { MoveDirection } from "./constants.js";
  *     #switchGhostImages(img1, img2)
  *     #checkIfBumpedIntoLadyPac(squareSize, ladyPac, ghostFoodState, ghostSwitchingState)
  *     #didBump(squareSize, ladyPac)
- *     #eatLadyPac()
+ *     #eatLadyPac(ladyPac)
+ *     #waitForInitialMove(ladyPac)
  *     #ghostIsEaten(ladyPac)
  *     #eatenStateOn()
  *     #eatenFinishingStateOnOff(onOffState)
@@ -367,12 +368,12 @@ export default class Ghost {
    * Check if the collision happened between Lady Pac and ghost.
    * @param {number} squareSize - Size of one side of the square.
    * @param {object} ladyPac - Lady Pac object.
-   * @returns {boolean} 
+   * @returns {boolean}
    */
-  
+
   #didBump(squareSize, ladyPac) {
     const halfSize = squareSize / 2;
-    
+
     /*
     Following code in the if statement is inspired by MDN docs. 
     Original code from MDN docs has been altered to suit app purposes.
@@ -391,12 +392,35 @@ export default class Ghost {
   }
 
   /**
-   * Ghost eaten Lady pac
+   * Ghost eaten Lady Pac, Lady Pac looses a life, and a sound is played.
+   * Game is paused until initial move is made.
+   * @param {object} ladyPac - Lady Pac object.
    */
 
   #eatLadyPac(ladyPac) {
     this.ghostAteLadyPac = true;
-    this.#playGhostSound(ladyPac, this.ladyPacEatenSound)
+
+    this.#playGhostSound(ladyPac, this.ladyPacEatenSound);
+    this.gameMap.removeLife();
+
+    ladyPac.initialMove = false;
+    setTimeout(this.#waitForInitialMove.bind(this), 1000, ladyPac);
+  }
+
+  /**
+   * Reset ghost ate Lady Pac and lose life flags after initial move has been made.
+   * @param {object} ladyPac - Lady Pac object.
+   */
+
+  #waitForInitialMove(ladyPac) {
+    if (!ladyPac.initialMove) {
+      // Run until initial move has been made.
+      setTimeout(this.#waitForInitialMove.bind(this), 1000, ladyPac);
+    } else {
+      // Reset.
+      this.ghostAteLadyPac = false;
+      this.gameMap.loseLife = false;
+    }
   }
 
   /**
