@@ -159,13 +159,13 @@ export default class Game {
   /**
    * Check if the game is over, and if all the lifes are lost it is.
    */
-  
+
   #isGameOver() {
-    if (!this.gameMap.lifes) {
+    if (!this.gameMap.lifes && !this.gameOver) {
       this.gameLose = true;
-      
+
       // Play game lose sound.
-      this.gameMap.playSound(this.gameLoseSound)
+      this.gameMap.playSound(this.gameLoseSound);
       clearInterval(this.gameLoop);
     }
 

@@ -458,6 +458,8 @@ form .player-input {
   
   background-color: transparent;
   border: 2px solid var(--border-secondary);
+  /*position: relative;
+  z-index: 1000;*/
 }
 
 form .player-input::placeholder{

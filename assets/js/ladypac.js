@@ -110,7 +110,6 @@ export default class LadyPac {
    */
 
   #checkKeyPressedEvent = (event) => {
-    event.preventDefault();
     this.#requestMoveDirection(event.keyCode);
   };
 
