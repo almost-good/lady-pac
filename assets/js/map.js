@@ -254,7 +254,7 @@ export default class GameMap {
   removeLife() {
     this.lifes--;
     this.lifeHTML[this.lifes].classList.add("hidden");
-    console.log(this.lifes);
+
     this.loseLife = true;
   }
 
