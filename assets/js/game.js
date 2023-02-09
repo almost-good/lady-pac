@@ -24,8 +24,11 @@ import GameMap from "./map.js";
  */
 
 export default class Game {
-  constructor() {
-    // Canvas
+  constructor(app) {
+    // Main app.
+    this.app = app
+
+    // Canvas.
     this.canvas = document.getElementById("game-canvas");
     this.ctx = this.canvas.getContext("2d");
     this.canvasCover = document.getElementById("canvas-cover");
@@ -40,6 +43,7 @@ export default class Game {
     this.gameOver = false;
     this.gameWin = false;
     this.gameLose = false;
+    this.gameResult = ""
 
     // Sounds.
     this.gameLoseSound = new Audio("./assets/sounds/game-lose-sound.wav");
@@ -163,12 +167,16 @@ export default class Game {
   #isGameOver() {
     if (!this.gameMap.lifes && !this.gameOver) {
       this.gameLose = true;
-
+      this.gameResult = 'lose'
+      
       // Play game lose sound.
       this.gameMap.playSound(this.gameLoseSound);
+      // Stop the game loop.
       clearInterval(this.gameLoop);
+      
+      this.app.winLoseScreen(this.gameResult)
     }
-
+    
     this.gameOver = this.gameLose;
   }
 

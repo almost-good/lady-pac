@@ -1,13 +1,14 @@
 import { PLAYER, SCORES } from "./constants.js";
-import Game from "./game.js"
+import Game from "./game.js";
 import Leaderboard from "./leaderboard.js";
 
 /**
  * App class which represents the main JS file.
  *
- * Constructor methods:
+ * Public methods:
  *
- *     #init()
+ *     init()
+ *     winLoseScreen(gameResult)
  *
  * Event listener methods:
  *
@@ -22,7 +23,6 @@ import Leaderboard from "./leaderboard.js";
  *
  *     #enterPlayer()
  *     #confirmPlayer()
- *     #winLoseScreen()
  *     #closeCurrentModal()
  *     #checkPlayerNameInput()
  *     #displayHighScore()
@@ -47,14 +47,12 @@ class App {
     this.soundBtn = document.getElementById("sound");
 
     // Create Game object.
-    this.game = new Game()
+    this.game = new Game(this);
     // Create Leaderboard object.
     this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
-
-    this.#init();
   }
 
-  #init() {
+  init() {
     // Enter player is ran automatically only the first time, when local storage is empty
     // Otherwise always ran confirm player screen.
     if (!this.playerName) {
@@ -62,7 +60,7 @@ class App {
     } else {
       this.#confirmPlayer();
     }
-    
+
     // Button event listeners
     for (let i = 0; i < this.playBtns.length; i++) {
       this.playBtns[i].addEventListener("click", this.#playEvent);
@@ -78,9 +76,33 @@ class App {
 
     // Display high score
     this.#displayHighScore();
-    
+
     // Run the game
-    this.game.game()
+    this.game.game();
+  }
+
+  /**
+   * Screen that activates when the game is won or lost and displays the text accordingly.
+   * The result of the game is saved in local storage, if it qualifies.
+   */
+
+  winLoseScreen(gameResult) {
+    const winLoseHTML = document.getElementById("win-lose");
+
+    winLoseHTML.classList.remove("hide");
+
+    if (gameResult === "win") {
+      this.#displayWinResult(winLoseHTML);
+    } else if (gameResult === "lose") {
+      this.#displayLoseResult(winLoseHTML);
+    }
+
+    // Store the current score, the user may or may not continue to see their score
+    this.leaderboard.storeCurrentScore();
+
+    document
+      .getElementById("leaderboard-btn")
+      .addEventListener("click", this.#enterLeaderboardEvent);
   }
 
   /**
@@ -189,31 +211,6 @@ class App {
     confirmPlayerHTML.classList.remove("hide");
 
     this.#displayPlayerName();
-  }
-
-  /**
-   * Screen that activates when the game is won or lost and displays the text accordingly.
-   * The result of the game is saved in local storage, if it qualifies.
-   */
-
-  #winLoseScreen() {
-    let gameResult = "lose";
-    const winLoseHTML = document.getElementById("win-lose");
-
-    winLoseHTML.classList.remove("hide");
-
-    if (gameResult === "win") {
-      this.#displayWinResult(winLoseHTML);
-    } else if (gameResult === "lose") {
-      this.#displayLoseResult(winLoseHTML);
-    }
-
-    // Store the current score, the user may or may not continue to see their score
-    this.leaderboard.storeCurrentScore();
-
-    document
-      .getElementById("leaderboard-btn")
-      .addEventListener("click", this.#enterLeaderboardEvent);
   }
 
   /**
@@ -340,4 +337,5 @@ class App {
   }
 }
 
-new App();
+let xxx = new App();
+xxx.init();
