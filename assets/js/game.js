@@ -19,6 +19,7 @@ import GameMap from "./map.js";
  *     #gameInstance()
  *     #createGhosts(ctx, squareSize)
  *     #pause()
+ *     #isGameOver()
  *     #positionGameIntoView()
  */
 
@@ -34,6 +35,11 @@ export default class Game {
     [this.ladyPac, this.ghosts] = this.gameMap.getMovingObjects();
 
     this.browserWidth = window.innerWidth;
+
+    // Game results.
+    this.gameOver = false;
+    this.gameWin = false;
+    this.gameLose = false;
 
     // Event listeners.
     this.canvasCover.addEventListener("mousedown", this.#gameUncoverEvent);
@@ -119,8 +125,11 @@ export default class Game {
 
     // Create map, Lady Pac and ghosts.
     this.gameMap.create(this.ctx, this.squareSize);
-    this.ladyPac.create(this.ctx, this.squareSize);
+    this.ladyPac.create(this.ctx, this.squareSize, this.gameOver);
     this.#createGhosts(this.ctx, this.squareSize);
+
+    // Check if it is game over.
+    this.#isGameOver();
   }
 
   /**
@@ -141,7 +150,20 @@ export default class Game {
    */
 
   #pause() {
-    return !this.ladyPac.initialMove || this.gameMap.loseLife;
+    return !this.ladyPac.initialMove || this.gameMap.loseLife || this.gameOver;
+  }
+
+  /**
+   * Check if the game is over, and if all the lifes are lost it is.
+   */
+  
+  #isGameOver() {
+    if (!this.gameMap.lifes) {
+      this.gameLose = true;
+      clearInterval(this.gameLoop);
+    }
+
+    this.gameOver = this.gameLose;
   }
 
   /**

@@ -82,7 +82,7 @@ export default class LadyPac {
    * @param {number} squareSize - Size of one side of the square.
    */
 
-  create(ctx, squareSize) {
+  create(ctx, squareSize, gameOver) {
     // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
       this.#setPosition(squareSize);
@@ -94,10 +94,14 @@ export default class LadyPac {
       this.#adjustPosition(squareSize);
     }
 
-    this.#move(squareSize);
-    this.#animate();
+    // Lady Pac can only move if it's not game over.
+    if (!gameOver) {
+      this.#move(squareSize);
+      this.#animate();
+      this.#eat(squareSize);
+    }
+
     this.#rotate(ctx, squareSize);
-    this.#eat(squareSize);
   }
 
   /**
