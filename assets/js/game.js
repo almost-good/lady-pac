@@ -26,7 +26,7 @@ import GameMap from "./map.js";
 export default class Game {
   constructor(app) {
     // Main app.
-    this.app = app
+    this.app = app;
 
     // Canvas.
     this.canvas = document.getElementById("game-canvas");
@@ -43,10 +43,11 @@ export default class Game {
     this.gameOver = false;
     this.gameWin = false;
     this.gameLose = false;
-    this.gameResult = ""
+    this.gameResult = "";
 
     // Sounds.
     this.gameLoseSound = new Audio("./assets/sounds/game-lose-sound.wav");
+    this.gameWinSound = new Audio("./assets/sounds/game-win-sound.wav");
 
     // Event listeners.
     this.canvasCover.addEventListener("mousedown", this.#gameUncoverEvent);
@@ -166,18 +167,22 @@ export default class Game {
 
   #isGameOver() {
     if (!this.gameMap.lifes && !this.gameOver) {
-      this.gameLose = true;
-      this.gameResult = 'lose'
-      
-      // Play game lose sound.
-      this.gameMap.playSound(this.gameLoseSound);
-      // Stop the game loop.
-      clearInterval(this.gameLoop);
-      
-      this.app.winLoseScreen(this.gameResult)
+      this.#gameIsOver("lose", this.gameLoseSound);
+    } else if (!this.gameMap.pelletNumber && !this.gameOver) {
+      this.#gameIsOver("win", this.gameWinSound);
     }
-    
-    this.gameOver = this.gameLose;
+  }
+
+  #gameIsOver(result, soundEffect) {
+    this.gameOver = true;
+    this.gameResult = result;
+    this.gameMap.playSound(soundEffect);
+    clearInterval(this.gameLoop);
+    setTimeout(this.#showWinLoseScreen.bind(this), 5 * 1000, this.gameResult)
+  }
+
+  #showWinLoseScreen(gameResult){
+    this.app.winLoseScreen(gameResult);
   }
 
   /**

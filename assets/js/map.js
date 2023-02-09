@@ -32,6 +32,9 @@ export default class GameMap {
   constructor() {
     this.speed = 4;
 
+    // Pellet number.
+    this.pelletNumber = 1
+
     // Score.
     this.scoreHTML = document.getElementById("current-score");
     this.score = 0;
@@ -79,6 +82,7 @@ export default class GameMap {
 
   create(ctx, squareSize) {
     // Loop over map and get the correct img.
+    this.pelletNumber = 0
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
@@ -86,10 +90,12 @@ export default class GameMap {
 
         if (square === 0) {
           squareImg = this.pelletImg;
+          this.pelletNumber++
         } else if (square === 1) {
           squareImg = this.wallImg;
         } else if (square === 4) {
           squareImg = this.#setEnergizedPelletImg();
+          this.pelletNumber++
         } else {
           continue;
         }
