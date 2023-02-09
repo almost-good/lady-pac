@@ -21,7 +21,8 @@ import Ghost from "./ghost.js";
  * Private methods:
  *
  *     #canBeEaten(xPosition, yPosition, squareSize, mapItem)
- *     #addLife() 
+ *     #addLife()
+ *     #flashLife(flag)
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
  *     #setEnergizedPelletImg()
  */
@@ -57,6 +58,8 @@ export default class GameMap {
     // Timers.
     this.energizedPelletTimerDef = 30;
     this.energizedPelletTimer = this.energizedPelletTimerDef;
+    this.lifeTimer = 10;
+    this.lifeTimeout = 300;
 
     // Current map.
     // TO DO - map will be connected with player lvl, for now there is only one lvl.
@@ -309,10 +312,35 @@ export default class GameMap {
   /**
    * Add life. This method can be called only once.
    */
+
   #addLife() {
     this.lifeHTML[this.lifes].classList.remove("hidden");
     this.lifes++;
     this.lifeAdded = true;
+
+    // Flash life.
+    setTimeout(this.#flashLife.bind(this), this.lifeTimeout, true);
+  }
+
+  /**
+   * Flash the newly recieved life.
+   * @summary
+   * @param {boolean} flag - Helper used for switching heart states.
+   */
+
+  #flashLife(flag) {
+    if (flag) {
+      flag = false;
+      this.lifeHTML[this.lifes - 1].classList.add("hidden");
+    } else {
+      flag = true;
+      this.lifeHTML[this.lifes - 1].classList.remove("hidden");
+    }
+
+    this.lifeTimer--;
+    if (this.lifeTimer) {
+      setTimeout(this.#flashLife.bind(this), this.lifeTimeout, flag);
+    }
   }
 
   /**
