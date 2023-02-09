@@ -282,12 +282,10 @@ export default class GameMap {
   playSound(soundEffect) {
     const volumeOn = "fa-volume-high";
 
-    /*if (this.soundBtn.classList.contains(volumeOn)) {
+    if (this.soundBtn.classList.contains(volumeOn)) {
       soundEffect.currentTime = 0;
       soundEffect.play();
-    }*/
-    soundEffect.currentTime = 0;
-      soundEffect.play();
+    }
   }
 
   /**
