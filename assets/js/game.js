@@ -41,6 +41,9 @@ export default class Game {
     this.gameWin = false;
     this.gameLose = false;
 
+    // Sounds.
+    this.gameLoseSound = new Audio("./assets/sounds/game-lose-sound.wav");
+
     // Event listeners.
     this.canvasCover.addEventListener("mousedown", this.#gameUncoverEvent);
     document.addEventListener("mousedown", this.#gameCoverEvent);
@@ -160,6 +163,9 @@ export default class Game {
   #isGameOver() {
     if (!this.gameMap.lifes) {
       this.gameLose = true;
+      
+      // Play game lose sound.
+      this.gameMap.playSound(this.gameLoseSound)
       clearInterval(this.gameLoop);
     }
 

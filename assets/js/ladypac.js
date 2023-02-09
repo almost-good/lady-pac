@@ -64,6 +64,7 @@ export default class LadyPac {
       "./assets/sounds/eat-energized-pellet-sound.wav"
     );
 
+
     // Energized pellet.
     this.energizedPelletActive = false;
     this.energizedPelletFinishing = false;
