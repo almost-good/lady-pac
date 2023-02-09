@@ -494,8 +494,9 @@ export default class Ghost {
 
   #playGhostSound(ladyPac, soundEffect) {
     ladyPac.eatEnergizedPelletSound.pause();
-
-    ladyPac.playSound(soundEffect);
+    this.gameMap.lifeAddedSound.pause();
+    
+    this.gameMap.playSound(soundEffect);
   }
 
   /**

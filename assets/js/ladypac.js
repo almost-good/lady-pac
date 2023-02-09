@@ -8,7 +8,6 @@ import { MoveDirection } from "./constants.js";
  * Public methods:
  *
  *     create(ctx, squareSize)
- *     playSound(soundEffect)
  *
  * Event methods:
  *
@@ -65,8 +64,6 @@ export default class LadyPac {
       "./assets/sounds/eat-energized-pellet-sound.wav"
     );
 
-    this.soundBtn = document.getElementById("sound");
-
     // Energized pellet.
     this.energizedPelletActive = false;
     this.energizedPelletFinishing = false;
@@ -101,20 +98,6 @@ export default class LadyPac {
     this.#animate();
     this.#rotate(ctx, squareSize);
     this.#eat(squareSize);
-  }
-
-  /**
-   * Play sound only if the sound is not muted.
-   * @param {object} soundEffect - Object containing a sound to be played.
-   */
-
-  playSound(soundEffect) {
-    const volumeOn = "fa-volume-high";
-
-    if (this.soundBtn.classList.contains(volumeOn)) {
-      soundEffect.currentTime = 0;
-      soundEffect.play();
-    }
   }
 
   /**
@@ -511,7 +494,7 @@ export default class LadyPac {
   #eatPellet(squareSize) {
     if (this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize)) {
       //this.eatPelletSound.currentTime = 0;
-      this.playSound(this.eatPelletSound);
+      this.gameMap.playSound(this.eatPelletSound);
     }
   }
 
@@ -530,7 +513,7 @@ export default class LadyPac {
       )
     ) {
       //this.eatEnergizedPelletSound.currentTime = 0;
-      this.playSound(this.eatEnergizedPelletSound);
+      this.gameMap.playSound(this.eatEnergizedPelletSound);
 
       this.#switchEnergizedPelletState();
     }

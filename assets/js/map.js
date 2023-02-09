@@ -17,6 +17,7 @@ import Ghost from "./ghost.js";
  *     removeLife()
  *     addScore(scoreToAdd)
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
+ *     playSound(soundEffect)
  *
  * Private methods:
  *
@@ -43,6 +44,10 @@ export default class GameMap {
     this.lifes = this.lifeHTML.length - 1;
     this.loseLife = false;
     this.lifeAdded = false;
+
+    // Sounds.
+    this.soundBtn = document.getElementById("sound");
+    this.lifeAddedSound = new Audio("./assets/sounds/life-added-sound.wav");
 
     // Images.
     this.wallImg = new Image();
@@ -270,6 +275,20 @@ export default class GameMap {
   }
 
   /**
+   * Play sound only if the sound is not muted.
+   * @param {object} soundEffect - Object containing a sound to be played.
+   */
+
+  playSound(soundEffect) {
+    const volumeOn = "fa-volume-high";
+
+    if (this.soundBtn.classList.contains(volumeOn)) {
+      soundEffect.currentTime = 0;
+      soundEffect.play();
+    }
+  }
+
+  /**
    * Check if current position is aligned perfectly in middle of square.
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
@@ -317,6 +336,8 @@ export default class GameMap {
     this.lifeHTML[this.lifes].classList.remove("hidden");
     this.lifes++;
     this.lifeAdded = true;
+
+    this.playSound(this.lifeAddedSound);
 
     // Flash life.
     setTimeout(this.#flashLife.bind(this), this.lifeTimeout, true);
