@@ -55,7 +55,6 @@ export default class Leaderboard {
         );
       }
     }
-    // Display every score
   }
 
   /**
@@ -63,15 +62,14 @@ export default class Leaderboard {
    */
 
   displayCurrentScore() {
-    const currentScore = document.getElementById("current-score");
+    const currentScore = document.getElementById("display-current-score");
 
     currentScore.innerHTML = `Your score: <span>${this.currentPlayerScore.score}</span>`;
   }
 
   /**
    * Store current score of the player in the leaderboard, if applicable.
-   * @summary
-   * The leaderboard only stores top 10 scores achieved.
+   * @summary The leaderboard only stores top 10 scores achieved.
    */
 
   storeCurrentScore() {
