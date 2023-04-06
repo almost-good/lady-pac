@@ -56,6 +56,16 @@ export default class Game {
   }
 
   /**
+   * Clears all event listeners.
+   */
+
+  clear() {
+    this.canvasCover.removeEventListener("mousedown", this.#gameUncoverEvent);
+    document.removeEventListener("mousedown", this.#gameCoverEvent);
+    window.removeEventListener("resize", this.#resizeGameWhileCoveredEvent);
+  }
+
+  /**
    * Call the instance of the game to be shown on screen.
    */
 
@@ -178,10 +188,10 @@ export default class Game {
     this.gameResult = result;
     this.gameMap.playSound(soundEffect);
     clearInterval(this.gameLoop);
-    setTimeout(this.#showWinLoseScreen.bind(this), 5 * 1000, this.gameResult)
+    setTimeout(this.#showWinLoseScreen.bind(this), 5 * 1000, this.gameResult);
   }
 
-  #showWinLoseScreen(gameResult){
+  #showWinLoseScreen(gameResult) {
     this.app.winLoseScreen(gameResult);
   }
 
