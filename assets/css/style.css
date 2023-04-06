@@ -200,6 +200,11 @@ body::-webkit-scrollbar-thumb,
   text-transform: uppercase;
 }
 
+.game-container .game {
+  display: flex;
+  flex-direction: column;
+}
+
 .game-container .game .canvas-container {
   margin: 2vh 0 5vh;
   height: max-content;
@@ -714,6 +719,18 @@ form .validation .error {
 
 @media screen and (max-width: 780px) {
   /* --------------------------- GENERAL */
+
+  /* CONTAINERS */
+  .game-container .game {
+    flex-direction: column-reverse;
+  }
+
+  .game-container .game .canvas-container {
+    margin: 2vh 0 2vh;
+    height: max-content;
+    width: max-content;
+    position: relative;
+  }
 
   /* BUTTONS */
   .buttons {

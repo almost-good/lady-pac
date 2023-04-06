@@ -229,7 +229,12 @@ export default class Game {
 
   #positionGameIntoView() {
     setTimeout(() => {
-      this.canvas.scrollIntoView({ block: "end" });
+      if(this.browserWidth < 780) {
+        this.canvas.scrollIntoView({ block: "start" });
+      } else {
+        this.canvas.scrollIntoView({ block: "end" });
+      }
+      
       document.body.classList.add("remove-overflow");
       this.browserWidth = window.innerWidth;
     }, 100);
