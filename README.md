@@ -114,13 +114,15 @@ The design for the site is retro arcade, with a deep, dark background and occasi
 There are three different font styles used on the page. **Arcade Regular** was selected for most of the page due to its retro pixel-like design, **Karmatic Arcade Regular** for all of the headings and **Pac Font Regular** for game name title, respectfully. I also included websafe fallback fonts, followed by the generic fonts.
 
 ### **Imagery**
-Images used in the game, as well as logo, were all developed by the site developer.
+Images used in the game, as well as logo and favicon were all developed by the site developer.
 The design used was simple and clean.
 <br><br>
 ![Logo](assets/docs/img/logo.png)
 <br><br>
 <br><br>
 ![Ghost Food](assets/docs/img/ghost-food.png) ![Ghost Normal](assets/docs/img/ghost-normal.png) ![Ghost Eaten](assets/docs/img/ghost-eaten.png) ![Ghost Switching](assets/docs/img/ghost-switching.png) 
+<br><br>
+![Wall Blue](assets/docs/img/wall-blue.png) ![Wall Green](assets/docs/img/wall-green.png) ![Wall Pink](assets/docs/img/wall-pink.png) ![Wall Yellow](assets/docs/img/wall-yellow.png) 
 <br><br>
 
 Back to [Table of Contents](#table-of-contents)
