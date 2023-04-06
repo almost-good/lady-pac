@@ -22,7 +22,7 @@
   <!-- Game -->
   <main class="game-container">
     <h1>Lady Pac</h1>
-  
+
     <div class="highscore-container">
       <p>High score</p>
       <p id="highscore-top">00</p>
@@ -222,7 +222,7 @@
       </div>
 
       <div class="buttons">
-        <button class="btn play">Okay</button>
+        <button id="help-okay-btn" class="btn">Okay</button>
       </div>
     </div>
   </section>
@@ -239,10 +239,11 @@
       <h2>Leader<br class="br-mobile">board</h2>
       
       <ul id="highscore-list" class="highscore-list"></ul>
-      <p id="current-score" class="current-score"></p>
-      
-      <div class="buttons">
-        <button class="btn play" >Play<br class="br-xs"> again</button>
+      <p id="display-current-score" class="current-score"></p>
+
+      <div id="leaderboard-btns" class="buttons">
+        <button class="btn play">Play<br class="br-xs"> again</button>
+        <button class="btn play-again">Continue</button>
         <button class="btn switch-player">Switch<br class="br-xs"> player</button>
       </div>
     </div>
