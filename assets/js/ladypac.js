@@ -19,6 +19,7 @@ import { MoveDirection } from "./constants.js";
  *
  *     #setPosition(squareSize)
  *     #adjustPosition(squareSize)
+ *     #adjustSpeed(squareSize)
  *     #calcStepDiff(moveSteps, squareSize)
  *     #move(squareSize)
  *     #setMoveToCheckDirection(squareSize)
@@ -64,7 +65,6 @@ export default class LadyPac {
       "./assets/sounds/eat-energized-pellet-sound.wav"
     );
 
-
     // Energized pellet.
     this.energizedPelletActive = false;
     this.energizedPelletFinishing = false;
@@ -74,6 +74,7 @@ export default class LadyPac {
     document.addEventListener("touchstart", this.#touchStartEvent);
     document.addEventListener("touchmove", this.#touchDirectionEvent);
 
+    // Lady Pac images.
     this.#getImages();
   }
 
@@ -83,25 +84,22 @@ export default class LadyPac {
    * @param {number} squareSize - Size of one side of the square.
    */
 
-  create(ctx, squareSize, gameOver) {
+  create(ctx, squareSize) {
     // If positions are not defined, define them.
     if (!this.xPosition && !this.yPosition) {
       this.#setPosition(squareSize);
+      this.speed = this.#adjustSpeed(squareSize);
     }
 
     // If the screen is resized, "remember" lady pac position prior to resize.
-    // Adjust the speed.
     if (this.squarePreResize != squareSize) {
       this.#adjustPosition(squareSize);
+      this.speed = this.#adjustSpeed(squareSize);
     }
 
-    // Lady Pac can only move if it's not game over.
-    if (!gameOver) {
-      this.#move(squareSize);
-      this.#animate();
-      this.#eat(squareSize);
-    }
-
+    this.#move(squareSize);
+    this.#animate();
+    this.#eat(squareSize);
     this.#rotate(ctx, squareSize);
   }
 
@@ -191,6 +189,19 @@ export default class LadyPac {
     // Refresh the number of steps Lady Pac made to match current square size.
     this.xMoveSteps -= xStepDiff;
     this.yMoveSteps -= yStepDiff;
+  }
+
+  /**
+   * Adjust the speed of Lady Pac depending on how big the square is.
+   * @param {number} squareSize - Size of one side of the square.
+   */
+
+  #adjustSpeed(squareSize) {
+    if (squareSize === 40) {
+      return 4;
+    } else if (squareSize < 40) {
+      return 2;
+    }
   }
 
   /**
