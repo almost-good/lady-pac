@@ -120,7 +120,7 @@ class App {
   }
 
   /**
-   * Event listener for play and play again button. Starts the game.
+   * Event listener for play button. Starts the new game.
    */
 
   #playEvent = (event) => {
@@ -339,6 +339,19 @@ class App {
   }
 
   /**
+   * Restore lifes needed for completely new game.
+   */
+
+  #restoreLifes() {
+    this.lifesHTML = document.getElementById("lifes");
+    this.lifeHTML = this.lifesHTML.getElementsByTagName("li");
+
+    for (let i = 0; i < this.lifeHTML.length - 1; i++) {
+      this.lifeHTML[i].classList.remove("hidden");
+    }
+  }
+
+  /**
    * Display the win text message.
    * @param {object} modal - Win / Lose screen.
    */
@@ -350,7 +363,7 @@ class App {
   }
 
   /**
-   * Displays the lose text message.
+   * Displays the lose text message and store the game.
    * @param {object} modal - Win / Lose screen.
    */
 
