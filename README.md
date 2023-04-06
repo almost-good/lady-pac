@@ -224,7 +224,7 @@ Back to [Table of Contents](#table-of-contents)
 ## **Deployment**
 
 
-The steps to deploy using GitHub pages are:
+### The steps to deploy using GitHub pages are:
 
 - Go to the repository on [GitHub](https://github.com).
 - Select 'Settings' close to the top of the page.
@@ -233,6 +233,15 @@ The steps to deploy using GitHub pages are:
 - Once selected, click the 'Save'.
 - Deployment will be confirmed by a message saying "Your site is live at" followed by the web address.
 
+### The steps to run the project locally:
+
+- Navigate to the main page of the [GitHub](https://github.com) repository.
+- Above the list of files click on green **Code** button.
+- Copy the URL for the repository.
+- Open **Git Bash**.
+- Change the current working directory to specified location.
+- Type **git clone** and earlier copied URL.
+- Press **enter**.
 
 Back to [Table of Contents](#table-of-contents)
 
