@@ -58,8 +58,8 @@ export default class GameMap {
     this.lifeAddedSound = new Audio("./assets/sounds/life-added-sound.wav");
 
     // Images.
-    this.wallImg = new Image();
-    this.wallImg.src = "./assets/img/game/wall.png";
+    this.#getWallImages();
+    this.wallImg = this.wallImgs[Math.floor(Math.random() * (3 - 0 + 1) + 0)];
 
     this.pelletImg = new Image();
     this.pelletImg.src = "./assets/img/game/pellet.png";
@@ -409,6 +409,26 @@ export default class GameMap {
     }
 
     return this.switchPelletImg;
+  }
+
+  /**
+   * Create array of differently colored wall images.
+   */
+
+  #getWallImages() {
+    let wallImgBlue = new Image();
+    wallImgBlue.src = "./assets/img/game/wall-blue.png";
+
+    let wallImgPink = new Image();
+    wallImgPink.src = "./assets/img/game/wall-pink.png";
+
+    let wallImgYellow = new Image();
+    wallImgYellow.src = "./assets/img/game/wall-yellow.png";
+
+    let wallImgGreen = new Image();
+    wallImgGreen.src = "./assets/img/game/wall-green.png";
+
+    this.wallImgs = [wallImgBlue, wallImgPink, wallImgYellow, wallImgGreen];
   }
 
   /**
