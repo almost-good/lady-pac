@@ -38,7 +38,7 @@ export default class GameMap {
     this.setSquareSize();
 
     // Pellet number.
-    this.pelletNumber = 1
+    this.pelletNumber = 1;
 
     // Score.
     this.scoreHTML = document.getElementById("current-score");
@@ -74,9 +74,8 @@ export default class GameMap {
     this.lifeTimer = 10;
     this.lifeTimeout = 300;
 
-    // Current map.
-    // TO DO - map will be connected with player lvl, for now there is only one lvl.
-    this.map = mapList;
+    // Get different maps.
+    this.#getMaps();
   }
 
   /**
@@ -87,7 +86,7 @@ export default class GameMap {
 
   create(ctx, squareSize) {
     // Loop over map and get the correct img.
-    this.pelletNumber = 0
+    this.pelletNumber = 0;
     for (let row = 0; row < this.map.length; row++) {
       for (let column = 0; column < this.map[0].length; column++) {
         let square = this.map[row][column];
@@ -95,12 +94,12 @@ export default class GameMap {
 
         if (square === 0) {
           squareImg = this.pelletImg;
-          this.pelletNumber++
+          this.pelletNumber++;
         } else if (square === 1) {
           squareImg = this.wallImg;
         } else if (square === 4) {
           squareImg = this.#setEnergizedPelletImg();
-          this.pelletNumber++
+          this.pelletNumber++;
         } else {
           continue;
         }
@@ -410,5 +409,16 @@ export default class GameMap {
     }
 
     return this.switchPelletImg;
+  }
+
+  /**
+   * Create array of different map layouts.
+   */
+
+  #getMaps() {
+    this.differentMaps = [mapListOne, mapListTwo, mapListThree, mapListFour];
+    let rand = Math.floor(Math.random() * (3 - 0 + 1) + 0);
+
+    this.map = JSON.parse(JSON.stringify(this.differentMaps[rand]));
   }
 }
