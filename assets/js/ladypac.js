@@ -222,7 +222,6 @@ export default class LadyPac {
 
   /**
    * Move LadyPac and start.
-   *
    * @param {number} squareSize - Size of one side of the square.
    */
 
@@ -251,7 +250,7 @@ export default class LadyPac {
     switch (this.moveDirection) {
       case MoveDirection.up:
         // To move up subtract speed from yPosition,
-        // Remember flip value for rotation.
+        // Flip value is for rotation.
         this.yPosition -= this.speed;
         this.yMoveSteps -= this.speed;
         this.flipY = -1;
@@ -275,7 +274,6 @@ export default class LadyPac {
 
   /**
    * Set move direction to check direction if applicable.
-   *
    * @param {number} squareSize - Size of one side of the square.
    */
 
@@ -363,7 +361,6 @@ export default class LadyPac {
 
   /**
    * Get direction code.
-   * @summary If the description is long, write your summary here. Otherwise, feel free to remove this.
    * @param {number} xDiff - X coordinate difference between initial and current touch.
    * @param {number} yDiff - Y coordinate difference between initial and current touch.
    * @return {number} Direction code.
@@ -391,13 +388,6 @@ export default class LadyPac {
       }
     }
   }
-
-  /**
-   * Check if current position is aligned perfectly in middle of square.
-   *
-   * @param {number} squareSize - Size of one side of the square.
-   * @return {boolean}
-   */
 
   /**
    * Get all images and allow for their access.
@@ -491,7 +481,6 @@ export default class LadyPac {
 
   /**
    * Eat something if its eatable.
-   *
    * @param {number} squareSize - Size of one side of the square.
    */
 
@@ -502,20 +491,18 @@ export default class LadyPac {
 
   /**
    * Eat pellet if applicable.
-   *
    * @param {number} squareSize - Size of one side of the square.
    */
 
   #eatPellet(squareSize) {
     if (this.gameMap.pelletEaten(this.xPosition, this.yPosition, squareSize)) {
-      //this.eatPelletSound.currentTime = 0;
+      this.eatPelletSound.currentTime = 0;
       this.gameMap.playSound(this.eatPelletSound);
     }
   }
 
   /**
    * Eat energized pellet if applicable, switch it's states.
-   *
    * @param {number} squareSize - Size of one side of the square.
    */
 
@@ -527,7 +514,6 @@ export default class LadyPac {
         squareSize
       )
     ) {
-      //this.eatEnergizedPelletSound.currentTime = 0;
       this.gameMap.playSound(this.eatEnergizedPelletSound);
 
       this.#switchEnergizedPelletState();
