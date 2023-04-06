@@ -49,7 +49,8 @@ export default class GameMap {
     // Life.
     this.lifesHTML = document.getElementById("lifes");
     this.lifeHTML = this.lifesHTML.getElementsByTagName("li");
-    this.lifes = this.lifeHTML.length - 1;
+    this.lostLifeCounter = this.#lostLifes();
+    this.lifes = this.lifeHTML.length - this.lostLifeCounter;
     this.loseLife = false;
     this.lifeAdded = false;
 
@@ -337,6 +338,20 @@ export default class GameMap {
     }
 
     return false;
+  }
+
+  /**
+   * Count how many lifes are unavailable.
+   */
+
+  #lostLifes() {
+    let counter = 0;
+    for (let i = 0; i < this.lifeHTML.length; i++) {
+      if (this.lifeHTML[i].classList.contains("hidden")) {
+        counter++;
+      }
+    }
+    return counter;
   }
 
   /**
