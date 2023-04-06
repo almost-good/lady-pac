@@ -83,7 +83,9 @@ export default class Game {
   #gameUncoverEvent = (event) => {
     this.canvasCover.classList.add("canvas-cover-out");
     this.#positionGameIntoView();
-
+    clearInterval(this.gameLoop);
+    
+    this.uncoverActive = true
     this.gameLoop = setInterval(this.#runGame.bind(this), 1000 / 60);
   };
 
@@ -100,7 +102,8 @@ export default class Game {
     ) {
       this.canvasCover.classList.remove("canvas-cover-out");
       document.body.classList.remove("remove-overflow");
-
+      
+      this.uncoverActive = false
       clearInterval(this.gameLoop);
     }
   };
@@ -163,12 +166,12 @@ export default class Game {
   }
 
   /**
-   * Pause is triggered if Lady Pac didn't make initial movement or player lost a life.
+   * Pause is triggered if Lady Pac didn't make initial movement, player lost a life or game is over.
    * @return {boolean} Return true if the pause is triggered, otherwise false.
    */
 
   #pause() {
-    return !this.ladyPac.initialMove || this.gameMap.loseLife || this.gameOver;
+    return !this.ladyPac.initialMove || this.gameMap.loseLife || this.gameOver || !this.uncoverActive;
   }
 
   /**
