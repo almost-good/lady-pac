@@ -109,12 +109,20 @@ class App {
 
     winLoseHTML.classList.remove("hide");
 
+    // Save final score.
+    this.finalScore = parseInt(
+      document.getElementById("current-score").innerText
+    );
+
+    // Create new leaderboard.
+    this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
+
     if (gameResult === "win") {
       this.#displayWinResult(winLoseHTML);
     } else if (gameResult === "lose") {
       this.#displayLoseResult(winLoseHTML);
 
-      // Store the current score, the user may or may not continue to see their score
+      // If game is lost store the results.
       this.leaderboard.storeCurrentScore();
     }
   }
