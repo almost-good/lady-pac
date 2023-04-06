@@ -13,9 +13,11 @@ import Leaderboard from "./leaderboard.js";
  * Event listener methods:
  *
  *     #playEvent()
+ *     #continuePlayEvent()
  *     #switchPlayerEvent()
  *     #enterPlayerContinueBtn()
  *     #enterHelpEvent()
+ *     #leaveHelpEvent()
  *     #enterLeaderboardEvent()
  *     #toggleSoundEvent()
  *
@@ -29,6 +31,7 @@ import Leaderboard from "./leaderboard.js";
  *     #displayPlayerName()
  *     #displayPlayerValidation(isError)
  *     #refreshPlayerValidation()
+ *     #restoreLifes()
  *     #displayWinResult(modal)
  *     #displayLoseResult(modal)
  *     #toggleSound(removeSetting, addSetting)
@@ -37,48 +40,63 @@ import Leaderboard from "./leaderboard.js";
 
 class App {
   constructor() {
-    this.finalScore = 122340;
+    this.finalScore = 0;
+    this.currentScore = 0;
+
+    // Get the player from local storage.
     this.playerName = localStorage.getItem(PLAYER);
 
-    /* HTML array event listeners. */
+    // HTML btns by classes.
     this.playBtns = document.getElementsByClassName("play");
+    this.continuePlayBtns = document.getElementsByClassName("play-again");
     this.switchPlayerBtns = document.getElementsByClassName("switch-player");
+
+    // HTML btns by ID's.
     this.helpBtn = document.getElementById("help-btn");
+    this.helpOkayBtn = document.getElementById("help-okay-btn");
     this.soundBtn = document.getElementById("sound");
 
-    // Create Game object.
-    this.game = new Game(this);
-    // Create Leaderboard object.
-    this.leaderboard = new Leaderboard(this.finalScore, this.playerName);
-  }
+    // Event listener for leaderboard.
+    document
+      .getElementById("leaderboard-btn")
+      .addEventListener("click", this.#enterLeaderboardEvent);
 
-  init() {
-    // Enter player is ran automatically only the first time, when local storage is empty
-    // Otherwise always ran confirm player screen.
-    if (!this.playerName) {
-      this.#enterPlayer();
-    } else {
-      this.#confirmPlayer();
-    }
-
-    // Button event listeners
+    // Button event listeners.
     for (let i = 0; i < this.playBtns.length; i++) {
       this.playBtns[i].addEventListener("click", this.#playEvent);
     }
+
+    for (let i = 0; i < this.continuePlayBtns.length; i++) {
+      this.continuePlayBtns[i].addEventListener(
+        "click",
+        this.#continuePlayEvent
+      );
+    }
+
     for (let i = 0; i < this.switchPlayerBtns.length; i++) {
       this.switchPlayerBtns[i].addEventListener(
         "click",
         this.#switchPlayerEvent
       );
     }
+
     this.helpBtn.addEventListener("click", this.#enterHelpEvent);
+    this.helpOkayBtn.addEventListener("click", this.#leaveHelpEvent);
     this.soundBtn.addEventListener("click", this.#toggleSoundEvent);
 
-    // Display high score
-    this.#displayHighScore();
-
-    // Run the game
+    // Create Game object and allow for view of the game area.
+    this.game = new Game(this, this.currentScore);
     this.game.game();
+  }
+
+  init() {
+    // Enter player screen is ran automatically only the first time, when local storage is still empty.
+    // Otherwise always ran confirm player screen.
+    if (!this.playerName) {
+      this.#enterPlayer();
+    } else {
+      this.#confirmPlayer();
+    }
   }
 
   /**
@@ -95,7 +113,6 @@ class App {
       this.#displayWinResult(winLoseHTML);
     } else if (gameResult === "lose") {
       this.#displayLoseResult(winLoseHTML);
-    }
 
     // Store the current score, the user may or may not continue to see their score
     this.leaderboard.storeCurrentScore();
@@ -199,7 +216,7 @@ class App {
     document
       .getElementById("continue-submit")
       .addEventListener("click", this.#enterPlayerContinueBtn);
-  }
+  };
 
   /**
    * Display Confirm Player screen.
@@ -335,6 +352,7 @@ class App {
 
     localStorage.setItem(PLAYER, this.playerName);
   }
+}
 }
 
 let xxx = new App();
