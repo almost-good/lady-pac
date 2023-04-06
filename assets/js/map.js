@@ -35,7 +35,7 @@ import Ghost from "./ghost.js";
 
 export default class GameMap {
   constructor() {
-    this.speed = 4;
+    this.setSquareSize();
 
     // Pellet number.
     this.pelletNumber = 1
@@ -111,20 +111,21 @@ export default class GameMap {
   }
 
   /**
-   * Set the size of one square in map.
+   * Set the size of one square in map, adjust speed as well.
    * @summary The square size is changed dynamically, depending on browser width.
    * @return {number} Square Size.
    */
 
   setSquareSize() {
     let browserWidth = window.innerWidth;
-
     if (browserWidth > 700) {
+      this.speed = 4;
       return 40;
     } else if (browserWidth > 375) {
+      this.speed = 2;
       return 28;
     }
-
+    this.speed = 2;
     return 20;
   }
 
