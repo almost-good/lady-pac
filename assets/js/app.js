@@ -212,6 +212,14 @@ class App {
   };
 
   /**
+   * Event listener for help screen. Closes help content.
+   */
+
+  #leaveHelpEvent = (event) => {
+    this.#closeCurrentModal();
+  };
+
+  /**
    * Event listener for leaderboard screen. Display leaderboard content.
    */
 
@@ -285,7 +293,8 @@ class App {
   }
 
   /**
-   * Check if the Name a Player added is okay.
+   * Check if the Name which Player added is okay.
+   * * @return {string} Returns name of the error or empty string.
    */
 
   #checkPlayerNameInput() {
@@ -428,6 +437,7 @@ class App {
   }
 }
 
+// APP
 
-let xxx = new App();
-xxx.init();
+let game = new App();
+game.init();
