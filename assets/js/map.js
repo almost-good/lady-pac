@@ -12,29 +12,33 @@ import Ghost from "./ghost.js";
  * GameMap class used to create the map and it's content.
  *
  * Public methods:
- *
+
  *     create(ctx, squareSize)
  *     setSquareSize()
  *     setCanvasSize(canvas, squareSize)
  *     getMovingObjects()
  *     bumpIntoWall(xPosition, yPosition, direction, squareSize)
  *     pelletEaten(xPosition, yPosition, squareSize)
+ *     energizedPelletEaten(xPosition, yPosition, squareSize)
  *     removeLife()
  *     addScore(scoreToAdd)
+ *     playSound(soundEffect) 
  *     positionInMiddleOfSquare(xPosition, yPosition, squareSize)
- *     playSound(soundEffect)
  *
  * Private methods:
  *
  *     #canBeEaten(xPosition, yPosition, squareSize, mapItem)
+ *     #lostLifes()
  *     #addLife()
  *     #flashLife(flag)
  *     #createSquareImg(ctx, squareImg, column, row, squareSize)
  *     #setEnergizedPelletImg()
+ *     #getWallImages()
+ *     #getMaps()
  */
 
 export default class GameMap {
-  constructor() {
+  constructor(score) {
     this.setSquareSize();
 
     // Pellet number.
@@ -42,7 +46,7 @@ export default class GameMap {
 
     // Score.
     this.scoreHTML = document.getElementById("current-score");
-    this.score = 0;
+    this.score = score;
     this.pelletScore = 20;
     this.energizedPelletScore = 50;
 
@@ -83,29 +87,33 @@ export default class GameMap {
    * Create map and all it's content.
    * @param {object} ctx - Canvas context. The map is drawn inside ctx.
    * @param {number} squareSize - Size of one side of the square.
+   * @param {boolean} gameOver - Signals that game is over.
    */
 
-  create(ctx, squareSize) {
+  create(ctx, squareSize, gameOver) {
     // Loop over map and get the correct img.
-    this.pelletNumber = 0;
-    for (let row = 0; row < this.map.length; row++) {
-      for (let column = 0; column < this.map[0].length; column++) {
-        let square = this.map[row][column];
-        let squareImg;
 
-        if (square === 0) {
-          squareImg = this.pelletImg;
-          this.pelletNumber++;
-        } else if (square === 1) {
-          squareImg = this.wallImg;
-        } else if (square === 4) {
-          squareImg = this.#setEnergizedPelletImg();
-          this.pelletNumber++;
-        } else {
-          continue;
+    if (!gameOver) {
+      this.pelletNumber = 0;
+      for (let row = 0; row < this.map.length; row++) {
+        for (let column = 0; column < this.map[0].length; column++) {
+          let square = this.map[row][column];
+          let squareImg;
+
+          if (square === 0) {
+            squareImg = this.pelletImg;
+            this.pelletNumber++;
+          } else if (square === 1) {
+            squareImg = this.wallImg;
+          } else if (square === 4) {
+            squareImg = this.#setEnergizedPelletImg();
+            this.pelletNumber++;
+          } else {
+            continue;
+          }
+
+          this.#createSquareImg(ctx, squareImg, column, row, squareSize);
         }
-
-        this.#createSquareImg(ctx, squareImg, column, row, squareSize);
       }
     }
   }
@@ -138,16 +146,19 @@ export default class GameMap {
   setCanvasSize(canvas, squareSize) {
     canvas.width = this.map[0].length * squareSize;
     canvas.height = this.map.length * squareSize;
+    this.canvasWidth = canvas.width;
+    this.canvasHeight = canvas.height;
   }
 
   /**
    * Create Lady Pac and ghost objects.
    * @summary
    * Get the initial position of moving elements and create objects.
+   * @return {object} Returns an array of objects, Lady Pac and ghosts.
    */
 
   getMovingObjects() {
-    let ladyPac;
+    let ladyPac = {};
     const ghosts = [];
 
     for (let row = 0; row < this.map.length; row++) {
@@ -161,6 +172,7 @@ export default class GameMap {
           // The ghost should be 'over' pellet.
           this.map[row][column] = 0;
           // Get one ghost object.
+
           ghosts.push(new Ghost(this.speed, column, row, this));
         }
       }
@@ -223,7 +235,6 @@ export default class GameMap {
 
   /**
    * Check if pellet is eaten, if it is add score.
-   * @summary
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
    * @param {number} squareSize - Size of one side of the square.
@@ -242,7 +253,6 @@ export default class GameMap {
 
   /**
    * Check if energized pellet is eaten, if it is add score.
-   * @summary
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
    * @param {number} squareSize - Size of one side of the square.
@@ -272,7 +282,6 @@ export default class GameMap {
 
   /**
    * Add and display score.
-   * @summary
    * @param {number} scoreToAdd - Score that needs to be added.
    */
 
@@ -305,7 +314,7 @@ export default class GameMap {
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
    * @param {number} squareSize - Size of one side of the square.
-   * @return {boolean}
+   * @return {boolean} Return true if alligned perfectly in square.
    */
 
   positionInMiddleOfSquare(xPosition, yPosition, squareSize) {
@@ -371,7 +380,6 @@ export default class GameMap {
 
   /**
    * Flash the newly recieved life.
-   * @summary
    * @param {boolean} flag - Helper used for switching heart states.
    */
 
@@ -392,7 +400,7 @@ export default class GameMap {
 
   /**
    * Add image to the square in the map.
-   * @summary The function calculates current x and y position of map square, and draws a an image.
+   * @summary The function calculates current x and y position of map square, and draws an image.
    * @param {object} ctx - Canvas context.
    * @param {object} squareImg - Image to be drawn.
    * @param {number} column - Current column in the map.
@@ -402,6 +410,7 @@ export default class GameMap {
   #createSquareImg(ctx, squareImg, column, row, squareSize) {
     let xPosition = column * squareSize;
     let yPosition = row * squareSize;
+
     ctx.drawImage(squareImg, xPosition, yPosition, squareSize, squareSize);
   }
 
@@ -413,6 +422,7 @@ export default class GameMap {
   #setEnergizedPelletImg() {
     this.energizedPelletTimer--;
 
+    // Energized pellet image is flashing between energized pellet image and pellet image.
     if (this.energizedPelletTimer === 0) {
       this.energizedPelletTimer = this.energizedPelletTimerDef;
 
