@@ -368,6 +368,11 @@ class App {
     modal.querySelector("h2").innerText = "You won the game!";
     modal.querySelector("h2").classList.add("win");
     modal.querySelector("h3").innerText = "...can you do better?";
+
+    modal.querySelector(".play-again").classList.remove("hide");
+    modal.querySelector(".play").classList.add("hide");
+
+    this.#leaderboardBtnSettings(".play-again", ".play");
   }
 
   /**
@@ -379,6 +384,23 @@ class App {
     modal.querySelector("h2").innerText = "You got eaten!";
     modal.querySelector("h2").classList.add("lose");
     modal.querySelector("h3").innerText = "...like a Pellet!";
+
+    modal.querySelector(".play").classList.remove("hide");
+    modal.querySelector(".play-again").classList.add("hide");
+
+    this.#leaderboardBtnSettings(".play", ".play-again");
+  }
+
+  /**
+   * Controls which leaderboard btns should be displayed..
+   * @param {string} optionOne - Btn setting, .play/.play-again.
+   * @param {string} optionTwo - Btn setting, .play/.play-again.
+   */
+
+  #leaderboardBtnSettings(optionOne, optionTwo) {
+    const leaderboardBtns = document.getElementById("leaderboard-btns");
+    leaderboardBtns.querySelector(optionOne).classList.remove("hide");
+    leaderboardBtns.querySelector(optionTwo).classList.add("hide");
   }
 
   /**
