@@ -214,7 +214,7 @@ Back to [Table of Contents](#table-of-contents)
 - [FontSquirrel](https://www.fontsquirrel.com) - Used to generate a webfont.
 - [Photoresizer](https://www.photoresizer.com) - Used to resize the imgages and to compress them.
 - [Colormind](http://colormind.io) - Used to create color palette.
-
+- [Am I Responsive](https://ui.dev/amiresponsive) - Used to create website showcase photo on top of the README.
 ### **For Testing**
 
 
