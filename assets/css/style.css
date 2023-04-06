@@ -360,6 +360,8 @@ h4 {
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
+
+  font-size: 3rem;
 }
 
 .game-container .game {
@@ -741,19 +743,19 @@ form .validation .error {
     padding-right: 15px;
     padding-left: 15px; 
 
-    font-size: 1.7rem;
+    font-size: 2rem;
     border-color: var(--border);
   }
 
 
   /* TEXT */
   h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1.5;
   }
 
   h3 {  
-    font-size: 1.7rem;
+    font-size: 2rem;
     line-height: 0.8;
     letter-spacing: 3px;
     text-align: center;
