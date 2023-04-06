@@ -76,7 +76,6 @@ CSS STRUCTURE
   --font-color-accent-secondary: #f57d0d;
   --font-color-highlight: #f00;
   --font-color-highlight-secondary: #ff0;
-  
 
   --font-title: 'karmatic_arcaderegular', 'Impact', sans-serif;
   --font-general: 'arcaderegular', 'Courier', monospace;
@@ -409,7 +408,7 @@ h4 {
 }
 
 .game-container .game .game-helpers .interactive-helpers i:hover {
-  color: var(--font-color-accent-secondary);
+  color: var(--font-color-highlight);
 }
 
 .game-container .game canvas {
@@ -498,11 +497,16 @@ form .validation .error {
 .display-player {
   margin-top: 5vh;
   
-  color: var(--font-color-highlight-secondary);
-  font-size: 3rem;
+  font-size: 5rem;
   letter-spacing: 5px;
   text-align: center;
   text-transform: uppercase;
+
+  color: rgb(255, 37, 139);
+  
+  border-top: 8px double var(--border-highlight);
+  border-bottom: 8px double var(--border-highlight);
+  box-shadow: 2px 2px 50px var(--border-highlight);
 }
 
 
@@ -891,7 +895,7 @@ form .validation .error {
   .display-player {
     margin-top: 3vh;
 
-    font-size: 2.5rem;
+    font-size: 4rem;
     letter-spacing: 3px;
   }
 
@@ -1048,7 +1052,7 @@ form .validation .error {
   }
 
   .display-player {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     letter-spacing: 0;
   }
