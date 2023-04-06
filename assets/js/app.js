@@ -114,12 +114,9 @@ class App {
     } else if (gameResult === "lose") {
       this.#displayLoseResult(winLoseHTML);
 
-    // Store the current score, the user may or may not continue to see their score
-    this.leaderboard.storeCurrentScore();
-
-    document
-      .getElementById("leaderboard-btn")
-      .addEventListener("click", this.#enterLeaderboardEvent);
+      // Store the current score, the user may or may not continue to see their score
+      this.leaderboard.storeCurrentScore();
+    }
   }
 
   /**
@@ -128,7 +125,41 @@ class App {
 
   #playEvent = (event) => {
     this.#closeCurrentModal();
-    // start the game
+
+    // Clear any traces from previous instance of game.
+    this.game.clear();
+
+    this.#restoreLifes();
+
+    // Restore current score.
+    this.currentScore = 0;
+    document.getElementById("current-score").innerText = this.currentScore;
+
+    // Display high score
+    this.#displayHighScore();
+
+    this.game = new Game(this, this.currentScore);
+    this.game.game();
+  };
+
+  /**
+   * Event listener for continuing the play. Continues the game where left off.
+   */
+
+  #continuePlayEvent = (event) => {
+    this.#closeCurrentModal();
+
+    // Clear any traces from previous instance of game.
+    this.game.clear();
+
+    // Set the current score.
+    this.currentScore = parseInt(
+      document.getElementById("current-score").innerText
+    );
+
+    // Create new game.
+    this.game = new Game(this, this.currentScore);
+    this.game.game();
   };
 
   /**
@@ -216,7 +247,7 @@ class App {
     document
       .getElementById("continue-submit")
       .addEventListener("click", this.#enterPlayerContinueBtn);
-  };
+  }
 
   /**
    * Display Confirm Player screen.
@@ -353,7 +384,7 @@ class App {
     localStorage.setItem(PLAYER, this.playerName);
   }
 }
-}
+
 
 let xxx = new App();
 xxx.init();
