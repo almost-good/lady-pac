@@ -1,4 +1,9 @@
-import mapList from "./map-list.js";
+import {
+  mapListOne,
+  mapListTwo,
+  mapListThree,
+  mapListFour,
+} from "./map-list.js";
 import { MoveDirection } from "./constants.js";
 import LadyPac from "./ladypac.js";
 import Ghost from "./ghost.js";
