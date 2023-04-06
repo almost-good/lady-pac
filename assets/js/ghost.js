@@ -68,6 +68,7 @@ export default class Ghost {
     this.ghostEatenTime = 4 * 1000;
     this.ghostEatenFinishingTime = 2 * 1000;
 
+    // Ghost images.
     this.#getImages();
   }
 
@@ -111,7 +112,7 @@ export default class Ghost {
   }
 
   /**
-   * Set x and y positions, set square pre resize size.
+   * Set x and y positions, set square pre resize size, adjust the speed.
    * @summary
    * If ghost moved, then add offset to the original position.
    * @param {number} squareSize - Size of one side of the square.
@@ -143,7 +144,7 @@ export default class Ghost {
       this.xMoveSteps - xStepDiff,
       this.yMoveSteps - yStepDiff
     );
-
+    
     // Refresh the number of steps ghost made to match current square size.
     this.xMoveSteps -= xStepDiff;
     this.yMoveSteps -= yStepDiff;
@@ -159,15 +160,12 @@ export default class Ghost {
   #calcStepDiff(moveSteps, squareSize) {
     let squareSizeDiff = this.squarePreResize - squareSize;
     let diff = Math.round((moveSteps / this.squarePreResize) * squareSizeDiff);
-
-    // If the speed is two, diff has to be pair number,
-    // othervise ghost will go out of the position.
+    
     return diff - (diff % this.speed);
   }
 
   /**
    * Ghost movement.
-   *
    * @param {number} squareSize - Size of one side of the square.
    */
 
@@ -330,7 +328,7 @@ export default class Ghost {
   }
 
   /**
-   * Check if the ghost bumped into Lady Pac and do ation, depending if the ghost of Lady Pac is eaten.
+   * Check if the ghost bumped into Lady Pac and do ation, depending if the ghost or Lady Pac is eaten.
    * @param {number} squareSize - Size of one side of the square.
    * @param {object} ladyPac - Lady Pac object.
    * @param {boolean} ghostFoodState - Energized pellet is active and ghost is food.
@@ -495,7 +493,7 @@ export default class Ghost {
   #playGhostSound(ladyPac, soundEffect) {
     ladyPac.eatEnergizedPelletSound.pause();
     this.gameMap.lifeAddedSound.pause();
-    
+
     this.gameMap.playSound(soundEffect);
   }
 
