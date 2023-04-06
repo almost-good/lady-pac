@@ -119,7 +119,9 @@ The design used was simple and clean.
 <br><br>
 ![Logo](assets/docs/img/logo.png)
 <br><br>
-
+<br><br>
+![Ghost Food](assets/docs/img/ghost-food.png) ![Ghost Normal](assets/docs/img/ghost-normal.png) ![Ghost Eaten](assets/docs/img/ghost-eaten.png) ![Ghost Switching](assets/docs/img/ghost-switching.png) 
+<br><br>
 
 Back to [Table of Contents](#table-of-contents)
 
