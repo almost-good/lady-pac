@@ -150,9 +150,12 @@ Back to [Table of Contents](#table-of-contents)
 - **Help screen**
   - Help screen contains **objective** of the game, **character list** and **control instructions**.
   - **Objective** section showcases the general purpose of the game.
+    - ![Objective](assets/docs/img/feature-objective.jpg)
   - **Characters** section contains a list of characters in the game.
+    - ![Characters](assets/docs/img/feature-characters.jpg)
   - **Controls** section contains directions on how to control the game.
-  - After the user has all information they can close the help screen.
+    - ![Controls](assets/docs/img/feature-controls.jpg)
+  - After the user has all information they can close the help screen using **okay** button.
 - **Win/Lose screen**
   - Win/Lose screen is displayed when the user wins or loses the game. Depending on the result either a win message will be displayed or the lose message.
   - **Win screen**
