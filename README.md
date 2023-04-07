@@ -159,8 +159,21 @@ Back to [Table of Contents](#table-of-contents)
 - **Leaderboard screen**
   - Leaderboard screen displays the top 10 scores achieved on the current machine.
   - **Score list** is ordered from top to bottom, where the highest score is at the top of the list and the lowest at the bottom. In the case of equal scores, the list is ordered alphabetically. If the user score managed to get on the list, the score will be highlighted.
+    - ![Score List](assets/docs/img/feature-score-list.png)
   - **Your score** section displays the user score, even if the score didn't make it to the top 10 list.
-  - The user is also presented with **play again** and **switch player** options.
+    - ![Your Score](assets/docs/img/feature-your-score.png)
+  - Depending if the game is won or lost different buttons are shown.
+    - **Game won**
+      - If the game is won, then the score will be displayed under **Your Score**, but will not be added to the leaderboard yet. The score is only added when the game is completely finished, and to achieve that you have to lose or exit the game.
+      - User is presented with **continue** and **switch player** buttons.
+        - If the user clicks on **continue**, then the next iteration of the game will start, but scores and lives will be kept safe.
+        - If the user clicks on **switch player**, user will be continue to **switch player screen**.
+        - ![Leaderboard Game Win](assets/docs/img/feature-leaderboard-win.png)
+    - **Game lost**
+      - If the game is lost, then the score will be added to the leaderboard as well, if it qualifies.
+      - The user is presented with **play again** and **switch player** buttons.
+        - If the user clicks on **play again**, then the entirely new game will start under the same player name.
+        - ![Leaderboard Game Lose](assets/docs/img/feature-leaderboard-lose.png)
 - **Footer**
   - Footer contains the name of the game developer, together with the developer's social links, namely: **GitHub** and **LinkedIn**.
   - ![Footer](assets/docs/img/feature-footer.png)
