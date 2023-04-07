@@ -1,0 +1,15 @@
+{
+  "name": "lady-pac",
+  "version": "1.0.0",
+  "description": "**LADY PAC** is inspired by coin-operated games, mainly the famous Pac-Man, and takes us back to *the arcade era*. The idea behind the game is simple; *eat all of the pellets while outrunning the ghosts*! The website is targeted toward arcade game enthusiasts and everyone else who is in for a bit of fun.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.37.0"
+  }
+}
