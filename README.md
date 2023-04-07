@@ -249,7 +249,9 @@ Back to [Table of Contents](#table-of-contents)
   - ![404 Page](assets/docs/img/feature-404-page.jpg)
 
 ### **Features Left to Implement**
-
+- Dynamic speed change. Currently, the game speed is set at the beginning, but this could be implemented as something to be added in mid-play.
+- Fruits. Fruits would deliver more points and make the game more interesting.
+- Pathfinding alghoritms. The ghost would be able to target Lady Pac directly, and that will make the game more challenging.
 
 Back to [Table of Contents](#table-of-contents)
 
