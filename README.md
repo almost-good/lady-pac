@@ -163,9 +163,12 @@ Back to [Table of Contents](#table-of-contents)
   - The user is also presented with **play again** and **switch player** options.
 - **Footer**
   - Footer contains the name of the game developer, together with the developer's social links, namely: **GitHub** and **LinkedIn**.
+  - ![Footer](assets/docs/img/feature-footer.png)
 - **404 page**
   - 404 page is displayed when the site path is not entered correctly or is non-existent.
   - A link is provided to redirect the user back to the main page.
+  - The page also features a standard site heading and footer.
+  - ![404 Page](assets/docs/img/feature-404-page.png)
 
 ### **Features Left to Implement**
 
@@ -241,7 +244,7 @@ Back to [Table of Contents](#table-of-contents)
 - Open **Git Bash**.
 - Change the current working directory to specified location.
 - Type **git clone** and earlier copied URL.
-- Press **enter**.
+- Press **enter** to create local clone.
 
 Back to [Table of Contents](#table-of-contents)
 
