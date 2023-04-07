@@ -264,6 +264,19 @@ Back to [Table of Contents](#table-of-contents)
 
 ### **Validators**
 
+- [W3C Markup](https://validator.w3.org/nu/)
+  - **Index**
+    - Completed with no errors.
+    - ![Markup Validation Index Page](assets/docs/img/validation-markup-index.jpg)
+  - **404 page**
+    - Completed with no errors.
+    - ![Markup Validation 404 Page](assets/docs/img/validation-markup-404.jpg)
+
+- [W3C CSS](https://jigsaw.w3.org/css-validator)
+  - Completed with no errors.
+  - There are 7 warnings present due to the use of css variables, and 4 more due to scrollbar styling.
+  - ![Css Validation Result](assets/docs/img/validation-css.jpg)
+  - ![Css Warnings Validation Result](assets/docs/img/validation-css-warnings.jpg)
 
 ### Feature Testing
 
