@@ -133,11 +133,59 @@ Back to [Table of Contents](#table-of-contents)
 
 ### **Existing Features**
 - **Game screen**
-  - Game screen section starts with the **Lady Pac title** of the game, followed by **high score** display. 
-  - The **High score** section displays the highest score ever reached while playing on the current machine. The user can reset the score only if they empty the local storage of the browser.
-  - **Score** section is dynamically updated while playing the game. It shows how many points the user scored so far in the game. 
-  - **Sound icon** serves as sound control and allows the user to mute or play in-game sounds. 
-  - **Questionmark icon** opens a new screen with directions on how to play the game and additional information about the game itself.
+  - **Non-game section**
+    - The page starts with the **Lady Pac title** of the game, followed by **high score** display. 
+    - The **High score** section displays the highest score ever reached while playing on the current machine. The user can reset the score only if they empty the local storage of the browser. The other way to replace the high score is by beating it.
+      - ![High Score](assets/docs/img/feature-game-high-score.jpg)
+    - **Score** section is dynamically updated while playing the game. It shows how many points the user scored so far in the game.
+    - **Lives** section is represented using **heart icons**. Initially, the user starts with two lives but can receive one more life if the score reaches **7000**. This can only happen once. 
+    - **Sound icon** serves as sound control and allows the user to mute or play in-game sounds. 
+    - **Questionmark icon** opens **help screen**.
+    - Score, lives, sound icon and question mark icon are all placed above the gaming area for desktop devices. For smaller screens, they are placed below the gaming area, because in that case gaming area is locked to the top of the screen instead of the bottom.
+      - ![Game Helpers](assets/docs/img/feature-game-helpers.jpg)
+  - **Game section**
+    - **Map** 
+      - Map section is the gaming area. There are four different map layouts and their order is random. 
+      - Map is represented by **walls**, which come in four different colors whose order is random. They are non-interactive elements.
+      - Map contains **pellets**, and they are Lady Pac's food. Each pellet is worth 20 points, and the game is won only when all the pellets are eaten.
+        - There are special pellets which are called **Energized pellets**.
+          - They are worth 50 points and they also give Lady Pac special powers to eat ghosts. Those special powers last only for a limited amount of time.
+          - They also need to be eaten for the game to be won.
+          - ![Game](assets/docs/img/feature-game.jpg)
+    - **Moving objects**
+      - **Lady Pac**
+        - Lady Pac is our hero.
+        - Her initial movement needs to be initialized, and that triggers ghost movement. She will then continue to move in one direction until she hits wall, or until her movement direction is changed.
+        - While she moves, her mouth is constantly opening and closing.
+        - Lady Pac movement direction is controlled with either arrow keys or touch swipes. She can register four different directions; up, down, left and right.
+        - She can eat pellets, energized pellets and ghosts in their food or switching state. If she tries to eat a ghost in it's normal state, then she will lose a life. With all lives lost, the game is lost.
+        - ![Lady Pac](assets/docs/img/feature-ladypac.jpg)
+      - **Ghosts**
+        - Ghosts are our nemesis.
+        - They can also move in four directions, but their same direction movement length and movement direction is random. 
+        - Ghosts have five different states:
+          - **Normal**
+            - Normal ghosts are lethal for Lady Pac, if they come into contact that will result in lost life and potentially in a lost game.
+            - ![Normal Ghost](assets/docs/img/feature-normal-ghost.jpg)
+          - **Food**
+            - Normal ghosts will become Food ghosts when the energized pellet is eaten. In the food state, the ghost can be eaten as well and is worth 200 points.
+            - ![Food Ghost](assets/docs/img/feature-food-ghost.jpg)
+          - **Switching from Food**
+            - Food ghosts will become switching ghosts when the time to switch back to normal state is close. They are still harmless, can be eaten and are worth 200 points.
+          - **Eaten**
+            - Food or switching ghosts will become eaten ghosts when they are eaten. They are now real ghosts, and only their eyes are visible. They are harmless, but cannot be eaten and are not worth points.
+            - ![Eaten Ghost](assets/docs/img/feature-eaten-ghost.jpg)
+          - **Switching from Eaten**
+            - Eaten ghosts will become switching ghosts when the time to switch back to normal state is close. They are still harmless, but cannot be eaten and are not worth points.
+    - **Additional game features**
+      - **Game cover/uncover state**
+        - When the user clicks play/continue, the map is in its covered state, which means the game is paused. To uncover the map, the user needs to click on the map and only then the game will start.
+        - When the user clicks outside of the map, the game will become covered once again, and when the game uncovers it will start where it was paused.
+        - While the game is covered, game time still goes on. Any active effects from energized pellet can come to the end while the game is covered.
+      - **Resize feature**
+        - The game can be dynamically resized during the active gameplay or when covered, all objects will keep their positions.
+      - **Lock feature**
+        - When the game is in a covered state, the user can scroll up and down, but when the game is uncovered, then the map is locked to the screen. For desktop devices it's locked to the bottom and for smaller devices it's locked to the top.
 - **Enter player screen**
   - Enter player screen contains the game **logo**, and allows users to enter the **player name** using which they wish to play the game.
   - The user is provided with rules for the naming system. If the user enters an incorrect format, they will be presented with the adequate error message, otherwise, the user can continue to the name confirmation.
