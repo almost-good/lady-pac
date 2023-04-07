@@ -26,7 +26,6 @@ View live site here - [Lady Pac](https://almost-good.github.io/lady-pac).
 - [Testing](#testing)
   - [Devices and Browsers](#devices-and-browsers)
   - [Validators](#validators)
-  - [Feature Testing](#feature-testing)
   - [User Story Testing](#user-story-testing)
 - [Bugs](#bugs)
 - [Technologies Used](#technologies-used)
@@ -260,7 +259,7 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ### **Devices and Browsers**
-
+The website was tested on iPhone 13 pro, Huawei p30 Lite and Huawei p30 Pro mobile devices. For larger screens, Dell 17-inch screen laptop and Dell 14-inch screen laptop were used. Google Chrome, Firefox, Microsoft Edge, Opera and Safari are browsers used for testing. All tests passed, and the website performed as intended.
 
 ### **Validators**
 
@@ -285,8 +284,6 @@ Back to [Table of Contents](#table-of-contents)
 - [ESLint](https://eslint.org)
   - Found 0 vulnerabilities.
   - ![ESLint JS files](assets/docs/img/validation-eslint.jpg)
-
-### Feature Testing
 
 
 ### User Story Testing
@@ -322,6 +319,8 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ## **Bugs**
+- **UNRESOLVED**
+  - Some audio files are delayed on Iphone devices. One audio file, **eat-pellet-sound** activates only when first pellet is eaten, while it should be activated for each and every pellet. The sounds in the game overlap with eachother, thus creating unique effects. IOS does not permit overlapping of sounds so the delay I am experiencing makes sense. But those pellet sounds are a bit different, they are designed in a way that they cannot overlap between them, because otherwise sounds would lose their fastness and sharpness. Each pellet sound is cleared before playing next pellet sound. 
 
 
 Back to [Table of Contents](#table-of-contents)
@@ -380,6 +379,20 @@ Back to [Table of Contents](#table-of-contents)
 
 
 ## **Credits**
+Before diving into the Credits I would just like to mention what a journey this was! Throughout this project, I learned so much, and can say I feel comfortable in JavaSript. I would do many things differently now and look forward to using all I have learnt. I feel so proud when I skim over the code and notice what could be better. That only means that I grew and will continue to grow.
+
+All of that wouldn't be possible without my hardcore supporters, so I send the biggest thanks to my partner for encouraging me every day, my sister who made map layout sketches and my best friend who recommended me helpful books to read and sites to visit.
+
+During the development, I used a vast amount of materials outside of Code Institute ones. The most notable ones are these:
+  - [MDN Web Docs](https://developer.mozilla.org/en-US/) - MDN Docs is still open on my browser.
+  - [JavaScript Crash Course for Beginners](https://www.youtube.com/watch?v=hdI2bqOjy3c&ab_channel=TraversyMedia)
+  - [JavaScript Classes Tutorial](https://www.youtube.com/watch?v=2ZphE5HcQPQ&ab_channel=freeCodeCamp.org)
+  - [Pacman Game Tutorial 1](https://www.youtube.com/watch?v=Tk48dQCdQ3E&ab_channel=CodingWithAdam)
+  - [Pacman Game Tutorial 2](https://www.youtube.com/watch?v=5IMXpp3rohQ&ab_channel=ChrisCourses)
+  - [HTML 5 Canvas Tutorial](https://www.youtube.com/watch?v=3GqUM4mEYKA&ab_channel=developedbyed)
+  - JavaScript Design Patterns by Addy Osmani
+  - [JavaScript Weekly](https://javascriptweekly.com)
+All these materials influenced me heavily and helped me to learn and adapt correct methodologies. Special thanks to [VSITE](https://www.vsite.hr), the university, I still have their materials as well.
 
 
 ### **Fonts**
@@ -393,7 +406,7 @@ All fonts used were sourced from [1001 Fonts](https://www.1001fonts.com).
   - by [Font-a-licious](https://www.1001fonts.com/pacfont-font.html)
 
 ### **Images**
-All images used were sourced from [Pexels](https://www.pexels.com).
+Background image was sourced from [Pexels](https://www.pexels.com).
 
 **[Bg Space image](https://www.pexels.com/photo/galaxy-pinwheel-on-starry-sky-7649118)**
 
