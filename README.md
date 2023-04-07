@@ -282,7 +282,7 @@ Back to [Table of Contents](#table-of-contents)
     - ![Index Desktop Lighthouse](assets/docs/img/validation-lighthouse-desktop-index.jpg)
   - **Index mobile**
     - ![Index Mobile Lighthouse](assets/docs/img/validation-lighthouse-mobile-index.jpg)
-- [ESLint](https://eslint.org/)
+- [ESLint](https://eslint.org)
   - Found 0 vulnerabilities.
   - ![ESLint JS files](assets/docs/img/validation-eslint.jpg)
 
@@ -325,8 +325,6 @@ Back to [Table of Contents](#table-of-contents)
 
 
 Back to [Table of Contents](#table-of-contents)
-
-
 ## **Technologies Used**
 
 
@@ -345,7 +343,12 @@ Back to [Table of Contents](#table-of-contents)
 - [Photoresizer](https://www.photoresizer.com) - Used to resize the imgages and to compress them.
 - [Colormind](http://colormind.io) - Used to create color palette.
 - [Am I Responsive](https://ui.dev/amiresponsive) - Used to create website showcase photo on top of the README.
+
 ### **For Testing**
+- [W3C Markup](https://validator.w3.org/nu/) - Used for markup validation.
+- [W3C CSS](https://jigsaw.w3.org/css-validator) - Used for CSS validation.
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse) - Used for accessibility testing.
+- [ESLint](https://eslint.org) - Used for linting.
 
 
 Back to [Table of Contents](#table-of-contents)
