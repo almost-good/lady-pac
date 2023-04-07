@@ -146,7 +146,8 @@ Back to [Table of Contents](#table-of-contents)
   - Confirm player screen serves as a confirmation for the user to play the game using the **displayed name**. 
   - **Displayed name** is either a name that the user just choose to play with or the name that the user was already playing with.
   - The user can continue to play the game using the displayed name, or choose to switch players.
-  - **Confirm player** screen is the first screen displayed whenever the user visits the site, except in the case of the first visit or if the user never set their player name.
+  - **Confirm player** screen is the first screen displayed whenever the user visits the site, except in the case of the first visit ever or if the user never set their player name.
+  - ![Confirm Player](assets/docs/img/feature-confirm-player.jpg)
 - **Help screen**
   - Help screen contains **objective** of the game, **character list** and **control instructions**.
   - **Objective** section showcases the general purpose of the game.
