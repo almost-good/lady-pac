@@ -154,8 +154,19 @@ Back to [Table of Contents](#table-of-contents)
   - **Controls** section contains directions on how to control the game.
   - After the user has all information they can close the help screen.
 - **Win/Lose screen**
-  - Win/Lose screen is displayed when the user wins or loses the game. Depending on the result either a win message will be displayed or the lose meessage.
-  - The user is presented with a couple of options, where they can choose to **play again** with the same player name, **switch player**, or have a look at the **leaderboard**.
+  - Win/Lose screen is displayed when the user wins or loses the game. Depending on the result either a win message will be displayed or the lose message.
+  - **Win screen**
+    - Win screen allows the user to choose between 3 different options.
+      - **Continue**
+      - **Switch player**
+      - **Leaderboard**
+    - ![Win Screen](assets/docs/img/feature-win-screen.jpg)
+  - **Lose screen**
+    - Lose screen allows the user to choose between 3 different options.
+      - **Play again**
+      - **Switch player**
+      - **Leaderboard**
+    - ![Lose Screen](assets/docs/img/feature-lose-screen.jpg)
 - **Leaderboard screen**
   - Leaderboard screen displays the top 10 scores achieved on the current machine.
   - **Score list** is ordered from top to bottom, where the highest score is at the top of the list and the lowest at the bottom. In the case of equal scores, the list is ordered alphabetically. If the user score managed to get on the list, the score will be highlighted.
