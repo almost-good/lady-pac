@@ -86,7 +86,7 @@ export default class Leaderboard {
     }
 
     // Make sure the leaderboard contains only 10 values
-    if (leaderboardStorage.length >= 10) {
+    if (leaderboardStorage.length > 10) {
       leaderboardStorage.pop();
     }
 
@@ -176,6 +176,8 @@ export default class Leaderboard {
     for (let i = 0; i <= length; i++) {
       if (name1[i] === undefined || name1[i] < name2[i]) {
         return true;
+      } else if(name1[i] > name2[i]) {
+        return false
       }
 
       if (name2[i] === undefined) {
