@@ -141,7 +141,9 @@ Back to [Table of Contents](#table-of-contents)
 - **Enter player screen**
   - Enter player screen contains the game **logo**, and allows users to enter the **player name** using which they wish to play the game.
   - The user is provided with rules for the naming system. If the user enters an incorrect format, they will be presented with the adequate error message, otherwise, the user can continue to the name confirmation.
-  - **Enter player** screen is displayed automatically when the user first visits the website and chooses their name. Otherwise, to access this particular screen and an option to change the player name, the user will have to select **"switch player"** on one of the other screens with that option.
+    - ![Error](assets/docs/img/feature-error.jpg)
+  - **Enter player** screen is displayed automatically when the user first ever visits the website and chooses their name. Otherwise, to access this particular screen and an option to change the player name, the user will have to select **"switch player"** on one of the other screens with that option.
+  - ![Enter Player](assets/docs/img/feature-enter-player.jpg)
 - **Confirm player screen**
   - Confirm player screen serves as a confirmation for the user to play the game using the **displayed name**. 
   - **Displayed name** is either a name that the user just choose to play with or the name that the user was already playing with.
