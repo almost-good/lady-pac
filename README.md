@@ -159,29 +159,29 @@ Back to [Table of Contents](#table-of-contents)
 - **Leaderboard screen**
   - Leaderboard screen displays the top 10 scores achieved on the current machine.
   - **Score list** is ordered from top to bottom, where the highest score is at the top of the list and the lowest at the bottom. In the case of equal scores, the list is ordered alphabetically. If the user score managed to get on the list, the score will be highlighted.
-    - ![Score List](assets/docs/img/feature-score-list.png)
+    - ![Score List](assets/docs/img/feature-score-list.jpg)
   - **Your score** section displays the user score, even if the score didn't make it to the top 10 list.
-    - ![Your Score](assets/docs/img/feature-your-score.png)
+    - ![Your Score](assets/docs/img/feature-your-score.jpg)
   - Depending if the game is won or lost different buttons are shown.
     - **Game won**
       - If the game is won, then the score will be displayed under **Your Score**, but will not be added to the leaderboard yet. The score is only added when the game is completely finished, and to achieve that you have to lose or exit the game.
       - User is presented with **continue** and **switch player** buttons.
         - If the user clicks on **continue**, then the next iteration of the game will start, but scores and lives will be kept safe.
         - If the user clicks on **switch player**, user will be continue to **switch player screen**.
-        - ![Leaderboard Game Win](assets/docs/img/feature-leaderboard-win.png)
+        - ![Leaderboard Game Win](assets/docs/img/feature-leaderboard-win.jpg)
     - **Game lost**
       - If the game is lost, then the score will be added to the leaderboard as well, if it qualifies.
       - The user is presented with **play again** and **switch player** buttons.
         - If the user clicks on **play again**, then the entirely new game will start under the same player name.
-        - ![Leaderboard Game Lose](assets/docs/img/feature-leaderboard-lose.png)
+        - ![Leaderboard Game Lose](assets/docs/img/feature-leaderboard-lose.jpg)
 - **Footer**
   - Footer contains the name of the game developer, together with the developer's social links, namely: **GitHub** and **LinkedIn**.
-  - ![Footer](assets/docs/img/feature-footer.png)
+  - ![Footer](assets/docs/img/feature-footer.jpg)
 - **404 page**
   - 404 page is displayed when the site path is not entered correctly or is non-existent.
   - A link is provided to redirect the user back to the main page.
   - The page also features a standard site heading and footer.
-  - ![404 Page](assets/docs/img/feature-404-page.png)
+  - ![404 Page](assets/docs/img/feature-404-page.jpg)
 
 ### **Features Left to Implement**
 
