@@ -282,6 +282,9 @@ Back to [Table of Contents](#table-of-contents)
     - ![Index Desktop Lighthouse](assets/docs/img/validation-lighthouse-desktop-index.jpg)
   - **Index mobile**
     - ![Index Mobile Lighthouse](assets/docs/img/validation-lighthouse-mobile-index.jpg)
+- [ESLint](https://eslint.org/)
+  - Found 0 vulnerabilities.
+  - ![ESLint JS files](assets/docs/img/validation-eslint.jpg)
 
 ### Feature Testing
 
