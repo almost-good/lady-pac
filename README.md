@@ -277,6 +277,11 @@ Back to [Table of Contents](#table-of-contents)
   - There are 7 warnings present due to the use of css variables, and 4 more due to scrollbar styling.
   - ![Css Validation Result](assets/docs/img/validation-css.jpg)
   - ![Css Warnings Validation Result](assets/docs/img/validation-css-warnings.jpg)
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse)
+  - **Index desktop**
+    - ![Index Desktop Lighthouse](assets/docs/img/validation-lighthouse-desktop-index.jpg)
+  - **Index mobile**
+    - ![Index Mobile Lighthouse](assets/docs/img/validation-lighthouse-mobile-index.jpg)
 
 ### Feature Testing
 

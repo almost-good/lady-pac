@@ -1,12 +1,12 @@
 import {
-  mapListOne,
-  mapListTwo,
-  mapListThree,
-  mapListFour,
-} from "./map-list.js";
-import { MoveDirection } from "./constants.js";
-import LadyPac from "./ladypac.js";
-import Ghost from "./ghost.js";
+	mapListOne,
+	mapListTwo,
+	mapListThree,
+	mapListFour,
+} from "./map-list.js"
+import { MoveDirection } from "./constants.js"
+import LadyPac from "./ladypac.js"
+import Ghost from "./ghost.js"
 
 /**
  * GameMap class used to create the map and it's content.
@@ -38,150 +38,150 @@ import Ghost from "./ghost.js";
  */
 
 export default class GameMap {
-  constructor(score) {
-    this.setSquareSize();
+	constructor(score) {
+		this.setSquareSize()
 
-    // Pellet number.
-    this.pelletNumber = 1;
+		// Pellet number.
+		this.pelletNumber = 1
 
-    // Score.
-    this.scoreHTML = document.getElementById("current-score");
-    this.score = score;
-    this.pelletScore = 20;
-    this.energizedPelletScore = 50;
+		// Score.
+		this.scoreHTML = document.getElementById("current-score")
+		this.score = score
+		this.pelletScore = 20
+		this.energizedPelletScore = 50
 
-    // Life.
-    this.lifesHTML = document.getElementById("lifes");
-    this.lifeHTML = this.lifesHTML.getElementsByTagName("li");
-    this.lostLifeCounter = this.#lostLifes();
-    this.lifes = this.lifeHTML.length - this.lostLifeCounter;
-    this.loseLife = false;
-    this.lifeAdded = false;
+		// Life.
+		this.lifesHTML = document.getElementById("lifes")
+		this.lifeHTML = this.lifesHTML.getElementsByTagName("li")
+		this.lostLifeCounter = this.#lostLifes()
+		this.lifes = this.lifeHTML.length - this.lostLifeCounter
+		this.loseLife = false
+		this.lifeAdded = false
 
-    // Sounds.
-    this.soundBtn = document.getElementById("sound");
-    this.lifeAddedSound = new Audio("./assets/sounds/life-added-sound.wav");
+		// Sounds.
+		this.soundBtn = document.getElementById("sound")
+		this.lifeAddedSound = new Audio("./assets/sounds/life-added-sound.wav")
 
-    // Images.
-    this.#getWallImages();
-    this.wallImg = this.wallImgs[Math.floor(Math.random() * (3 - 0 + 1) + 0)];
+		// Images.
+		this.#getWallImages()
+		this.wallImg = this.wallImgs[Math.floor(Math.random() * (3 - 0 + 1) + 0)]
 
-    this.pelletImg = new Image();
-    this.pelletImg.src = "./assets/img/game/pellet.png";
+		this.pelletImg = new Image()
+		this.pelletImg.src = "./assets/img/game/pellet.png"
 
-    this.energizedPelletImg = new Image();
-    this.energizedPelletImg.src = "./assets/img/game/energized-pellet.png";
-    this.switchPelletImg = this.energizedPelletImg;
+		this.energizedPelletImg = new Image()
+		this.energizedPelletImg.src = "./assets/img/game/energized-pellet.png"
+		this.switchPelletImg = this.energizedPelletImg
 
-    // Timers.
-    this.energizedPelletTimerDef = 30;
-    this.energizedPelletTimer = this.energizedPelletTimerDef;
-    this.lifeTimer = 10;
-    this.lifeTimeout = 300;
+		// Timers.
+		this.energizedPelletTimerDef = 30
+		this.energizedPelletTimer = this.energizedPelletTimerDef
+		this.lifeTimer = 10
+		this.lifeTimeout = 300
 
-    // Get different maps.
-    this.#getMaps();
-  }
+		// Get different maps.
+		this.#getMaps()
+	}
 
-  /**
+	/**
    * Create map and all it's content.
    * @param {object} ctx - Canvas context. The map is drawn inside ctx.
    * @param {number} squareSize - Size of one side of the square.
    * @param {boolean} gameOver - Signals that game is over.
    */
 
-  create(ctx, squareSize, gameOver) {
-    // Loop over map and get the correct img.
+	create(ctx, squareSize, gameOver) {
+		// Loop over map and get the correct img.
 
-    if (!gameOver) {
-      this.pelletNumber = 0;
-      for (let row = 0; row < this.map.length; row++) {
-        for (let column = 0; column < this.map[0].length; column++) {
-          let square = this.map[row][column];
-          let squareImg;
+		if (!gameOver) {
+			this.pelletNumber = 0
+			for (let row = 0; row < this.map.length; row++) {
+				for (let column = 0; column < this.map[0].length; column++) {
+					let square = this.map[row][column]
+					let squareImg
 
-          if (square === 0) {
-            squareImg = this.pelletImg;
-            this.pelletNumber++;
-          } else if (square === 1) {
-            squareImg = this.wallImg;
-          } else if (square === 4) {
-            squareImg = this.#setEnergizedPelletImg();
-            this.pelletNumber++;
-          } else {
-            continue;
-          }
+					if (square === 0) {
+						squareImg = this.pelletImg
+						this.pelletNumber++
+					} else if (square === 1) {
+						squareImg = this.wallImg
+					} else if (square === 4) {
+						squareImg = this.#setEnergizedPelletImg()
+						this.pelletNumber++
+					} else {
+						continue
+					}
 
-          this.#createSquareImg(ctx, squareImg, column, row, squareSize);
-        }
-      }
-    }
-  }
+					this.#createSquareImg(ctx, squareImg, column, row, squareSize)
+				}
+			}
+		}
+	}
 
-  /**
+	/**
    * Set the size of one square in map, adjust speed as well.
    * @summary The square size is changed dynamically, depending on browser width.
    * @return {number} Square Size.
    */
 
-  setSquareSize() {
-    let browserWidth = window.innerWidth;
-    if (browserWidth > 700) {
-      this.speed = 4;
-      return 40;
-    } else if (browserWidth > 375) {
-      this.speed = 2;
-      return 28;
-    }
-    this.speed = 2;
-    return 20;
-  }
+	setSquareSize() {
+		let browserWidth = window.innerWidth
+		if (browserWidth > 700) {
+			this.speed = 4
+			return 40
+		} else if (browserWidth > 375) {
+			this.speed = 2
+			return 28
+		}
+		this.speed = 2
+		return 20
+	}
 
-  /**
+	/**
    * Set the size of canvas.
    * @param {object} canvas - Canvas element from HTML. The game area.
    * @param {number} squareSize - Size of one side of the square.
    */
 
-  setCanvasSize(canvas, squareSize) {
-    canvas.width = this.map[0].length * squareSize;
-    canvas.height = this.map.length * squareSize;
-    this.canvasWidth = canvas.width;
-    this.canvasHeight = canvas.height;
-  }
+	setCanvasSize(canvas, squareSize) {
+		canvas.width = this.map[0].length * squareSize
+		canvas.height = this.map.length * squareSize
+		this.canvasWidth = canvas.width
+		this.canvasHeight = canvas.height
+	}
 
-  /**
+	/**
    * Create Lady Pac and ghost objects.
    * @summary
    * Get the initial position of moving elements and create objects.
    * @return {object} Returns an array of objects, Lady Pac and ghosts.
    */
 
-  getMovingObjects() {
-    let ladyPac = {};
-    const ghosts = [];
+	getMovingObjects() {
+		let ladyPac = {}
+		const ghosts = []
 
-    for (let row = 0; row < this.map.length; row++) {
-      for (let column = 0; column < this.map[0].length; column++) {
-        let square = this.map[row][column];
+		for (let row = 0; row < this.map.length; row++) {
+			for (let column = 0; column < this.map[0].length; column++) {
+				let square = this.map[row][column]
 
-        if (square === 2) {
-          // Get the Lady Pac object.
-          ladyPac = new LadyPac(this.speed, column, row, this);
-        } else if (square === 3) {
-          // The ghost should be 'over' pellet.
-          this.map[row][column] = 0;
-          // Get one ghost object.
+				if (square === 2) {
+					// Get the Lady Pac object.
+					ladyPac = new LadyPac(this.speed, column, row, this)
+				} else if (square === 3) {
+					// The ghost should be 'over' pellet.
+					this.map[row][column] = 0
+					// Get one ghost object.
 
-          ghosts.push(new Ghost(this.speed, column, row, this));
-        }
-      }
-    }
+					ghosts.push(new Ghost(this.speed, column, row, this))
+				}
+			}
+		}
 
-    return [ladyPac, ghosts];
-  }
+		return [ladyPac, ghosts]
+	}
 
-  /**
+	/**
    * Check if object bumped into wall.
    * @summary
    * Check the type of a square, positioned 1 square size in front of the object
@@ -195,45 +195,45 @@ export default class GameMap {
    * @return {boolean} If it bumped - true, otherwise false.
    */
 
-  bumpIntoWall(xPosition, yPosition, direction, squareSize) {
-    // Check if object is not centered.
-    if (!this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
-      return false;
-    }
+	bumpIntoWall(xPosition, yPosition, direction, squareSize) {
+		// Check if object is not centered.
+		if (!this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
+			return false
+		}
 
-    let column = 0;
-    let row = 0;
+		let column = 0
+		let row = 0
 
-    // If moving up/left the value is subtracted, otherwise added.
-    switch (direction) {
-      case MoveDirection.up:
-        row = (yPosition - squareSize) / squareSize;
-        column = xPosition / squareSize;
-        break;
-      case MoveDirection.down:
-        row = (yPosition + squareSize) / squareSize;
-        column = xPosition / squareSize;
-        break;
-      case MoveDirection.left:
-        row = yPosition / squareSize;
-        column = (xPosition - squareSize) / squareSize;
-        break;
-      case MoveDirection.right:
-        row = yPosition / squareSize;
-        column = (xPosition + squareSize) / squareSize;
-        break;
-    }
+		// If moving up/left the value is subtracted, otherwise added.
+		switch (direction) {
+		case MoveDirection.up:
+			row = (yPosition - squareSize) / squareSize
+			column = xPosition / squareSize
+			break
+		case MoveDirection.down:
+			row = (yPosition + squareSize) / squareSize
+			column = xPosition / squareSize
+			break
+		case MoveDirection.left:
+			row = yPosition / squareSize
+			column = (xPosition - squareSize) / squareSize
+			break
+		case MoveDirection.right:
+			row = yPosition / squareSize
+			column = (xPosition + squareSize) / squareSize
+			break
+		}
 
-    const square = this.map[row][column];
+		const square = this.map[row][column]
 
-    if (square === 1) {
-      return true;
-    }
+		if (square === 1) {
+			return true
+		}
 
-    return false;
-  }
+		return false
+	}
 
-  /**
+	/**
    * Check if pellet is eaten, if it is add score.
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
@@ -241,17 +241,17 @@ export default class GameMap {
    * @return {boolean} If pellet is eaten return true, otherwise false.
    */
 
-  pelletEaten(xPosition, yPosition, squareSize) {
-    if (this.#canBeEaten(xPosition, yPosition, squareSize, 0)) {
-      this.addScore(this.pelletScore);
+	pelletEaten(xPosition, yPosition, squareSize) {
+		if (this.#canBeEaten(xPosition, yPosition, squareSize, 0)) {
+			this.addScore(this.pelletScore)
 
-      return true;
-    }
+			return true
+		}
 
-    return false;
-  }
+		return false
+	}
 
-  /**
+	/**
    * Check if energized pellet is eaten, if it is add score.
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
@@ -259,57 +259,57 @@ export default class GameMap {
    * @return {boolean} If energized pellet is eaten return true, otherwise false.
    */
 
-  energizedPelletEaten(xPosition, yPosition, squareSize) {
-    if (this.#canBeEaten(xPosition, yPosition, squareSize, 4)) {
-      this.addScore(this.energizedPelletScore);
+	energizedPelletEaten(xPosition, yPosition, squareSize) {
+		if (this.#canBeEaten(xPosition, yPosition, squareSize, 4)) {
+			this.addScore(this.energizedPelletScore)
 
-      return true;
-    }
+			return true
+		}
 
-    return false;
-  }
+		return false
+	}
 
-  /**
+	/**
    * Remove a life.
    */
 
-  removeLife() {
-    this.lifes--;
-    this.lifeHTML[this.lifes].classList.add("hidden");
+	removeLife() {
+		this.lifes--
+		this.lifeHTML[this.lifes].classList.add("hidden")
 
-    this.loseLife = true;
-  }
+		this.loseLife = true
+	}
 
-  /**
+	/**
    * Add and display score.
    * @param {number} scoreToAdd - Score that needs to be added.
    */
 
-  addScore(scoreToAdd) {
-    this.score += scoreToAdd;
-    this.scoreHTML.innerText = this.score;
+	addScore(scoreToAdd) {
+		this.score += scoreToAdd
+		this.scoreHTML.innerText = this.score
 
-    // If score went above 7000 add another life, only once.
-    if (!this.lifeAdded && this.score > 7000) {
-      this.#addLife();
-    }
-  }
+		// If score went above 7000 add another life, only once.
+		if (!this.lifeAdded && this.score > 7000) {
+			this.#addLife()
+		}
+	}
 
-  /**
+	/**
    * Play sound only if the sound is not muted.
    * @param {object} soundEffect - Object containing a sound to be played.
    */
 
-  playSound(soundEffect) {
-    const volumeOn = "fa-volume-high";
+	playSound(soundEffect) {
+		const volumeOn = "fa-volume-high"
 
-    if (this.soundBtn.classList.contains(volumeOn)) {
-      soundEffect.currentTime = 0;
-      soundEffect.play();
-    }
-  }
+		if (this.soundBtn.classList.contains(volumeOn)) {
+			soundEffect.currentTime = 0
+			soundEffect.play()
+		}
+	}
 
-  /**
+	/**
    * Check if current position is aligned perfectly in middle of square.
    * @param {number} xPosition - X coordinate of the object.
    * @param {number} yPosition - Y coordinate of the object.
@@ -317,14 +317,14 @@ export default class GameMap {
    * @return {boolean} Return true if alligned perfectly in square.
    */
 
-  positionInMiddleOfSquare(xPosition, yPosition, squareSize) {
-    return (
-      Number.isInteger(xPosition / squareSize) &&
+	positionInMiddleOfSquare(xPosition, yPosition, squareSize) {
+		return (
+			Number.isInteger(xPosition / squareSize) &&
       Number.isInteger(yPosition / squareSize)
-    );
-  }
+		)
+	}
 
-  /**
+	/**
    * Check if map item can be eaten, if it can, eat item.
    * @summary
    * @param {number} xPosition - X coordinate of the object.
@@ -334,71 +334,71 @@ export default class GameMap {
    * @return {boolean} If item can be eaten return true, otherwise false.
    */
 
-  #canBeEaten(xPosition, yPosition, squareSize, mapItem) {
-    if (this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
-      let column = xPosition / squareSize;
-      let row = yPosition / squareSize;
+	#canBeEaten(xPosition, yPosition, squareSize, mapItem) {
+		if (this.positionInMiddleOfSquare(xPosition, yPosition, squareSize)) {
+			let column = xPosition / squareSize
+			let row = yPosition / squareSize
 
-      // Get the position in the map, and if the map item is correct, change it to empty.
-      if (this.map[row][column] === mapItem) {
-        this.map[row][column] = 5;
-        return true;
-      }
-    }
+			// Get the position in the map, and if the map item is correct, change it to empty.
+			if (this.map[row][column] === mapItem) {
+				this.map[row][column] = 5
+				return true
+			}
+		}
 
-    return false;
-  }
+		return false
+	}
 
-  /**
+	/**
    * Count how many lifes are unavailable.
    */
 
-  #lostLifes() {
-    let counter = 0;
-    for (let i = 0; i < this.lifeHTML.length; i++) {
-      if (this.lifeHTML[i].classList.contains("hidden")) {
-        counter++;
-      }
-    }
-    return counter;
-  }
+	#lostLifes() {
+		let counter = 0
+		for (let i = 0; i < this.lifeHTML.length; i++) {
+			if (this.lifeHTML[i].classList.contains("hidden")) {
+				counter++
+			}
+		}
+		return counter
+	}
 
-  /**
+	/**
    * Add life. This method can be called only once.
    */
 
-  #addLife() {
-    this.lifeHTML[this.lifes].classList.remove("hidden");
-    this.lifes++;
-    this.lifeAdded = true;
+	#addLife() {
+		this.lifeHTML[this.lifes].classList.remove("hidden")
+		this.lifes++
+		this.lifeAdded = true
 
-    this.playSound(this.lifeAddedSound);
+		this.playSound(this.lifeAddedSound)
 
-    // Flash life.
-    setTimeout(this.#flashLife.bind(this), this.lifeTimeout, true);
-  }
+		// Flash life.
+		setTimeout(this.#flashLife.bind(this), this.lifeTimeout, true)
+	}
 
-  /**
+	/**
    * Flash the newly recieved life.
    * @param {boolean} flag - Helper used for switching heart states.
    */
 
-  #flashLife(flag) {
-    if (flag) {
-      flag = false;
-      this.lifeHTML[this.lifes - 1].classList.add("hidden");
-    } else {
-      flag = true;
-      this.lifeHTML[this.lifes - 1].classList.remove("hidden");
-    }
+	#flashLife(flag) {
+		if (flag) {
+			flag = false
+			this.lifeHTML[this.lifes - 1].classList.add("hidden")
+		} else {
+			flag = true
+			this.lifeHTML[this.lifes - 1].classList.remove("hidden")
+		}
 
-    this.lifeTimer--;
-    if (this.lifeTimer) {
-      setTimeout(this.#flashLife.bind(this), this.lifeTimeout, flag);
-    }
-  }
+		this.lifeTimer--
+		if (this.lifeTimer) {
+			setTimeout(this.#flashLife.bind(this), this.lifeTimeout, flag)
+		}
+	}
 
-  /**
+	/**
    * Add image to the square in the map.
    * @summary The function calculates current x and y position of map square, and draws an image.
    * @param {object} ctx - Canvas context.
@@ -407,63 +407,63 @@ export default class GameMap {
    * @param {number} row - Current row in the map.
    */
 
-  #createSquareImg(ctx, squareImg, column, row, squareSize) {
-    let xPosition = column * squareSize;
-    let yPosition = row * squareSize;
+	#createSquareImg(ctx, squareImg, column, row, squareSize) {
+		let xPosition = column * squareSize
+		let yPosition = row * squareSize
 
-    ctx.drawImage(squareImg, xPosition, yPosition, squareSize, squareSize);
-  }
+		ctx.drawImage(squareImg, xPosition, yPosition, squareSize, squareSize)
+	}
 
-  /**
+	/**
    * Set the image of energized pellet.
    * @return {object} Image for energized pellet.
    */
 
-  #setEnergizedPelletImg() {
-    this.energizedPelletTimer--;
+	#setEnergizedPelletImg() {
+		this.energizedPelletTimer--
 
-    // Energized pellet image is flashing between energized pellet image and pellet image.
-    if (this.energizedPelletTimer === 0) {
-      this.energizedPelletTimer = this.energizedPelletTimerDef;
+		// Energized pellet image is flashing between energized pellet image and pellet image.
+		if (this.energizedPelletTimer === 0) {
+			this.energizedPelletTimer = this.energizedPelletTimerDef
 
-      if (this.switchPelletImg === this.pelletImg) {
-        this.switchPelletImg = this.energizedPelletImg;
-      } else {
-        this.switchPelletImg = this.pelletImg;
-      }
-    }
+			if (this.switchPelletImg === this.pelletImg) {
+				this.switchPelletImg = this.energizedPelletImg
+			} else {
+				this.switchPelletImg = this.pelletImg
+			}
+		}
 
-    return this.switchPelletImg;
-  }
+		return this.switchPelletImg
+	}
 
-  /**
+	/**
    * Create array of differently colored wall images.
    */
 
-  #getWallImages() {
-    let wallImgBlue = new Image();
-    wallImgBlue.src = "./assets/img/game/wall-blue.png";
+	#getWallImages() {
+		let wallImgBlue = new Image()
+		wallImgBlue.src = "./assets/img/game/wall-blue.png"
 
-    let wallImgPink = new Image();
-    wallImgPink.src = "./assets/img/game/wall-pink.png";
+		let wallImgPink = new Image()
+		wallImgPink.src = "./assets/img/game/wall-pink.png"
 
-    let wallImgYellow = new Image();
-    wallImgYellow.src = "./assets/img/game/wall-yellow.png";
+		let wallImgYellow = new Image()
+		wallImgYellow.src = "./assets/img/game/wall-yellow.png"
 
-    let wallImgGreen = new Image();
-    wallImgGreen.src = "./assets/img/game/wall-green.png";
+		let wallImgGreen = new Image()
+		wallImgGreen.src = "./assets/img/game/wall-green.png"
 
-    this.wallImgs = [wallImgBlue, wallImgPink, wallImgYellow, wallImgGreen];
-  }
+		this.wallImgs = [wallImgBlue, wallImgPink, wallImgYellow, wallImgGreen]
+	}
 
-  /**
+	/**
    * Create array of different map layouts.
    */
 
-  #getMaps() {
-    this.differentMaps = [mapListOne, mapListTwo, mapListThree, mapListFour];
-    let rand = Math.floor(Math.random() * (3 - 0 + 1) + 0);
+	#getMaps() {
+		this.differentMaps = [mapListOne, mapListTwo, mapListThree, mapListFour]
+		let rand = Math.floor(Math.random() * (3 - 0 + 1) + 0)
 
-    this.map = JSON.parse(JSON.stringify(this.differentMaps[rand]));
-  }
+		this.map = JSON.parse(JSON.stringify(this.differentMaps[rand]))
+	}
 }
