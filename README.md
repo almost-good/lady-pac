@@ -65,7 +65,7 @@ As the game maker:
 
 ### **User Stories**
 As a user:
-1. I want a clear sense of what the site is about and how to navigate it
+1. I want a clear sense of what the site is about and how to navigate it.
 2. I want to be able to view the site and play the game on a device of my choosing.
 3. I want to know what the game is about.
 4. I want to know how to play the game.
@@ -291,6 +291,32 @@ Back to [Table of Contents](#table-of-contents)
 
 ### User Story Testing
 
+As a user:
+1. I want a clear sense of what the site is about and how to navigate it.
+  - Navigation throughout the site is linear, the user is presented with straightforward questions.
+2. I want to be able to view the site and play the game on a device of my choosing.
+  - The site is fully responsive, and the game is playable on all screen devices. 
+  - User is able to resize the browser window throughout the gameplay without any negative effect on the game.
+3. I want to know what the game is about.
+  - Help screen contains all relevant information about the game.
+4. I want to know how to play the game.
+  - Help screen contains all information about game controls.
+5. I want to be able to set my player identity.
+  - First thing the website requires from user is that they set their identity. Later on the user is present with option to switch players on numerous occasions.
+6. I want to be able to play the game again with my current player identity or switch to a new one.
+  - User's browser will remeber the last player name, but user can always easily change that by clicking on switch player.
+7. I want to know whether I won or lost the game.
+  - User is presented with win/lose screens.
+8. I want to know how well I scored in the game.
+  - User can keep track of their score throughout the gameplay, and then view it in leaderboard itself.
+9. I want to know the highest scores achieved.
+  - User is presented with highest score.
+10. I want to be able to mute or unmute the sounds depending on my preference.
+  - Initial sound setting is muted, but that can be overrun by clicking on volume icon.
+11. I want to know the name of the game maker.
+  - User can find the name of developer at footer.
+12. I want to have access to the game maker's social media.
+  - User can find social media links from developer in footer.
 
 Back to [Table of Contents](#table-of-contents)
 
